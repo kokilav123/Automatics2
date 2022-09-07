@@ -1,0 +1,16 @@
+FROM tomcat:7.0.109-jdk8
+
+MAINTAINER Shameem M Shereef <shameemm.s@tataelxsi.co.in> 
+
+RUN mkdir $CATALINA_HOME/AutomaticsConfig	
+
+ADD releases/Automatics.war $CATALINA_HOME/webapps/Automatics.war
+ADD config/hibernate.cfg.xml $CATALINA_HOME/AutomaticsConfig/hibernate.cfg.xml
+ADD editConfig.sh $CATALINA_HOME/editConfig.sh
+ADD src/main/resources/log4j2-test.xml $CATALINA_HOME/AutomaticsConfig/
+
+RUN chmod -R 777 $CATALINA_HOME/editConfig.sh $CATALINA_HOME/AutomaticsConfig/
+
+ENV JAVA_OPTS="${JAVA_OPTS} -DAutomatics -DhibernateUI.config.file=$CATALINA_HOME/AutomaticsConfig/hibernate.cfg.xml -Dlog4j.configurationFile=$CATALINA_HOME/AutomaticsConfig/log4j2-test.xml"
+
+CMD ["/usr/local/tomcat/editConfig.sh"]
