@@ -3,6 +3,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "d2dbc228_2601a45d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1005115
+      },
+      "writtenOn": "2022-09-07T14:48:17Z",
+      "side": 1,
+      "message": "Hi Shameem: I have the following comments:\n- jenkinsServerSetup/install_jenkins_server.sh – fix the #! at the top.\n- There are references to rdk artifactory in some files.  Is this supposed to be publicly visible?\n- Please confirm that references to plugins are not sensitive e.g.\n\"com.cloudbees.plugins.credentials.CredentialsParameterDefinition plugin\u003d\"credentials....\"\n\"org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobAction plugin\u003d\"pipeline-model-definition@...\"\n\nThank you.",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8481e496_a221180c",
         "filename": "automationScripts/build/Automatics-Orchestration/editConfig.sh",
         "patchSetId": 4
