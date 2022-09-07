@@ -21,6 +21,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "592b3d2d_fdbf6813",
+        "filename": "automationScripts/build/Automatics-Orchestration/editConfig.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2022-09-07T07:00:12Z",
+      "side": 1,
+      "message": "There is no secret used in the code only the variable name is given as password",
+      "parentUuid": "8481e496_a221180c",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "927d6d0d_00fbcf59",
         "filename": "automationScripts/deployment/Jenkinsfile",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "side": 1,
       "message": "git-secrets has detected a dubious pattern in this line",
       "tag": "git-secrets",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b7ef102_f08faf4b",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2022-09-07T07:00:12Z",
+      "side": 1,
+      "message": "There is no secret used in the code only the variable name is given as password",
+      "parentUuid": "927d6d0d_00fbcf59",
       "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
       "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
     },
@@ -57,6 +93,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "7f573c7f_6560ca14",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2022-09-07T07:00:12Z",
+      "side": 1,
+      "message": "There is no secret used in the code only the variable name is given as password",
+      "parentUuid": "dfa05181_abc77889",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "01e91a80_30f1f339",
         "filename": "automationScripts/deployment/Jenkinsfile",
         "patchSetId": 4
@@ -69,6 +123,24 @@
       "side": 1,
       "message": "git-secrets has detected a dubious pattern in this line",
       "tag": "git-secrets",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8dd6bbd1_bd762a40",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2022-09-07T07:00:12Z",
+      "side": 1,
+      "message": "There is no secret used in the code only the variable name is given as password",
+      "parentUuid": "01e91a80_30f1f339",
       "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
       "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
     },
@@ -93,6 +165,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "aa7498b1_3b4d466c",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2022-09-07T07:00:12Z",
+      "side": 1,
+      "message": "There is no secret used in the code only the variable name is given as password",
+      "parentUuid": "4563d94c_46aabd15",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "5126a8ae_501b2d47",
         "filename": "automationScripts/deployment/Jenkinsfile",
         "patchSetId": 4
@@ -105,6 +195,24 @@
       "side": 1,
       "message": "git-secrets has detected a dubious pattern in this line",
       "tag": "git-secrets",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61ae9600_23bcad34",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2022-09-07T07:00:12Z",
+      "side": 1,
+      "message": "There is no secret used in the code only the variable name is given as password",
+      "parentUuid": "5126a8ae_501b2d47",
       "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
       "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
     },
@@ -129,6 +237,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "b1cde4e2_b967b3c2",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2022-09-07T07:00:12Z",
+      "side": 1,
+      "message": "There is no secret used in the code only the variable name is given as password",
+      "parentUuid": "5e1a55dd_2b39b0bb",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "6502ff6b_1c96cbd4",
         "filename": "automationScripts/deployment/Jenkinsfile",
         "patchSetId": 4
@@ -141,6 +267,24 @@
       "side": 1,
       "message": "git-secrets has detected a dubious pattern in this line",
       "tag": "git-secrets",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b69f98cc_0550293a",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2022-09-07T07:00:12Z",
+      "side": 1,
+      "message": "There is no secret used in the code only the variable name is given as password",
+      "parentUuid": "6502ff6b_1c96cbd4",
       "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
       "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
     },
@@ -165,6 +309,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "77491270_0ecddba6",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2022-09-07T07:00:12Z",
+      "side": 1,
+      "message": "There is no secret used in the code only the variable name is given as password",
+      "parentUuid": "14381966_684964ff",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "1032d284_09928356",
         "filename": "automationScripts/deployment/Jenkinsfile",
         "patchSetId": 4
@@ -177,6 +339,24 @@
       "side": 1,
       "message": "git-secrets has detected a dubious pattern in this line",
       "tag": "git-secrets",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "445a9fcc_b6e4279b",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2022-09-07T07:00:12Z",
+      "side": 1,
+      "message": "There is no secret used in the code only the variable name is given as password",
+      "parentUuid": "1032d284_09928356",
       "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
       "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
     },
@@ -201,6 +381,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "58b2cbd2_fd6421d3",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2022-09-07T07:00:12Z",
+      "side": 1,
+      "message": "There is no secret used in the code only the variable name is given as password",
+      "parentUuid": "f6dae3ec_a2eb43f1",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "910c2ecf_38acb1d3",
         "filename": "automationScripts/deployment/Jenkinsfile",
         "patchSetId": 4
@@ -213,6 +411,24 @@
       "side": 1,
       "message": "git-secrets has detected a dubious pattern in this line",
       "tag": "git-secrets",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36bebc1e_468d2cfd",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2022-09-07T07:00:12Z",
+      "side": 1,
+      "message": "There is no secret used in the code only the variable name is given as password",
+      "parentUuid": "910c2ecf_38acb1d3",
       "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
       "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
     },
@@ -237,6 +453,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "3f1aa430_b8a96bf2",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2022-09-07T07:00:12Z",
+      "side": 1,
+      "message": "There is no secret used in the code only the variable name is given as password",
+      "parentUuid": "eff2b567_3e5d0465",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "f5ee9d1d_b13af07a",
         "filename": "automationScripts/deployment/Jenkinsfile",
         "patchSetId": 4
@@ -249,6 +483,24 @@
       "side": 1,
       "message": "git-secrets has detected a dubious pattern in this line",
       "tag": "git-secrets",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cad69e9_cdbcbc29",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2022-09-07T07:00:12Z",
+      "side": 1,
+      "message": "There is no secret used in the code only the variable name is given as password",
+      "parentUuid": "f5ee9d1d_b13af07a",
       "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
       "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
     },
@@ -273,6 +525,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "15cf99c7_59367ea3",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2022-09-07T07:00:12Z",
+      "side": 1,
+      "message": "There is no secret used in the code only the variable name is given as password",
+      "parentUuid": "cbe8787d_edd4686c",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4d0372ad_17df11bc",
         "filename": "automationScripts/deployment/Jenkinsfile",
         "patchSetId": 4
@@ -285,6 +555,24 @@
       "side": 1,
       "message": "git-secrets has detected a dubious pattern in this line",
       "tag": "git-secrets",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72360e0c_b324f566",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2022-09-07T07:00:12Z",
+      "side": 1,
+      "message": "There is no secret used in the code only the variable name is given as password",
+      "parentUuid": "4d0372ad_17df11bc",
       "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
       "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
     },
@@ -309,6 +597,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "77f8ed6b_aef9c6bf",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2022-09-07T07:00:12Z",
+      "side": 1,
+      "message": "There is no secret used in the code only the variable name is given as password",
+      "parentUuid": "983d4321_f6028994",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "212b18ee_1c16a77d",
         "filename": "automationScripts/deployment/Jenkinsfile",
         "patchSetId": 4
@@ -321,6 +627,24 @@
       "side": 1,
       "message": "git-secrets has detected a dubious pattern in this line",
       "tag": "git-secrets",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c413d23_34ecd32f",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2022-09-07T07:00:12Z",
+      "side": 1,
+      "message": "There is no secret used in the code only the variable name is given as password",
+      "parentUuid": "212b18ee_1c16a77d",
       "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
       "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
     },
@@ -345,6 +669,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "dbe5ee89_0209b8f4",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2022-09-07T07:00:12Z",
+      "side": 1,
+      "message": "There is no secret used in the code only the variable name is given as password",
+      "parentUuid": "547ce1d3_61cd25d4",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "e6ccbb1e_fd495fd8",
         "filename": "automationScripts/deployment/Jenkinsfile",
         "patchSetId": 4
@@ -357,6 +699,24 @@
       "side": 1,
       "message": "git-secrets has detected a dubious pattern in this line",
       "tag": "git-secrets",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12ec09a4_81618083",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2022-09-07T07:00:12Z",
+      "side": 1,
+      "message": "There is no secret used in the code only the variable name is given as password",
+      "parentUuid": "e6ccbb1e_fd495fd8",
       "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
       "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
     },
@@ -381,6 +741,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "110e058a_27f54be0",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2022-09-07T07:00:12Z",
+      "side": 1,
+      "message": "There is no secret used in the code only the variable name is given as password",
+      "parentUuid": "54fe34e1_d665ff5b",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "87259fae_b5cfaffd",
         "filename": "automationScripts/deployment/Jenkinsfile",
         "patchSetId": 4
@@ -393,6 +771,24 @@
       "side": 1,
       "message": "git-secrets has detected a dubious pattern in this line",
       "tag": "git-secrets",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56183851_38bda6db",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2022-09-07T07:00:12Z",
+      "side": 1,
+      "message": "There is no secret used in the code only the variable name is given as password",
+      "parentUuid": "87259fae_b5cfaffd",
       "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
       "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
     },
@@ -417,6 +813,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "378d24f6_7309e2b6",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2022-09-07T07:00:12Z",
+      "side": 1,
+      "message": "There is no secret used in the code only the variable name is given as password",
+      "parentUuid": "9763733f_d226f882",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "d4ef860f_9ce5ba9f",
         "filename": "automationScripts/deployment/Jenkinsfile",
         "patchSetId": 4
@@ -429,6 +843,24 @@
       "side": 1,
       "message": "git-secrets has detected a dubious pattern in this line",
       "tag": "git-secrets",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b688cc4d_61b2df7a",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2022-09-07T07:00:12Z",
+      "side": 1,
+      "message": "There is no secret used in the code only the variable name is given as password",
+      "parentUuid": "d4ef860f_9ce5ba9f",
       "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
       "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
     },
@@ -453,6 +885,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "23e6c101_169f2c5a",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2022-09-07T07:00:12Z",
+      "side": 1,
+      "message": "There is no secret used in the code only the variable name is given as password",
+      "parentUuid": "8ea3a3c8_13564142",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "3649792f_3d99bd30",
         "filename": "automationScripts/deployment/Jenkinsfile",
         "patchSetId": 4
@@ -465,6 +915,24 @@
       "side": 1,
       "message": "git-secrets has detected a dubious pattern in this line",
       "tag": "git-secrets",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ebbfaf5_2f5b7b21",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2022-09-07T07:00:12Z",
+      "side": 1,
+      "message": "There is no secret used in the code only the variable name is given as password",
+      "parentUuid": "3649792f_3d99bd30",
       "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
       "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
     },
@@ -489,6 +957,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "40ffa491_2e1b4e21",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2022-09-07T07:00:12Z",
+      "side": 1,
+      "message": "There is no secret used in the code only the variable name is given as password",
+      "parentUuid": "5ba5b757_bada302f",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "fa35c055_2bf32ff8",
         "filename": "automationScripts/deployment/Jenkinsfile",
         "patchSetId": 4
@@ -501,6 +987,24 @@
       "side": 1,
       "message": "git-secrets has detected a dubious pattern in this line",
       "tag": "git-secrets",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ece04db_38a1f103",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2022-09-07T07:00:12Z",
+      "side": 1,
+      "message": "There is no secret used in the code only the variable name is given as password",
+      "parentUuid": "fa35c055_2bf32ff8",
       "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
       "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
     }
