@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "ae8fead8_713ba9e8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2022-09-07T15:11:41Z",
+      "side": 1,
+      "message": "Hi Martin: Please see my comments below \n    1.jenkinsServerSetup/install_jenkins_server.sh – fix the #! at the top.- I will add this\n    2.There are references to rdk artifactory in some files.  Is this supposed to be publicly visible? - i have added only some dummy URL but i will remove the whole part\n    3.Please confirm that references to plugins are not sensitive e.g. - The plugins you mentioned are jenkins plugins which is used to connect to git and pull the code by jenkins it is not sensitive",
+      "parentUuid": "d2dbc228_2601a45d",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8481e496_a221180c",
         "filename": "automationScripts/build/Automatics-Orchestration/editConfig.sh",
         "patchSetId": 4
