@@ -1,0 +1,14 @@
+FROM tomcat:7.0.109-jdk8
+
+MAINTAINER Shameem M Shereef <shameemm.s@tataelxsi.co.in> 
+
+RUN mkdir $CATALINA_HOME/backup_file $CATALINA_HOME/webapps/automatics
+
+ADD target/AutomaticsProps*.war $CATALINA_HOME/webapps/AutomaticsProps.war
+ADD src/automatics.properties $CATALINA_HOME/backup_file/automatics.properties
+COPY src/automatics.properties src/config.properties src/device_config.json $CATALINA_HOME/webapps/automatics/
+ADD editConfig.sh $CATALINA_HOME/editConfig.sh
+
+RUN chmod -R 777 $CATALINA_HOME/backup_file $CATALINA_HOME/webapps/automatics $CATALINA_HOME/editConfig.sh
+
+CMD ["/usr/local/tomcat/editConfig.sh"]

@@ -1,0 +1,132 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@1207.ve6191ff089f8">
+  <actions>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobAction plugin="pipeline-model-definition@2.2114.v2654ca_721309"/>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction plugin="pipeline-model-definition@2.2114.v2654ca_721309">
+      <jobProperties/>
+      <triggers/>
+      <parameters>
+        <string>AUTOMATICS_GIT_BRANCH_NAME</string>
+        <string>AUTOMATICS_PROPERTIES_GIT_CREDENTIALS</string>
+        <string>DEVICE_MANAGER_GIT_CREDENTIALS</string>
+        <string>AUTOMATICS_GIT_CREDENTIALS</string>
+        <string>AUTOMATICS_GIT_URL</string>
+        <string>AUTOMATICS_PROPERTIES_GIT_BRANCH_NAME</string>
+        <string>BUILD_AUTOMATICS_ORCHESTRATION</string>
+        <string>BUILD_AUTOMATICS_PROPERTIES</string>
+        <string>BUILD_DEVICE_MANAGER</string>
+        <string>DEVICE_MANAGER_GIT_URL</string>
+        <string>AUTOMATICS_PROPERTIES_GIT_URL</string>
+        <string>DEVICE_MANAGER_GIT_BRANCH_NAME</string>
+      </parameters>
+      <options/>
+    </org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction>
+  </actions>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.34">
+      <autoRebuild>false</autoRebuild>
+      <rebuildDisabled>false</rebuildDisabled>
+    </com.sonyericsson.rebuild.RebuildSettings>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.BooleanParameterDefinition>
+          <name>BUILD_AUTOMATICS_ORCHESTRATION</name>
+          <description>Tick this checkbox to build the .war file and Docker image of Automatics Orchestration</description>
+          <defaultValue>true</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>AUTOMATICS_GIT_URL</name>
+          <description>Enter the URL of Automatics Git repository</description>
+          <defaultValue>https://code.rdkcentral.com/r/rdk/tools/automatics</defaultValue>
+          <trim>true</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>AUTOMATICS_GIT_BRANCH_NAME</name>
+          <description>Enter Branch Name of Automatics Git repository</description>
+          <defaultValue>rdk-next</defaultValue>
+          <trim>true</trim>
+        </hudson.model.StringParameterDefinition>
+        <com.cloudbees.plugins.credentials.CredentialsParameterDefinition plugin="credentials@1139.veb_9579fca_33b_">
+          <name>AUTOMATICS_GIT_CREDENTIALS</name>
+          <description>Select or Add credentials for Automatics Git Login</description>
+          <defaultValue></defaultValue>
+          <credentialType>com.cloudbees.plugins.credentials.common.StandardCredentials</credentialType>
+          <required>false</required>
+        </com.cloudbees.plugins.credentials.CredentialsParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
+          <name>BUILD_AUTOMATICS_PROPERTIES</name>
+          <description>Tick this checkbox to build the .war file and Docker image of Automatics Properties</description>
+          <defaultValue>true</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>AUTOMATICS_PROPERTIES_GIT_URL</name>
+          <description>Enter the URL of Automatics Properties Git repository</description>
+          <defaultValue>https://code.rdkcentral.com/r/rdk/tools/automatics/automatics-props</defaultValue>
+          <trim>true</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>AUTOMATICS_PROPERTIES_GIT_BRANCH_NAME</name>
+          <description>Enter Branch Name of Automatics Properties Git repository</description>
+          <defaultValue>rdk-next</defaultValue>
+          <trim>true</trim>
+        </hudson.model.StringParameterDefinition>
+        <com.cloudbees.plugins.credentials.CredentialsParameterDefinition plugin="credentials@1139.veb_9579fca_33b_">
+          <name>AUTOMATICS_PROPERTIES_GIT_CREDENTIALS</name>
+          <description>Select or Add credentials for Automatics Properties Git Login</description>
+          <defaultValue></defaultValue>
+          <credentialType>com.cloudbees.plugins.credentials.common.StandardCredentials</credentialType>
+          <required>false</required>
+        </com.cloudbees.plugins.credentials.CredentialsParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
+          <name>BUILD_DEVICE_MANAGER</name>
+          <description>Tick this checkbox to build the .war file and Docker image of Device Manager</description>
+          <defaultValue>true</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>DEVICE_MANAGER_GIT_URL</name>
+          <description>Enter the URL of Device Manager Git repository</description>
+          <defaultValue>https://code.rdkcentral.com/r/rdk/tools/device-manager</defaultValue>
+          <trim>true</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>DEVICE_MANAGER_GIT_BRANCH_NAME</name>
+          <description>Enter Branch Name of Device Manager Git repository</description>
+          <defaultValue>rdk-next</defaultValue>
+          <trim>true</trim>
+        </hudson.model.StringParameterDefinition>
+        <com.cloudbees.plugins.credentials.CredentialsParameterDefinition plugin="credentials@1139.veb_9579fca_33b_">
+          <name>DEVICE_MANAGER_GIT_CREDENTIALS</name>
+          <description>Select or Add credentials for Device Manager Git Login</description>
+          <defaultValue></defaultValue>
+          <credentialType>com.cloudbees.plugins.credentials.common.StandardCredentials</credentialType>
+          <required>false</required>
+        </com.cloudbees.plugins.credentials.CredentialsParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition" plugin="workflow-cps@2759.v87459c4eea_ca_">
+    <scm class="hudson.plugins.git.GitSCM" plugin="git@4.11.4">
+      <configVersion>2</configVersion>
+      <userRemoteConfigs>
+        <hudson.plugins.git.UserRemoteConfig>
+          <url>https://code.rdkcentral.com/r/rdk/tools/automatics</url>
+          <credentialsId></credentialsId>
+        </hudson.plugins.git.UserRemoteConfig>
+      </userRemoteConfigs>
+      <branches>
+        <hudson.plugins.git.BranchSpec>
+          <name>refs/heads/rdk-next</name>
+        </hudson.plugins.git.BranchSpec>
+      </branches>
+      <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+      <submoduleCfg class="empty-list"/>
+      <extensions/>
+    </scm>
+    <scriptPath>automationScripts/build/Jenkinsfile</scriptPath>
+    <lightweight>true</lightweight>
+  </definition>
+  <triggers/>
+  <disabled>false</disabled>
+</flow-definition>
