@@ -1,0 +1,508 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "798a6139_08df6109",
+        "filename": "automationScripts/build/Automatics-Orchestration/editConfig.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000499
+      },
+      "writtenOn": "2022-09-07T06:48:56Z",
+      "side": 1,
+      "message": "git-secrets has detected a dubious pattern in this line",
+      "tag": "git-secrets",
+      "revId": "416a99c4d971e2c7c12985057a16c507a97aceac",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55d5457b_fc088c66",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000499
+      },
+      "writtenOn": "2022-09-07T06:48:56Z",
+      "side": 1,
+      "message": "git-secrets has detected a dubious pattern in this line",
+      "tag": "git-secrets",
+      "revId": "416a99c4d971e2c7c12985057a16c507a97aceac",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c438621_70e2179b",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000499
+      },
+      "writtenOn": "2022-09-07T06:48:56Z",
+      "side": 1,
+      "message": "git-secrets has detected a dubious pattern in this line",
+      "tag": "git-secrets",
+      "revId": "416a99c4d971e2c7c12985057a16c507a97aceac",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9216e86f_9500a7a7",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000499
+      },
+      "writtenOn": "2022-09-07T06:48:56Z",
+      "side": 1,
+      "message": "git-secrets has detected a dubious pattern in this line",
+      "tag": "git-secrets",
+      "revId": "416a99c4d971e2c7c12985057a16c507a97aceac",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1968a898_30819720",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000499
+      },
+      "writtenOn": "2022-09-07T06:48:56Z",
+      "side": 1,
+      "message": "git-secrets has detected a dubious pattern in this line",
+      "tag": "git-secrets",
+      "revId": "416a99c4d971e2c7c12985057a16c507a97aceac",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6de4f70a_f4246e52",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000499
+      },
+      "writtenOn": "2022-09-07T06:48:56Z",
+      "side": 1,
+      "message": "git-secrets has detected a dubious pattern in this line",
+      "tag": "git-secrets",
+      "revId": "416a99c4d971e2c7c12985057a16c507a97aceac",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8312e71_e04e9ccd",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1000499
+      },
+      "writtenOn": "2022-09-07T06:48:56Z",
+      "side": 1,
+      "message": "git-secrets has detected a dubious pattern in this line",
+      "tag": "git-secrets",
+      "revId": "416a99c4d971e2c7c12985057a16c507a97aceac",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48ab9950_85873abe",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000499
+      },
+      "writtenOn": "2022-09-07T06:48:56Z",
+      "side": 1,
+      "message": "git-secrets has detected a dubious pattern in this line",
+      "tag": "git-secrets",
+      "revId": "416a99c4d971e2c7c12985057a16c507a97aceac",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43871585_20098223",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000499
+      },
+      "writtenOn": "2022-09-07T06:48:56Z",
+      "side": 1,
+      "message": "git-secrets has detected a dubious pattern in this line",
+      "tag": "git-secrets",
+      "revId": "416a99c4d971e2c7c12985057a16c507a97aceac",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "764b0524_5569cc4e",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1000499
+      },
+      "writtenOn": "2022-09-07T06:48:56Z",
+      "side": 1,
+      "message": "git-secrets has detected a dubious pattern in this line",
+      "tag": "git-secrets",
+      "revId": "416a99c4d971e2c7c12985057a16c507a97aceac",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "951fae5d_f696027c",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000499
+      },
+      "writtenOn": "2022-09-07T06:48:56Z",
+      "side": 1,
+      "message": "git-secrets has detected a dubious pattern in this line",
+      "tag": "git-secrets",
+      "revId": "416a99c4d971e2c7c12985057a16c507a97aceac",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8be0173_93658a74",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1000499
+      },
+      "writtenOn": "2022-09-07T06:48:56Z",
+      "side": 1,
+      "message": "git-secrets has detected a dubious pattern in this line",
+      "tag": "git-secrets",
+      "revId": "416a99c4d971e2c7c12985057a16c507a97aceac",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ffce915_e2f052dc",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1000499
+      },
+      "writtenOn": "2022-09-07T06:48:56Z",
+      "side": 1,
+      "message": "git-secrets has detected a dubious pattern in this line",
+      "tag": "git-secrets",
+      "revId": "416a99c4d971e2c7c12985057a16c507a97aceac",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cf38650_002fb5e2",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1000499
+      },
+      "writtenOn": "2022-09-07T06:48:56Z",
+      "side": 1,
+      "message": "git-secrets has detected a dubious pattern in this line",
+      "tag": "git-secrets",
+      "revId": "416a99c4d971e2c7c12985057a16c507a97aceac",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8be18743_25045c18",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000499
+      },
+      "writtenOn": "2022-09-07T06:48:56Z",
+      "side": 1,
+      "message": "git-secrets has detected a dubious pattern in this line",
+      "tag": "git-secrets",
+      "revId": "416a99c4d971e2c7c12985057a16c507a97aceac",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "055b1a71_4af27fb3",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1000499
+      },
+      "writtenOn": "2022-09-07T06:48:56Z",
+      "side": 1,
+      "message": "git-secrets has detected a dubious pattern in this line",
+      "tag": "git-secrets",
+      "revId": "416a99c4d971e2c7c12985057a16c507a97aceac",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae2a8b8a_61e15cbe",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1000499
+      },
+      "writtenOn": "2022-09-07T06:48:56Z",
+      "side": 1,
+      "message": "git-secrets has detected a dubious pattern in this line",
+      "tag": "git-secrets",
+      "revId": "416a99c4d971e2c7c12985057a16c507a97aceac",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59540de8_d09ef34b",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1000499
+      },
+      "writtenOn": "2022-09-07T06:48:56Z",
+      "side": 1,
+      "message": "git-secrets has detected a dubious pattern in this line",
+      "tag": "git-secrets",
+      "revId": "416a99c4d971e2c7c12985057a16c507a97aceac",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d837d190_c8db1e7c",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1000499
+      },
+      "writtenOn": "2022-09-07T06:48:56Z",
+      "side": 1,
+      "message": "git-secrets has detected a dubious pattern in this line",
+      "tag": "git-secrets",
+      "revId": "416a99c4d971e2c7c12985057a16c507a97aceac",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60de52f3_9d95287e",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1000499
+      },
+      "writtenOn": "2022-09-07T06:48:56Z",
+      "side": 1,
+      "message": "git-secrets has detected a dubious pattern in this line",
+      "tag": "git-secrets",
+      "revId": "416a99c4d971e2c7c12985057a16c507a97aceac",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "163e61ed_e46b4e62",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1000499
+      },
+      "writtenOn": "2022-09-07T06:48:56Z",
+      "side": 1,
+      "message": "git-secrets has detected a dubious pattern in this line",
+      "tag": "git-secrets",
+      "revId": "416a99c4d971e2c7c12985057a16c507a97aceac",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af29daf1_e6706b50",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1000499
+      },
+      "writtenOn": "2022-09-07T06:48:56Z",
+      "side": 1,
+      "message": "git-secrets has detected a dubious pattern in this line",
+      "tag": "git-secrets",
+      "revId": "416a99c4d971e2c7c12985057a16c507a97aceac",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "438f2f39_184002fb",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1000499
+      },
+      "writtenOn": "2022-09-07T06:48:56Z",
+      "side": 1,
+      "message": "git-secrets has detected a dubious pattern in this line",
+      "tag": "git-secrets",
+      "revId": "416a99c4d971e2c7c12985057a16c507a97aceac",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1fb8d8d_be17ab20",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 1000499
+      },
+      "writtenOn": "2022-09-07T06:48:56Z",
+      "side": 1,
+      "message": "git-secrets has detected a dubious pattern in this line",
+      "tag": "git-secrets",
+      "revId": "416a99c4d971e2c7c12985057a16c507a97aceac",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f174b8a_3d6ba7fb",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 1000499
+      },
+      "writtenOn": "2022-09-07T06:48:56Z",
+      "side": 1,
+      "message": "git-secrets has detected a dubious pattern in this line",
+      "tag": "git-secrets",
+      "revId": "416a99c4d971e2c7c12985057a16c507a97aceac",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d27cefe8_ce9b0c2b",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 1000499
+      },
+      "writtenOn": "2022-09-07T06:48:56Z",
+      "side": 1,
+      "message": "git-secrets has detected a dubious pattern in this line",
+      "tag": "git-secrets",
+      "revId": "416a99c4d971e2c7c12985057a16c507a97aceac",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d63202c_efaf73bf",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 1000499
+      },
+      "writtenOn": "2022-09-07T06:48:56Z",
+      "side": 1,
+      "message": "git-secrets has detected a dubious pattern in this line",
+      "tag": "git-secrets",
+      "revId": "416a99c4d971e2c7c12985057a16c507a97aceac",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f58085c3_af13e88a",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 1000499
+      },
+      "writtenOn": "2022-09-07T06:48:56Z",
+      "side": 1,
+      "message": "git-secrets has detected a dubious pattern in this line",
+      "tag": "git-secrets",
+      "revId": "416a99c4d971e2c7c12985057a16c507a97aceac",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    }
+  ]
+}
