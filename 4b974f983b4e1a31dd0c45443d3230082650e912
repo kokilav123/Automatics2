@@ -5,6 +5,25 @@
       "robotRunId": "1",
       "fixSuggestions": [],
       "key": {
+        "uuid": "0c145a41_fcb377e9",
+        "filename": "COPYING",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000501
+      },
+      "writtenOn": "2022-09-07T06:53:52Z",
+      "side": 1,
+      "message": "File COPYING matching pattern **/*copyi*\n",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "robotId": "jenkins_robot",
+      "robotRunId": "1",
+      "fixSuggestions": [],
+      "key": {
         "uuid": "b98da6d4_16b152a3",
         "filename": "COPYING",
         "patchSetId": 4
@@ -244,6 +263,25 @@
       "writtenOn": "2022-09-07T06:53:51Z",
       "side": 1,
       "message": "   Copyright [yyyy] [name of copyright owner]\n",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "robotId": "jenkins_robot",
+      "robotRunId": "1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "44457a86_74815561",
+        "filename": "LICENSE",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000501
+      },
+      "writtenOn": "2022-09-07T06:53:52Z",
+      "side": 1,
+      "message": "File LICENSE matching pattern **/*licen*\n",
       "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
       "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
     },
