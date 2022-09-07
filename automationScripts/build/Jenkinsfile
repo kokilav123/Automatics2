@@ -1,0 +1,204 @@
+pipeline {
+    agent any
+    parameters {	
+	  booleanParam(name: 'BUILD_AUTOMATICS_ORCHESTRATION', defaultValue: true, description: 'Tick this checkbox to build the .war file and Docker image of Automatics Orchestration')
+      string defaultValue: 'https://code.rdkcentral.com/r/rdk/tools/automatics', description: 'Enter the URL of Automatics Git repository', name: 'AUTOMATICS_GIT_URL', trim: true
+      string defaultValue: 'rdk-next', description: 'Enter Branch Name of Automatics Git repository', name: 'AUTOMATICS_GIT_BRANCH_NAME', trim: true
+      credentials credentialType: 'com.cloudbees.plugins.credentials.common.StandardCredentials', defaultValue: '', description: 'Select or Add credentials for Automatics Git Login', name: 'AUTOMATICS_GIT_CREDENTIALS', required: false
+	  	
+	  booleanParam(name: 'BUILD_AUTOMATICS_PROPERTIES', defaultValue: true, description: 'Tick this checkbox to build the .war file and Docker image of Automatics Properties')
+      string defaultValue: 'https://code.rdkcentral.com/r/rdk/tools/automatics/automatics-props', description: 'Enter the URL of Automatics Properties Git repository', name: 'AUTOMATICS_PROPERTIES_GIT_URL', trim: true
+      string defaultValue: 'rdk-next', description: 'Enter Branch Name of Automatics Properties Git repository', name: 'AUTOMATICS_PROPERTIES_GIT_BRANCH_NAME', trim: true
+      credentials credentialType: 'com.cloudbees.plugins.credentials.common.StandardCredentials', defaultValue: '', description: 'Select or Add credentials for Automatics Properties Git Login', name: 'AUTOMATICS_PROPERTIES_GIT_CREDENTIALS', required: false
+	  
+	  booleanParam(name: 'BUILD_DEVICE_MANAGER', defaultValue: true, description: 'Tick this checkbox to build the .war file and Docker image of Device Manager')
+      string defaultValue: 'https://code.rdkcentral.com/r/rdk/tools/device-manager', description: 'Enter the URL of Device Manager Git repository', name: 'DEVICE_MANAGER_GIT_URL', trim: true
+      string defaultValue: 'rdk-next', description: 'Enter Branch Name of Device Manager Git repository', name: 'DEVICE_MANAGER_GIT_BRANCH_NAME', trim: true
+      credentials credentialType: 'com.cloudbees.plugins.credentials.common.StandardCredentials', defaultValue: '', description: 'Select or Add credentials for Device Manager Git Login', name: 'DEVICE_MANAGER_GIT_CREDENTIALS', required: false
+    }
+    stages {
+        stage('Pull Automatics Orchestration Code from RDKM Repo') {
+			when {
+                expression {
+                    return params.BUILD_AUTOMATICS_ORCHESTRATION
+                }
+            }
+            steps {
+                script{
+					dir('automationScripts/build/Automatics-Orchestration/project/'){
+						if("${params.AUTOMATICS_GIT_CREDENTIALS}" == null || "${params.AUTOMATICS_GIT_CREDENTIALS}" ==''){
+							echo "${params.AUTOMATICS_GIT_CREDENTIALS}"
+							git branch: "${params.AUTOMATICS_GIT_BRANCH_NAME}", url: "${params.AUTOMATICS_GIT_URL}"
+						} else {
+							echo "${params.AUTOMATICS_GIT_CREDENTIALS}"
+							git credentialsId: "${params.AUTOMATICS_GIT_CREDENTIALS}", branch: "${params.AUTOMATICS_GIT_BRANCH_NAME}", url: "${params.AUTOMATICS_GIT_URL}"
+						}
+					}
+                }
+            }
+        }
+        stage ('Automatics Orchestration Maven Build') {
+			when {
+                expression {
+                    return params.BUILD_AUTOMATICS_ORCHESTRATION
+                }
+            }
+            steps {
+                sh """
+				cp automationScripts/build/Automatics-Orchestration/editConfig.sh automationScripts/build/Automatics-Orchestration/project/editConfig.sh
+				cd automationScripts/build/Automatics-Orchestration/project/
+				mvn clean install"""
+            }
+            post {
+                always {
+                    archiveArtifacts artifacts: 'automationScripts/build/Automatics-Orchestration/project/releases/Automatics.war', onlyIfSuccessful: true
+                }
+            }
+        }
+        stage ('Automatics Orchestration Docker Build') {
+			when {
+                expression {
+                    return params.BUILD_AUTOMATICS_ORCHESTRATION
+                }
+            }
+            steps {
+				dir('automationScripts/build/Automatics-Orchestration/project/'){
+					sh 'docker build -f ../AutomaticsOrchDockerFile -t automatics-orchestration .'
+				}
+            }
+        }
+        stage ('Automatics Orchestration DB Docker Build') {
+			when {
+                expression {
+                    return params.BUILD_AUTOMATICS_ORCHESTRATION
+                }
+            }
+            steps {
+				dir('automationScripts/build/Automatics-Orchestration/project/'){
+					sh 'docker build -f ../AutomaticsOrchDBDockerFile -t automatics-orchestration-db .'
+				}
+            }
+        }
+        stage('Pull Automatics Properties Code from RDKM Repo') {
+			when {
+                expression {
+                    return params.BUILD_AUTOMATICS_PROPERTIES
+                }
+            }
+            steps {				
+				script{
+					dir('automationScripts/build/Automatics-Props/project/'){
+						if("${params.AUTOMATICS_PROPERTIES_GIT_CREDENTIALS}" == null || "${params.AUTOMATICS_PROPERTIES_GIT_CREDENTIALS}" ==''){
+							echo "${params.AUTOMATICS_PROPERTIES_GIT_CREDENTIALS}"
+							git branch: "${params.AUTOMATICS_PROPERTIES_GIT_BRANCH_NAME}", url: "${params.AUTOMATICS_PROPERTIES_GIT_URL}"
+						} else {
+							echo "${params.AUTOMATICS_PROPERTIES_GIT_CREDENTIALS}"
+							git credentialsId: "${params.AUTOMATICS_PROPERTIES_GIT_CREDENTIALS}", branch: "${params.AUTOMATICS_PROPERTIES_GIT_BRANCH_NAME}", url: "${params.AUTOMATICS_PROPERTIES_GIT_URL}"
+						}
+					}
+				}
+            }
+        }
+        stage ('Automatics Properties Maven Build') {
+			when {
+                expression {
+                    return params.BUILD_AUTOMATICS_PROPERTIES
+                }
+            }
+            steps {
+                sh """
+				cp automationScripts/build/Automatics-Props/editConfig.sh automationScripts/build/Automatics-Props/project/editConfig.sh
+				cd automationScripts/build/Automatics-Props/project/
+				mvn clean install"""
+            }
+            post {
+                always {
+                    archiveArtifacts artifacts: 'automationScripts/build/Automatics-Props/project/target/AutomaticsProps*.war', onlyIfSuccessful: true
+                }
+            }
+        }
+        stage ('Automatics Properties Docker Build') {
+			when {
+                expression {
+                    return params.BUILD_AUTOMATICS_PROPERTIES
+                }
+            }
+            steps {
+				dir('automationScripts/build/Automatics-Props/project/'){
+					sh 'docker build -f ../AutomaticsPropsDockerFile -t automatics-props .'
+				}
+            }
+        }
+        stage('Pull Device Manager Code from RDKM Repo') {
+			when {
+                expression {
+                    return params.BUILD_DEVICE_MANAGER
+                }
+            }
+            steps {
+				script{					
+					dir('automationScripts/build/Device-Manager/project/'){
+						if("${params.DEVICE_MANAGER_GIT_CREDENTIALS}" == null || "${params.DEVICE_MANAGER_GIT_CREDENTIALS}" ==''){
+							echo "${params.DEVICE_MANAGER_GIT_CREDENTIALS}"
+							git branch: "${params.DEVICE_MANAGER_GIT_BRANCH_NAME}", url: "${params.DEVICE_MANAGER_GIT_URL}"
+						} else {
+							echo "${params.DEVICE_MANAGER_GIT_CREDENTIALS}"
+							git credentialsId: "${params.DEVICE_MANAGER_GIT_CREDENTIALS}", branch: "${params.DEVICE_MANAGER_GIT_BRANCH_NAME}", url: "${params.DEVICE_MANAGER_GIT_URL}"
+						}
+					}
+				}
+            }
+        }
+        stage ('Device Manager Maven Build') {
+			when {
+                expression {
+                    return params.BUILD_DEVICE_MANAGER
+                }
+            }
+            steps {
+                sh """
+				cd automationScripts/build/Device-Manager/project/
+				cp ../editConfig.sh ./editConfig.sh
+				sh editConfig.sh
+				cp ../startDocker.sh ./startDocker.sh
+				mvn clean install"""
+            }
+            post {
+                always {
+                    archiveArtifacts artifacts: 'automationScripts/build/Device-Manager/project/target/device-manager*.war', onlyIfSuccessful: true
+                }
+            }
+        }
+        stage ('Device Manager Docker Build') {
+			when {
+                expression {
+                    return params.BUILD_DEVICE_MANAGER
+                }
+            }
+            steps {
+				dir('automationScripts/build/Device-Manager/project/'){
+					sh 'docker build -f ../DeviceManagerDockerFile -t device-manager .'
+				}
+            }
+        }
+        stage ('Device Manager DB Docker Build') {
+			when {
+                expression {
+                    return params.BUILD_DEVICE_MANAGER
+                }
+            }
+            steps {
+				dir('automationScripts/build/Device-Manager/project/'){
+					sh 'docker build -f ../DeviceManagerDBDockerFile -t device-manager-db .'
+				}
+            }
+        }
+        stage ('Clean UP') {
+            steps {
+				sh 'docker rmi $(docker images --filter "dangling=true" -q --no-trunc)'
+				sh 'echo "Clean Up Completed !! Deleted all the old docker images"'
+				
+            }
+        }
+    }
+}
