@@ -21,6 +21,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "684998ce_fad266b3",
+        "filename": "automationScripts/build/Automatics-Orchestration/editConfig.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2022-09-07T15:20:55Z",
+      "side": 1,
+      "message": "There is no secret used in the code only the variable name is given as password",
+      "parentUuid": "f258e3be_460e5496",
+      "revId": "12e92368887a9dcef9c064d75c7ad45cc25c2a7d",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "ad35ba99_88ee58df",
         "filename": "automationScripts/deployment/Jenkinsfile",
         "patchSetId": 5
