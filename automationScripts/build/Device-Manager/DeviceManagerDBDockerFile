@@ -1,0 +1,7 @@
+FROM mysql:5.6.51
+
+MAINTAINER Shameem M Shereef <shameemm.s@tataelxsi.co.in>
+
+ENV MYSQL_DATABASE device_manager
+
+COPY src/main/resources/Device_Manager_DB.sql /docker-entrypoint-initdb.d/
