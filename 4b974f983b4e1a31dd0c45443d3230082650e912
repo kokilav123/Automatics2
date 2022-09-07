@@ -1,0 +1,498 @@
+{
+  "comments": [
+    {
+      "robotId": "jenkins_robot",
+      "robotRunId": "1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "b98da6d4_16b152a3",
+        "filename": "COPYING",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000501
+      },
+      "writtenOn": "2022-09-07T06:53:51Z",
+      "side": 1,
+      "message": "      \"Licensor\" shall mean the copyright owner or entity authorized by\n",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "robotId": "jenkins_robot",
+      "robotRunId": "1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "02299f84_25f0af53",
+        "filename": "COPYING",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000501
+      },
+      "writtenOn": "2022-09-07T06:53:51Z",
+      "side": 1,
+      "message": "      the copyright owner that is granting the License.\n",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "robotId": "jenkins_robot",
+      "robotRunId": "1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "f2245d04_511787f7",
+        "filename": "COPYING",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000501
+      },
+      "writtenOn": "2022-09-07T06:53:51Z",
+      "side": 1,
+      "message": "      copyright notice that is included in or attached to the work\n",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "robotId": "jenkins_robot",
+      "robotRunId": "1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "526c90d6_a3738655",
+        "filename": "COPYING",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000501
+      },
+      "writtenOn": "2022-09-07T06:53:51Z",
+      "side": 1,
+      "message": "      submitted to Licensor for inclusion in the Work by the copyright owner\n",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "robotId": "jenkins_robot",
+      "robotRunId": "1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "c94d0fde_e6d92509",
+        "filename": "COPYING",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000501
+      },
+      "writtenOn": "2022-09-07T06:53:51Z",
+      "side": 1,
+      "message": "      the copyright owner. For the purposes of this definition, \"submitted\"\n",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "robotId": "jenkins_robot",
+      "robotRunId": "1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "1dea5f6d_39fd7104",
+        "filename": "COPYING",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000501
+      },
+      "writtenOn": "2022-09-07T06:53:51Z",
+      "side": 1,
+      "message": "      designated in writing by the copyright owner as \"Not a Contribution.\"\n",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "robotId": "jenkins_robot",
+      "robotRunId": "1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "1208c406_eddfa12a",
+        "filename": "COPYING",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000501
+      },
+      "writtenOn": "2022-09-07T06:53:51Z",
+      "side": 1,
+      "message": "   2. Grant of Copyright License. Subject to the terms and conditions of\n",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "robotId": "jenkins_robot",
+      "robotRunId": "1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "519249e6_4b0fa288",
+        "filename": "COPYING",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000501
+      },
+      "writtenOn": "2022-09-07T06:53:51Z",
+      "side": 1,
+      "message": "      copyright license to reproduce, prepare Derivative Works of,\n",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "robotId": "jenkins_robot",
+      "robotRunId": "1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "8802639f_4e0af4f1",
+        "filename": "COPYING",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000501
+      },
+      "writtenOn": "2022-09-07T06:53:51Z",
+      "side": 1,
+      "message": "      (c) You must retain, in the Source form of any Derivative Works\n",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "robotId": "jenkins_robot",
+      "robotRunId": "1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "06afdece_cc8bc530",
+        "filename": "COPYING",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000501
+      },
+      "writtenOn": "2022-09-07T06:53:51Z",
+      "side": 1,
+      "message": "          that You distribute, all copyright, patent, trademark, and\n",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "robotId": "jenkins_robot",
+      "robotRunId": "1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "357bd51e_f2083c19",
+        "filename": "COPYING",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000501
+      },
+      "writtenOn": "2022-09-07T06:53:51Z",
+      "side": 1,
+      "message": "      You may add Your own copyright statement to Your modifications and\n",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "robotId": "jenkins_robot",
+      "robotRunId": "1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "58109545_6e3f7b9d",
+        "filename": "COPYING",
+        "patchSetId": 4
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000501
+      },
+      "writtenOn": "2022-09-07T06:53:51Z",
+      "side": 1,
+      "message": "      same \"printed page\" as the copyright notice for easier\n",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "robotId": "jenkins_robot",
+      "robotRunId": "1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "553d7639_eecf83e9",
+        "filename": "COPYING",
+        "patchSetId": 4
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000501
+      },
+      "writtenOn": "2022-09-07T06:53:51Z",
+      "side": 1,
+      "message": "   Copyright [yyyy] [name of copyright owner]\n",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "robotId": "jenkins_robot",
+      "robotRunId": "1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "5296267d_b4ab8f32",
+        "filename": "LICENSE",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000501
+      },
+      "writtenOn": "2022-09-07T06:53:51Z",
+      "side": 1,
+      "message": "      \"Licensor\" shall mean the copyright owner or entity authorized by\n",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "robotId": "jenkins_robot",
+      "robotRunId": "1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "c4808697_ee7c0acd",
+        "filename": "LICENSE",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000501
+      },
+      "writtenOn": "2022-09-07T06:53:51Z",
+      "side": 1,
+      "message": "      the copyright owner that is granting the License.\n",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "robotId": "jenkins_robot",
+      "robotRunId": "1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "61602fa3_4aa38746",
+        "filename": "LICENSE",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000501
+      },
+      "writtenOn": "2022-09-07T06:53:51Z",
+      "side": 1,
+      "message": "      copyright notice that is included in or attached to the work\n",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "robotId": "jenkins_robot",
+      "robotRunId": "1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "216d1c26_e34943bf",
+        "filename": "LICENSE",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000501
+      },
+      "writtenOn": "2022-09-07T06:53:51Z",
+      "side": 1,
+      "message": "      submitted to Licensor for inclusion in the Work by the copyright owner\n",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "robotId": "jenkins_robot",
+      "robotRunId": "1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "12b6c18b_165dda18",
+        "filename": "LICENSE",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000501
+      },
+      "writtenOn": "2022-09-07T06:53:51Z",
+      "side": 1,
+      "message": "      the copyright owner. For the purposes of this definition, \"submitted\"\n",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "robotId": "jenkins_robot",
+      "robotRunId": "1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "b0f9e221_67114023",
+        "filename": "LICENSE",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000501
+      },
+      "writtenOn": "2022-09-07T06:53:51Z",
+      "side": 1,
+      "message": "      designated in writing by the copyright owner as \"Not a Contribution.\"\n",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "robotId": "jenkins_robot",
+      "robotRunId": "1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "b9569cd2_1804439d",
+        "filename": "LICENSE",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000501
+      },
+      "writtenOn": "2022-09-07T06:53:51Z",
+      "side": 1,
+      "message": "   2. Grant of Copyright License. Subject to the terms and conditions of\n",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "robotId": "jenkins_robot",
+      "robotRunId": "1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "10d5dcb9_447b4d6f",
+        "filename": "LICENSE",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000501
+      },
+      "writtenOn": "2022-09-07T06:53:51Z",
+      "side": 1,
+      "message": "      copyright license to reproduce, prepare Derivative Works of,\n",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "robotId": "jenkins_robot",
+      "robotRunId": "1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "939e720f_a9215db1",
+        "filename": "LICENSE",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000501
+      },
+      "writtenOn": "2022-09-07T06:53:51Z",
+      "side": 1,
+      "message": "      (c) You must retain, in the Source form of any Derivative Works\n",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "robotId": "jenkins_robot",
+      "robotRunId": "1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "2d4e064c_66a7a836",
+        "filename": "LICENSE",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000501
+      },
+      "writtenOn": "2022-09-07T06:53:51Z",
+      "side": 1,
+      "message": "          that You distribute, all copyright, patent, trademark, and\n",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "robotId": "jenkins_robot",
+      "robotRunId": "1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "d8c9418d_e9143caf",
+        "filename": "LICENSE",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000501
+      },
+      "writtenOn": "2022-09-07T06:53:51Z",
+      "side": 1,
+      "message": "      You may add Your own copyright statement to Your modifications and\n",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "robotId": "jenkins_robot",
+      "robotRunId": "1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "d73dc367_eaa81ca1",
+        "filename": "LICENSE",
+        "patchSetId": 4
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000501
+      },
+      "writtenOn": "2022-09-07T06:53:51Z",
+      "side": 1,
+      "message": "      same \"printed page\" as the copyright notice for easier\n",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "robotId": "jenkins_robot",
+      "robotRunId": "1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "db786bd6_e4ca382e",
+        "filename": "LICENSE",
+        "patchSetId": 4
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000501
+      },
+      "writtenOn": "2022-09-07T06:53:51Z",
+      "side": 1,
+      "message": "   Copyright [yyyy] [name of copyright owner]\n",
+      "revId": "4b974f983b4e1a31dd0c45443d3230082650e912",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    }
+  ]
+}
