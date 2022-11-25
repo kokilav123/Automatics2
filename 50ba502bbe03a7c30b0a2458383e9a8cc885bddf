@@ -18,6 +18,24 @@
       "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f15ba112_e462c206",
+        "filename": "jenkinsServerSetup/jobs/Auto_Job1/config.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2022-11-25T05:57:10Z",
+      "side": 1,
+      "message": "\u003e rdkm-provider is not needed here\n\nok",
+      "parentUuid": "e70f84eb_25e9aa47",
+      "revId": "50ba502bbe03a7c30b0a2458383e9a8cc885bddf",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2020f76c_30140f8e",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-11-25T04:52:01Z",
       "side": 1,
       "message": "Can we mention it as {automatics_props_base_url}/AutomaticsProps/automatics.properties",
+      "revId": "50ba502bbe03a7c30b0a2458383e9a8cc885bddf",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24fe368b_3d5da45e",
+        "filename": "jenkinsServerSetup/jobs/Auto_Job1/config.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2022-11-25T05:57:10Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "2020f76c_30140f8e",
       "revId": "50ba502bbe03a7c30b0a2458383e9a8cc885bddf",
       "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
     }
