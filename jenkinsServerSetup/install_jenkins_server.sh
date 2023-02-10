@@ -81,8 +81,9 @@ docker run --name automatics_jenkins --restart=on-failure --detach \
   --volume /mnt/automatics/jenkins_home:/var/jenkins_home \
   --volume /var/run/docker.sock:/var/run/docker.sock \
   --volume jenkins-docker-certs:/certs/client:ro \
-  #--volume /mnt/automatics/maven:/usr/share/maven
+  -e JAVA_OPTS="-Dhudson.security.csrf.GlobalCrumbIssuerConfiguration.DISABLE_CSRF_PROTECTION=true" \
   automatics_jenkins:jdk8
+  
 
 echo -e "\n\nSuccesfully Started Automatics Jenkins Docker Conatiner"
 echo -e "Jenkins server is started in port \033[0;31m${port}\033[0m"
