@@ -15,6 +15,11 @@ pipeline {
       string defaultValue: 'https://code.rdkcentral.com/r/rdk/tools/device-manager', description: 'Enter the URL of Device Manager Git repository', name: 'DEVICE_MANAGER_GIT_URL', trim: true
       string defaultValue: 'rdk-next', description: 'Enter Branch Name of Device Manager Git repository', name: 'DEVICE_MANAGER_GIT_BRANCH_NAME', trim: true
       credentials credentialType: 'com.cloudbees.plugins.credentials.common.StandardCredentials', defaultValue: '', description: 'Select or Add credentials for Device Manager Git Login', name: 'DEVICE_MANAGER_GIT_CREDENTIALS', required: false
+	  
+	  booleanParam(name: 'BUILD_DEVICE_MANAGER_UI',defaultValue:true,description: 'Tick this checkbox to build the .war file and Docker image of Device Manager UI')
+	  string defaultValue: 'https://code.rdkcentral.com/r/admin/repos/rdk/tools/device-manager-ui', description: 'Enter the URL of Device Manager UI Git repository',name:'DEVICE_MANAGER_UI_GIT_URL',trim:true
+	  string defaultValue: 'rdk-next', description: 'Enter Branch Name of Device Manager UI Git repository', name:'DEVICE_MANAGER_UI_GIT_BRANCH_NAME', trim:true
+	  credentials credentialType: 'com.cloudbees.plugins.credentials.common.StandardCredentials', defaultValue: '',description: 'Select or Add credentials for Device Manager UI Git Login', name: 'DEVICE_MANAGER_UI_GIT_CREDENTIALS', required: false
     }
     stages {
         stage('Pull Automatics Orchestration Code from RDKM Repo') {
@@ -193,6 +198,62 @@ pipeline {
 				}
             }
         }
+	
+		stage('Pull Device Manager UI Code from RDKM Repo') {
+			when {
+                expression {
+                    return params.BUILD_DEVICE_MANAGER_UI
+                }
+            }
+            steps {
+                script{
+					dir('automationScripts/build/device-manager-ui/project/'){
+						if("${params.DEVICE_MANAGER_UI_GIT_CREDENTIALS}" == null || "${params.DEVICE_MANAGER_UI_GIT_CREDENTIALS}" ==''){
+							echo "${params.DEVICE_MANAGER_UI_GIT_CREDENTIALS}"
+							git branch: "${params.DEVICE_MANAGER_UI_GIT_BRANCH_NAME}", url: "${params.DEVICE_MANAGER_UI_GIT_URL}"
+						} else {
+							echo "${params.DEVICE_MANAGER_UI_GIT_CREDENTIALS}"
+							git credentialsId: "${params.DEVICE_MANAGER_UI_GIT_CREDENTIALS}", branch: "${params.DEVICE_MANAGER_UI_GIT_BRANCH_NAME}", url: "${params.DEVICE_MANAGER_UI_GIT_URL}"
+						}
+					}
+                }
+            }
+        }
+		
+		 stage ('Device Manager UI Maven Build') {
+			when {
+                expression {
+                    return params.BUILD_DEVICE_MANAGER_UI
+                }
+            }
+            steps {
+                sh """
+				cd automationScripts/build/Device-Manager-UI/project/
+				cp ../editConfig.sh ./editConfig.sh
+				sh editConfig.sh
+				cp ../startDocker.sh ./startDocker.sh
+				mvn clean install"""
+            }
+            post {
+                always {
+                    archiveArtifacts artifacts: 'automationScripts/build/Device-Manager-UI/project/target/device-manager-ui*.war', onlyIfSuccessful: true
+                }
+            }
+        }
+		
+		stage ('Device Manager UI Docker Build') {
+			when {
+                expression {
+                    return params.BUILD_DEVICE_MANAGER_UI
+                }
+            }
+            steps {
+				dir('automationScripts/build/Device-Manager-UI/project/'){
+					sh 'docker build -f ../DeviceManagerUIDockerFile -t device-manager-ui .'
+				}
+            }
+        }
+		
         stage ('Clean UP') {
             steps {
 				sh 'docker rmi $(docker images --filter "dangling=true" -q --no-trunc)'

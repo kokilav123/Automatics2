@@ -38,6 +38,13 @@ pipeline {
 		password description: 'Enter the Root password for MYSQL DB of Device Manager', name: 'DEVICE_MANAGER_MYSQL_ROOT_PASSWORD'
 		string defaultValue: 'deviceManager.com', description: 'Enter the public domain details used for accessing device manager application in any of the formats like devicemanager.com or public_ip:port or domain_name:port', name: 'DEVICE_MANAGER_SWAGGER_HOST', trim: true
 		string defaultValue: '/home/deviceManager/db/persistance/data', description: 'Enter a directory in database VM where the data should be persisted', name: 'DEVICE_MANAGER_DB_DATA_DIR', trim: true
+		
+		booleanParam(name: 'DEPLOY_DEVICE_MANAGER_UI', defaultValue:true, description: 'Tick this checkbox to deploy Device Manager UI in the VM specified below')
+		string defaultValue: '0.0.0.0', description:'Enter the IP Address of the VM in which Device Manager UI Server needs to be deployed', name: 'DEVICE_MANAGER_UI_IP_ADDRESS', trim: true
+		credentials credentialType: 'com.cloudbees.plugins.credentials.common.StandardCredentials', defaultValue: '',description: 'Select or Add credentials to Login to the VM in whcih Device Manager UI Server to be deployed', name: 'DEVICE_MANAGER_UI_VM_CREDENTIALS',required: true
+		string defaultValue: '8080', description: 'Enter the port in which Device Manager UI Tomcat server should be running', name: 'DEVICE_MANAGER_UI_SERVER_PORT', trim: true
+		string defaultValue: '/opt/deviceManagerUI/server/logs', description: 'Enter a directory in server VM where Tomcat and Device Manager UI server logs to be persisted. If not given logs will be generated in the default directory', name: 'DEVICE_MANAGER_UI_LOG_DIRECTORY', trim: true
+		
     }
     stages {
         stage('Prepare Automatics Orchestration Docker images') {
@@ -521,5 +528,110 @@ pipeline {
                 }
             }
         }
+		
+		stage('Prepare Device Manager UI Docker images') {
+            when {
+                expression {
+                    return params.DEPLOY_DEVICE_MANAGER_UI
+                }
+            }
+            steps {
+                script{
+                    sh """
+                    docker save device-manager-ui > device-manager-ui.tar
+                    echo "Successfully Compressed Device Manager UI Docker image to device-manager-ui.tar"
+                    """
+                }
+            }
+        }
+        stage('Transfer Device Manager UI Server Docker image to the VM') {
+            when {
+                expression {
+                    return params.DEPLOY_DEVICE_MANAGER_UI
+                }
+            }
+            steps {
+                script{
+                    def remote = [name: 'Device-Manager-UI', host: params.DEVICE_MANAGER_UI_IP_ADDRESS, allowAnyHosts: true]
+                    withCredentials( [usernamePassword( credentialsId: params.DEVICE_MANAGER_UI_VM_CREDENTIALS, 
+                        usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                        remote.user = USERNAME
+                        if(!env.PASSWORD){
+                            remote.password = ""
+                        } else {
+                            remote.password = PASSWORD
+                        }
+                        remote.port = 22
+                        
+                        sshCommand remote: remote, command: 'mkdir -p devicemanagerUI/deployment/device-manager-ui/server/dockerImage'
+						sshPut remote: remote, from: 'device-manager-ui.tar', into: './devicemanagerUI/deployment/device-manager-ui/server/dockerImage/'
+						sshCommand remote: remote, command: 'docker load < ./devicemanagerUI/deployment/device-manager-ui/server/dockerImage/device-manager-ui.tar'
+                    }
+                }
+            }
+        }
+        stage('Stop & Remove Device Manager UI Tomcat Docker Container') {
+            when {
+                expression {
+                    return params.DEPLOY_DEVICE_MANAGER_UI
+                }
+            }
+            steps {
+                script{
+                    def remote = [name: 'Device-Manager-UI', host: params.DEVICE_MANAGER_UI_IP_ADDRESS, allowAnyHosts: true]
+                    withCredentials( [usernamePassword( credentialsId: params.DEVICE_MANAGER_UI_VM_CREDENTIALS, 
+                        usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                        remote.user = USERNAME
+                        if(!env.PASSWORD){
+                            remote.password = ""
+                        } else {
+                            remote.password = PASSWORD
+                        }
+                        remote.port = 22
+                        try {
+							sshCommand remote: remote, command: "docker rm \$(docker stop \$(docker ps -a | grep device_manager_ui_tomcat_ | awk \'{print \$1}\'))"
+						} catch (err) {
+							echo "Caught: ${err}"
+						}                        
+                    }
+					echo "Successfully stopped and removed Device Manager UI Tomcat docker conatiner"
+                }
+            }
+        }
+        stage('Deploy Device Manager UI Server to the VM') {
+            when {
+                expression {
+                    return params.DEPLOY_DEVICE_MANAGER_UI
+                }
+            }
+            steps {
+                script{
+                    def remote = [name: 'Device-Manager-UI', host: params.DEVICE_MANAGER_UI_IP_ADDRESS, allowAnyHosts: true]
+					def containerName = "device_manager_ui_tomcat_${params.DEVICE_MANAGER_UI_SERVER_PORT}"
+                    withCredentials( [usernamePassword( credentialsId: params.DEVICE_MANAGER_UI_VM_CREDENTIALS, 
+                        usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                        remote.user = USERNAME
+                        if(!env.PASSWORD){
+                            remote.password = ""
+                        } else {
+                            remote.password = PASSWORD
+                        }
+                        remote.port = 22
+						
+						sshCommand remote: remote, command: "mkdir -p '${params.DEVICE_MANAGER_UI_LOG_DIRECTORY}'"
+						
+						if("${params.DEVICE_MANAGER_IP_ADDRESS}" == "${params.DEVICE_MANAGER_UI_IP_ADDRESS}"){
+							sshCommand remote: remote, command: "docker run --net device_manager_network -e UI_HOST='${params.DEVICE_MANAGER_UI_IP_ADDRESS}' -e UI_PORT='${params.DEVICE_MANAGER_UI_SERVER_PORT}' -v '${params.DEVICE_MANAGER_UI_LOG_DIRECTORY}':/usr/local/tomcat/logs -p '${params.DEVICE_MANAGER_UI_SERVER_PORT}':8080 --name='${containerName}' -d device-manager-ui:latest"
+						} else {
+		                    sshCommand remote: remote, command: "docker run -e UI_HOST='${params.DEVICE_MANAGER_UI_IP_ADDRESS}' -e UI_PORT='${params.DEVICE_MANAGER_UI_SERVER_PORT}'  -v '${params.DEVICE_MANAGER_UI_LOG_DIRECTORY}':/usr/local/tomcat/logs -p '${params.DEVICE_MANAGER_UI_SERVER_PORT}':8080 --name='${containerName}' -d device-manager-ui:latest"
+							}        
+                        
+     
+                    }
+                }
+            }
+        }
+		
+		
     }
 }

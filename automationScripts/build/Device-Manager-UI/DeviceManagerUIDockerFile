@@ -1,0 +1,10 @@
+FROM tomcat:8.5-jdk8
+
+
+ADD target/DeviceManagerUI*.war $CATALINA_HOME/webapps/DeviceManagerUI.war
+
+ADD startDocker.sh $CATALINA_HOME/startDocker.sh
+
+RUN chmod -R 777 $CATALINA_HOME/startDocker.sh 
+
+CMD ["/usr/local/tomcat/startDocker.sh"]
