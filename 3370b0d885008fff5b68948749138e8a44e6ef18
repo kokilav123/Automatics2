@@ -1,6 +1,52 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f1a05d8_0eac51fe",
+        "filename": "automationScripts/build/Device-Manager-UI/DeviceManagerUIDockerFile",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2023-02-24T06:55:11Z",
+      "side": 1,
+      "message": "Add maintainer tag after this FROM",
+      "range": {
+        "startLine": 1,
+        "startChar": 5,
+        "endLine": 1,
+        "endChar": 11
+      },
+      "revId": "3370b0d885008fff5b68948749138e8a44e6ef18",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41a44ecf_6e47c9ae",
+        "filename": "automationScripts/build/Device-Manager-UI/editConfig.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2023-02-24T06:55:11Z",
+      "side": 1,
+      "message": "Please make sure that shell script have the indentation of Linux",
+      "range": {
+        "startLine": 2,
+        "startChar": 8,
+        "endLine": 2,
+        "endChar": 9
+      },
+      "revId": "3370b0d885008fff5b68948749138e8a44e6ef18",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "51fcbefd_a5f0586c",
