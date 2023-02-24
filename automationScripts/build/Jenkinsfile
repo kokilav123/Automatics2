@@ -207,7 +207,7 @@ pipeline {
             }
             steps {
                 script{
-					dir('automationScripts/build/device-manager-ui/project/'){
+					dir('automationScripts/build/Device-Manager-UI/project/'){
 						if("${params.DEVICE_MANAGER_UI_GIT_CREDENTIALS}" == null || "${params.DEVICE_MANAGER_UI_GIT_CREDENTIALS}" ==''){
 							echo "${params.DEVICE_MANAGER_UI_GIT_CREDENTIALS}"
 							git branch: "${params.DEVICE_MANAGER_UI_GIT_BRANCH_NAME}", url: "${params.DEVICE_MANAGER_UI_GIT_URL}"
