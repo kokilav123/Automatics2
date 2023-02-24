@@ -17,7 +17,7 @@ pipeline {
       credentials credentialType: 'com.cloudbees.plugins.credentials.common.StandardCredentials', defaultValue: '', description: 'Select or Add credentials for Device Manager Git Login', name: 'DEVICE_MANAGER_GIT_CREDENTIALS', required: false
 	  
 	  booleanParam(name: 'BUILD_DEVICE_MANAGER_UI',defaultValue:true,description: 'Tick this checkbox to build the .war file and Docker image of Device Manager UI')
-	  string defaultValue: 'https://code.rdkcentral.com/r/admin/repos/rdk/tools/device-manager-ui', description: 'Enter the URL of Device Manager UI Git repository',name:'DEVICE_MANAGER_UI_GIT_URL',trim:true
+	  string defaultValue: 'https://code.rdkcentral.com/r/rdk/tools/device-manager-ui/', description: 'Enter the URL of Device Manager UI Git repository',name:'DEVICE_MANAGER_UI_GIT_URL',trim:true
 	  string defaultValue: 'rdk-next', description: 'Enter Branch Name of Device Manager UI Git repository', name:'DEVICE_MANAGER_UI_GIT_BRANCH_NAME', trim:true
 	  credentials credentialType: 'com.cloudbees.plugins.credentials.common.StandardCredentials', defaultValue: '',description: 'Select or Add credentials for Device Manager UI Git Login', name: 'DEVICE_MANAGER_UI_GIT_CREDENTIALS', required: false
     }
