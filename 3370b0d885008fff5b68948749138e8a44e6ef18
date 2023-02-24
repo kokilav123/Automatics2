@@ -48,6 +48,30 @@
       "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ca7c71b_95388481",
+        "filename": "automationScripts/build/Device-Manager-UI/DeviceManagerUIDockerFile",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1012277
+      },
+      "writtenOn": "2023-02-24T08:46:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87ce59af_b53c5c98",
+      "range": {
+        "startLine": 1,
+        "startChar": 5,
+        "endLine": 1,
+        "endChar": 11
+      },
+      "revId": "3370b0d885008fff5b68948749138e8a44e6ef18",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41a44ecf_6e47c9ae",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "41a44ecf_6e47c9ae",
+      "range": {
+        "startLine": 2,
+        "startChar": 8,
+        "endLine": 2,
+        "endChar": 9
+      },
+      "revId": "3370b0d885008fff5b68948749138e8a44e6ef18",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14514625_e44e712d",
+        "filename": "automationScripts/build/Device-Manager-UI/editConfig.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1012277
+      },
+      "writtenOn": "2023-02-24T08:46:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22ddfe67_c5ff8746",
       "range": {
         "startLine": 2,
         "startChar": 8,
