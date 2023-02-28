@@ -30,6 +30,8 @@ password=`echo -n $DB_PASSWORD | base64`
 
 sed -i "s/<property name=\"hibernate.connection.password\">/&$password/" $CATALINA_HOME/AutomaticsConfig/hibernate.cfg.xml
 
+sed -i 's#<Property name="FILE_NAME">../logs/traces</Property>#<Property name="FILE_NAME">/usr/local/tomcat/logs/traces</Property>#g' $CATALINA_HOME/AutomaticsConfiglog4j2-test.xml
+
 mkdir -p $CATALINA_HOME/logs/traces/
 
 chmod -R 777 $CATALINA_HOME/logs
