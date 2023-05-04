@@ -1,12 +1,14 @@
 <?xml version='1.1' encoding='UTF-8'?>
 <flow-definition plugin="workflow-job@1207.ve6191ff089f8">
   <actions>
-    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobAction plugin="pipeline-model-definition@2.2114.v2654ca_721309"/>
-    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction plugin="pipeline-model-definition@2.2114.v2654ca_721309">
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobAction plugin="pipeline-model-definition@2.2118.v31fd5b_9944b_5"/>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction plugin="pipeline-model-definition@2.2118.v31fd5b_9944b_5">
       <jobProperties/>
       <triggers/>
       <parameters>
         <string>DEVICE_MANAGER_IP_ADDRESS</string>
+        <string>DEVICE_MANAGER_UI_IP_ADDRESS</string>
+        <string>DEVICE_MANAGER_UI_SERVER_PORT</string>
         <string>DEPLOY_AUTOMATICS_PROPERTIES</string>
         <string>AUTOMATICS_DB_IP_ADDRESS</string>
         <string>DEVICE_MANAGER_SERVER_PORT</string>
@@ -23,15 +25,18 @@
         <string>AUTOMATICS_DB_VM_CREDENTIALS</string>
         <string>DEVICE_MANAGER_DB_IP_ADDRESS</string>
         <string>AUTOMATICS_PROPS_LOG_DIRECTORY</string>
+        <string>DEVICE_MANAGER_UI_VM_CREDENTIALS</string>
         <string>AUTOMATICS_PROPS_SERVER_PORT</string>
         <string>AUTOMATICS_DB_DATA_DIR</string>
         <string>AUTOMATICS_PROPS_VM_CREDENTIALS</string>
         <string>DEVICE_MANAGER_DB_DATA_DIR</string>
         <string>AUTOMATICS_ORCH_URL</string>
         <string>DEVICE_MANAGER_LOG_DIRECTORY</string>
+        <string>DEPLOY_DEVICE_MANAGER_UI</string>
         <string>DEVICE_MANAGER_VM_CREDENTIALS</string>
         <string>DEVICE_MANAGER_DB_USERNAME</string>
         <string>DEVICE_MANAGER_MYSQL_ROOT_PASSWORD</string>
+        <string>DEVICE_MANAGER_UI_LOG_DIRECTORY</string>
         <string>AUTOMATICS_MYSQL_DB_USERNAME</string>
         <string>AUTOMATICS_PROPS_IP_ADDRESS</string>
         <string>DEPLOY_DEVICE_MANAGER</string>
@@ -45,7 +50,7 @@
   <description></description>
   <keepDependencies>false</keepDependencies>
   <properties>
-    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.32">
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.34">
       <autoRebuild>false</autoRebuild>
       <rebuildDisabled>false</rebuildDisabled>
     </com.sonyericsson.rebuild.RebuildSettings>
@@ -62,7 +67,7 @@
           <defaultValue>0.0.0.0</defaultValue>
           <trim>true</trim>
         </hudson.model.StringParameterDefinition>
-        <com.cloudbees.plugins.credentials.CredentialsParameterDefinition plugin="credentials@1139.veb_9579fca_33b_">
+        <com.cloudbees.plugins.credentials.CredentialsParameterDefinition plugin="credentials@1143.vb_e8b_b_ceee347">
           <name>AUTOMATICS_VM_CREDENTIALS</name>
           <description>Select or Add credentials to Login to the VM in whcih Automatics Orchestration Server to be deployed</description>
           <defaultValue></defaultValue>
@@ -93,7 +98,7 @@
           <defaultValue>0.0.0.0</defaultValue>
           <trim>true</trim>
         </hudson.model.StringParameterDefinition>
-        <com.cloudbees.plugins.credentials.CredentialsParameterDefinition plugin="credentials@1139.veb_9579fca_33b_">
+        <com.cloudbees.plugins.credentials.CredentialsParameterDefinition plugin="credentials@1143.vb_e8b_b_ceee347">
           <name>AUTOMATICS_DB_VM_CREDENTIALS</name>
           <description>Select or Add credentials to Login to the VM in whcih Automatics Orchestration DB to be deployed</description>
           <defaultValue></defaultValue>
@@ -127,7 +132,7 @@
           <defaultValue>0.0.0.0</defaultValue>
           <trim>true</trim>
         </hudson.model.StringParameterDefinition>
-        <com.cloudbees.plugins.credentials.CredentialsParameterDefinition plugin="credentials@1139.veb_9579fca_33b_">
+        <com.cloudbees.plugins.credentials.CredentialsParameterDefinition plugin="credentials@1143.vb_e8b_b_ceee347">
           <name>AUTOMATICS_PROPS_VM_CREDENTIALS</name>
           <description>Select or Add credentials to Login to the VM in whcih Automatics properties Server to be deployed</description>
           <defaultValue></defaultValue>
@@ -179,7 +184,7 @@
           <defaultValue>0.0.0.0</defaultValue>
           <trim>true</trim>
         </hudson.model.StringParameterDefinition>
-        <com.cloudbees.plugins.credentials.CredentialsParameterDefinition plugin="credentials@1139.veb_9579fca_33b_">
+        <com.cloudbees.plugins.credentials.CredentialsParameterDefinition plugin="credentials@1143.vb_e8b_b_ceee347">
           <name>DEVICE_MANAGER_VM_CREDENTIALS</name>
           <description>Select or Add credentials to Login to the VM in whcih Device Manager Server to be deployed</description>
           <defaultValue></defaultValue>
@@ -210,7 +215,7 @@
           <defaultValue>0.0.0.0</defaultValue>
           <trim>true</trim>
         </hudson.model.StringParameterDefinition>
-        <com.cloudbees.plugins.credentials.CredentialsParameterDefinition plugin="credentials@1139.veb_9579fca_33b_">
+        <com.cloudbees.plugins.credentials.CredentialsParameterDefinition plugin="credentials@1143.vb_e8b_b_ceee347">
           <name>DEVICE_MANAGER_DB_VM_CREDENTIALS</name>
           <description>Select or Add credentials to Login to the VM in whcih Device Manager DB to be deployed</description>
           <defaultValue></defaultValue>
@@ -239,21 +244,51 @@
           <defaultValue>/home/deviceManager/db/persistance/data</defaultValue>
           <trim>true</trim>
         </hudson.model.StringParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
+          <name>DEPLOY_DEVICE_MANAGER_UI</name>
+          <description>Tick this checkbox to deploy Device Manager UI in the VM specified below</description>
+          <defaultValue>true</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>DEVICE_MANAGER_UI_IP_ADDRESS</name>
+          <description>Enter the IP Address of the VM in which Device Manager UI Server needs to be deployed</description>
+          <defaultValue>0.0.0.0</defaultValue>
+          <trim>true</trim>
+        </hudson.model.StringParameterDefinition>
+        <com.cloudbees.plugins.credentials.CredentialsParameterDefinition plugin="credentials@1143.vb_e8b_b_ceee347">
+          <name>DEVICE_MANAGER_UI_VM_CREDENTIALS</name>
+          <description>Select or Add credentials to Login to the VM in whcih Device Manager UI Server to be deployed</description>
+          <defaultValue></defaultValue>
+          <credentialType>com.cloudbees.plugins.credentials.common.StandardCredentials</credentialType>
+          <required>true</required>
+        </com.cloudbees.plugins.credentials.CredentialsParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>DEVICE_MANAGER_UI_SERVER_PORT</name>
+          <description>Enter the port in which Device Manager UI Tomcat server should be running</description>
+          <defaultValue>8080</defaultValue>
+          <trim>true</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>DEVICE_MANAGER_UI_LOG_DIRECTORY</name>
+          <description>Enter a directory in server VM where Tomcat and Device Manager UI server logs to be persisted. If not given logs will be generated in the default directory</description>
+          <defaultValue>/opt/deviceManagerUI/server/logs</defaultValue>
+          <trim>true</trim>
+        </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
   </properties>
-  <definition class="org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition" plugin="workflow-cps@2759.v87459c4eea_ca_">
-    <scm class="hudson.plugins.git.GitSCM" plugin="git@4.11.4">
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition" plugin="workflow-cps@3536.vb_8a_6628079d5">
+    <scm class="hudson.plugins.git.GitSCM" plugin="git@4.14.3">
       <configVersion>2</configVersion>
       <userRemoteConfigs>
         <hudson.plugins.git.UserRemoteConfig>
-          <url>https://code.rdkcentral.com/r/rdk/tools/automatics</url>
+          <url>https://code.rdkcentral.com/r/rdk/tools/automatics/dev-ops</url>
           <credentialsId></credentialsId>
         </hudson.plugins.git.UserRemoteConfig>
       </userRemoteConfigs>
       <branches>
         <hudson.plugins.git.BranchSpec>
-          <name>refs/heads/rdk-next</name>
+          <name>*/rdk-next</name>
         </hudson.plugins.git.BranchSpec>
       </branches>
       <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
