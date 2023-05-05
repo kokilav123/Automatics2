@@ -22,32 +22,32 @@ echo "$DB_URL"
 echo "$DB_USERNAME"
 echo "DOCKER_IMAGE_NAME"
 
-sed -i -e "s|jdbc:mysql:\/\/localhost:3306\/automatics?autoReconnect=true|${DB_URL}|" $CATALINA_HOME/AutomaticsConfig/hibernate.cfg.xml
+sed -i -e "s|jdbc:mysql:\/\/localhost:3306\/automatics?autoReconnect=true|${DB_URL}|" "$CATALINA_HOME"/AutomaticsConfig/hibernate.cfg.xml
 
-sed -i "s/<property name=\"hibernate.connection.username\">/&$DB_USERNAME/" $CATALINA_HOME/AutomaticsConfig/hibernate.cfg.xml
+sed -i "/<property name=\"hibernate\.connection\.username\">[^<]*<\/property>/ s/>\([^<]*\)</>$DB_USERNAME</" "$CATALINA_HOME"/AutomaticsConfig/hibernate.cfg.xml
 
-password=`echo -n $DB_PASSWORD | base64`
+password=$(echo -n "$DB_PASSWORD" | base64)
 
-sed -i "s/<property name=\"hibernate.connection.password\">/&$password/" $CATALINA_HOME/AutomaticsConfig/hibernate.cfg.xml
+sed -i "/<property name=\"hibernate\.connection\.password\">[^<]*<\/property>/ s/>\([^<]*\)</>${password//\//\\/}</" "$CATALINA_HOME"/AutomaticsConfig/hibernate.cfg.xml
 
-sed -i 's#<Property name="FILE_NAME">../logs/traces</Property>#<Property name="FILE_NAME">/usr/local/tomcat/logs/traces</Property>#g' $CATALINA_HOME/AutomaticsConfiglog4j2-test.xml
+sed -i 's#<Property name="FILE_NAME">../logs/traces</Property>#<Property name="FILE_NAME">/usr/local/tomcat/logs/traces</Property>#g' "$CATALINA_HOME"/AutomaticsConfiglog4j2-test.xml
 
-mkdir -p $CATALINA_HOME/logs/traces/
+mkdir -p "$CATALINA_HOME"/logs/traces/
 
-chmod -R 777 $CATALINA_HOME/logs
+chmod -R 777 "$CATALINA_HOME"/logs
 
-echo '' > $CATALINA_HOME/bin/mainUI.jmd
+echo '' > "$CATALINA_HOME"/bin/mainUI.jmd
 
-echo '' > $CATALINA_HOME/bin/childUI.jmd
+echo '' > "$CATALINA_HOME"/bin/childUI.jmd
 
-echo '' > $CATALINA_HOME/mainUI.jmd
+echo '' > "$CATALINA_HOME"/mainUI.jmd
 
-echo '' > $CATALINA_HOME/childUI.jmd
+echo '' > "$CATALINA_HOME"/childUI.jmd
 
-chmod 777 $CATALINA_HOME/childUI.jmd $CATALINA_HOME/mainUI.jmd $CATALINA_HOME/bin/childUI.jmd $CATALINA_HOME/bin/mainUI.jmd
+chmod 777 "$CATALINA_HOME"/childUI.jmd "$CATALINA_HOME"/mainUI.jmd "$CATALINA_HOME"/bin/childUI.jmd "$CATALINA_HOME"/bin/mainUI.jmd
 
-sh $CATALINA_HOME/bin/catalina.sh run
+sh "$CATALINA_HOME"/bin/catalina.sh run
 
 sleep 140
 
-chmod -R 777 $CATALINA_HOME/logs
+chmod -R 777 "$CATALINA_HOME"/logs

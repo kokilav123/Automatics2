@@ -23,22 +23,16 @@ echo "$AUTOMATICS_PROPS_URL"
 echo "$AUTOMATICS_ORCH_URL"
 echo "$DEVICE_MANAGER_URL"
 
-sed -i "s/user=/&$UI_USERNAME/" $CATALINA_HOME/webapps/automatics/config.properties
+sed -i "/^\s*user\s*=/s/=.*/=${UI_USERNAME}/" "$CATALINA_HOME"/webapps/automatics/config.properties || echo "user=${UI_USERNAME}" >> "$CATALINA_HOME"/webapps/automatics/config.properties
 
-sed -i "s/pwd=/&$UI_PASSWORD/" $CATALINA_HOME/webapps/automatics/config.properties
+sed -i "/^\s*pwd\s*=/s/=.*/=${UI_PASSWORD}/" "$CATALINA_HOME"/webapps/automatics/config.properties || echo "pwd=${UI_PASSWORD}" >> "$CATALINA_HOME"/webapps/automatics/config.properties
 
-#sed -i "s/device.props=/&\$CATALINA_HOME\/webapps\/automatics\/device_config.json/" $CATALINA_HOME/webapps/automatics/automatics.properties
+mkdir -p "$CATALINA_HOME"/logs/traces/
 
-#sed -i "s/automatics.url=/&\$AUTOMATICS_ORCH_URL/" $CATALINA_HOME/webapps/automatics/automatics.properties
+chmod -R 777 "$CATALINA_HOME"/logs
 
-#sed -i "s/DEVICE_MANAGER_BASE_URL=/&\$DEVICE_MANAGER_URL/" $CATALINA_HOME/webapps/automatics/automatics.properties
-
-mkdir -p $CATALINA_HOME/logs/traces/
-
-chmod -R 777 $CATALINA_HOME/logs
-
-sh $CATALINA_HOME/bin/catalina.sh run
+sh "$CATALINA_HOME"/bin/catalina.sh run
 
 sleep 140
 
-chmod -R 777 $CATALINA_HOME/logs
+chmod -R 777 "$CATALINA_HOME"/logs
