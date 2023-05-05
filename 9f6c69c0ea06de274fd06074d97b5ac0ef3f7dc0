@@ -1,0 +1,58 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13306e65_918ad6cb",
+        "filename": "automationScripts/build/Automatics-Orchestration/editConfig.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000499
+      },
+      "writtenOn": "2023-05-05T16:16:04Z",
+      "side": 1,
+      "message": "git-secrets has detected a dubious pattern in this line",
+      "tag": "git-secrets",
+      "revId": "9f6c69c0ea06de274fd06074d97b5ac0ef3f7dc0",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5c62f93_8e0a514e",
+        "filename": "automationScripts/build/Automatics-Orchestration/editConfig.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000499
+      },
+      "writtenOn": "2023-05-05T16:16:04Z",
+      "side": 1,
+      "message": "git-secrets has detected a dubious pattern in this line",
+      "tag": "git-secrets",
+      "revId": "9f6c69c0ea06de274fd06074d97b5ac0ef3f7dc0",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cfe63ca_7e6299d6",
+        "filename": "automationScripts/build/Automatics-Props/editConfig.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000499
+      },
+      "writtenOn": "2023-05-05T16:16:04Z",
+      "side": 1,
+      "message": "git-secrets has detected a dubious pattern in this line",
+      "tag": "git-secrets",
+      "revId": "9f6c69c0ea06de274fd06074d97b5ac0ef3f7dc0",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    }
+  ]
+}
