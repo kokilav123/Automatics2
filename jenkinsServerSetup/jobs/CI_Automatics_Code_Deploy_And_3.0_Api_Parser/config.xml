@@ -1,0 +1,55 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@2.41">
+  <actions/>
+  <description>Deployment and Utility Parsing for CI</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.32">
+      <autoRebuild>false</autoRebuild>
+      <rebuildDisabled>false</rebuildDisabled>
+    </com.sonyericsson.rebuild.RebuildSettings>
+  </properties>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.93">
+    <script>node {
+   
+    stage(&apos;Deployment DEPLOY_AUTOMATICS_CORE&apos;) {
+       echo &quot;Calling Deploy_Automatics_Core Job&quot;
+       build job: &apos;Deploy_Automatics_Core&apos;, wait: true, propagate: true
+    }
+    
+    stage(&apos;Deployment DEPLOY_RDKB_TEST_UTILS&apos;) {
+       echo &quot;Calling Deploy_RDKB_Utils&quot;
+       build job: &apos;Deploy_RDKB_Utils&apos;, wait: true, propagate: true
+    }
+    
+    stage(&apos;Deployment Deploy_RDKV_Utils&apos;) {
+       echo &quot;Calling Deploy_RDKV_Utils Job&quot;
+       build job: &apos;Deploy_RDKV_Utils&apos;, wait: true, propagate: true
+    }
+    
+     stage(&apos;Run utility parser for Automatics Core&apos;) {
+       echo &quot;Calling CI_Api_Parser_Automatics_Core Job&quot;
+       build job: &apos;CI_Api_Parser_Automatics_Core&apos;, wait: true, propagate: true
+    }
+    
+    stage(&apos;Run utility parser for Scriptless Automation&apos;) {
+       echo &quot;Calling CI_Api_Parser_Scriptless_Automation Job&quot;
+       build job: &apos;CI_Api_Parser_Scriptless_Automation&apos;, wait: true, propagate: true
+    }
+    
+    stage(&apos;Run utility parser for RDKV Test Utils&apos;) {
+       echo &quot;Calling CI_Api_Parser_RDKV_Utils&quot;
+       build job: &apos;CI_Api_Parser_RDKV_Utils&apos;, wait: true, propagate: true
+    }
+    
+    stage(&apos;Run utility parser for RDKB Test Utils&apos;) {
+       echo &quot;Calling CI_Api_Parser_RDKB_Utils Job&quot;
+       build job: &apos;CI_Api_Parser_RDKB_Utils&apos;, wait: true, propagate: true
+    }
+}
+</script>
+    <sandbox>true</sandbox>
+  </definition>
+  <triggers/>
+  <disabled>false</disabled>
+</flow-definition>

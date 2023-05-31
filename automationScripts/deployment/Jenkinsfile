@@ -14,6 +14,10 @@ pipeline {
 		password description: 'Enter the Root password for MYSQL DB', name: 'AUTOMATICS_MYSQL_ROOT_PASSWORD'
 		string defaultValue: '/home/automatics/db/persistance/data', description: 'Enter a directory in database VM where the data should be persisted', name: 'AUTOMATICS_DB_DATA_DIR', trim: true
 		
+        string defaultValue: '0.0.0.0', description: 'Enter the IP Address of the VM in which Rack Data Service App needs to be deployed', name: 'RACK_DATA_SERVICE_IP_ADDRESS', trim: true
+        credentials credentialType: 'com.cloudbees.plugins.credentials.common.StandardCredentials', defaultValue: '', description: 'Select or Add credentials to Login to the VM in whcih Rack Data Service App to be deployed', name: 'RACK_DATA_SERVICE_VM_CREDENTIALS', required: true
+        string defaultValue: '8084', description: 'Enter the port in which Rack Data Service App should be running', name: 'RACK_DATA_SERVICE_PORT', trim: true
+		
         booleanParam(name: 'DEPLOY_AUTOMATICS_PROPERTIES', defaultValue: true, description: 'Tick this checkbox to deploy Automatics properties in the VM specified below')
         string defaultValue: '0.0.0.0', description: 'Enter the IP Address of the VM in which Automatics properties Server needs to be deployed', name: 'AUTOMATICS_PROPS_IP_ADDRESS', trim: true
         credentials credentialType: 'com.cloudbees.plugins.credentials.common.StandardCredentials', defaultValue: '', description: 'Select or Add credentials to Login to the VM in whcih Automatics properties Server to be deployed', name: 'AUTOMATICS_PROPS_VM_CREDENTIALS', required: true
@@ -23,8 +27,7 @@ pipeline {
 		string defaultValue: 'https://deviceManager.com/DeviceManager', description: 'Enter Device Manager URL to be configured in automatics properties', name: 'DEVICE_MANAGER_URL', trim: true
 		string defaultValue: 'admin', description: 'Enter the Username of Automatics Properties UI', name: 'AUTOMATICS_PROPS_UI_USERNAME', trim: true
 		password description: 'Enter the Password for Automatics Properties UI', name: 'AUTOMATICS_PROPS_UI_PASSWORD'
-		
-		
+				
         booleanParam(name: 'DEPLOY_DEVICE_MANAGER', defaultValue: true, description: 'Tick this checkbox to deploy Device Manager in the VM specified below')
         string defaultValue: '0.0.0.0', description: 'Enter the IP Address of the VM in which Device Manager Server needs to be deployed', name: 'DEVICE_MANAGER_IP_ADDRESS', trim: true
         credentials credentialType: 'com.cloudbees.plugins.credentials.common.StandardCredentials', defaultValue: '', description: 'Select or Add credentials to Login to the VM in whcih Device Manager Server to be deployed', name: 'DEVICE_MANAGER_VM_CREDENTIALS', required: true
@@ -72,21 +75,8 @@ pipeline {
             }
             steps {
                 script{
-                    def remote = [name: 'Automatics-Orchestration-DB', host: params.AUTOMATICS_DB_IP_ADDRESS, allowAnyHosts: true]
-                    withCredentials( [usernamePassword( credentialsId: params.AUTOMATICS_DB_VM_CREDENTIALS, 
-                        usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                        remote.user = USERNAME
-                        if(!env.PASSWORD){
-                            remote.password = ""
-                        } else {
-                            remote.password = PASSWORD
-                        }
-                        remote.port = 22
-                        
-                        sshCommand remote: remote, command: 'mkdir -p automatics/deployment/automatics-orchestration/db/dockerImage'
-						sshPut remote: remote, from: 'automatics-orchestration-db.tar', into: './automatics/deployment/automatics-orchestration/db/dockerImage/'
-						sshCommand remote: remote, command: 'docker load < ./automatics/deployment/automatics-orchestration/db/dockerImage/automatics-orchestration-db.tar'
-                    }
+                    remote = sshToVM('Automatics-Orchestration-DB', params.AUTOMATICS_DB_IP_ADDRESS, params.AUTOMATICS_DB_VM_CREDENTIALS)
+                    transferDockerImageToVM(remote, 'automatics/deployment/automatics-orchestration/db/dockerImage','automatics-orchestration-db.tar')
 					echo "Successfully transfered and loaded Automatics DB docker image to the VM"
                 }
             }
@@ -99,22 +89,12 @@ pipeline {
             }
             steps {
                 script{
-                    def remote = [name: 'Automatics-Orchestration-DB', host: params.AUTOMATICS_DB_IP_ADDRESS, allowAnyHosts: true]
-                    withCredentials( [usernamePassword( credentialsId: params.AUTOMATICS_DB_VM_CREDENTIALS, 
-                        usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                        remote.user = USERNAME
-                        if(!env.PASSWORD){
-                            remote.password = ""
-                        } else {
-                            remote.password = PASSWORD
-                        }
-                        remote.port = 22
-                        try {
-							sshCommand remote: remote, command: "docker rm \$(docker stop \$(docker ps -a | grep automatics_orchestration_db_ | awk \'{print \$1}\'))"
-						} catch (err) {
-							echo "Caught: ${err}"
-						}
-                    }
+                    remote = sshToVM('Automatics-Orchestration-DB', params.AUTOMATICS_DB_IP_ADDRESS, params.AUTOMATICS_DB_VM_CREDENTIALS)
+                    try {
+                        sshCommand remote: remote, command: "docker rm \$(docker stop \$(docker ps -a | grep automatics_orchestration_db_ | awk \'{print \$1}\'))"
+                    } catch (err) {
+                        echo "Caught: ${err}"
+                    }                    
 					echo "Successfully stopped and removed Automatics DB docker conatiner"
                 }
             }
@@ -127,29 +107,18 @@ pipeline {
             }
             steps {
                 script{
-                    def remote = [name: 'Automatics-Orchestration-DB', host: params.AUTOMATICS_DB_IP_ADDRESS, allowAnyHosts: true]
-					def containerName = "automatics_orchestration_db_${params.AUTOMATICS_DB_PORT}"
-                    withCredentials( [usernamePassword( credentialsId: params.AUTOMATICS_DB_VM_CREDENTIALS, 
-                        usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                        remote.user = USERNAME
-                        if(!env.PASSWORD){
-                            remote.password = ""
-                        } else {
-                            remote.password = PASSWORD
+                    remote = sshToVM('Automatics-Orchestration-DB', params.AUTOMATICS_DB_IP_ADDRESS, params.AUTOMATICS_DB_VM_CREDENTIALS)    
+                    def containerName = "automatics_orchestration_db_${params.AUTOMATICS_DB_PORT}"
+                    sshCommand remote: remote, command: "mkdir -p '${params.AUTOMATICS_DB_DATA_DIR}'"
+                    if("${params.AUTOMATICS_IP_ADDRESS}" == "${params.AUTOMATICS_DB_IP_ADDRESS}"){
+                        try {
+                            sshCommand remote: remote, command: "docker network create automatics_network"
+                        } catch (err) {
+                            echo "Caught: ${err}"
                         }
-                        remote.port = 22
-                        
-						sshCommand remote: remote, command: "mkdir -p '${params.AUTOMATICS_DB_DATA_DIR}'"
-						if("${params.AUTOMATICS_IP_ADDRESS}" == "${params.AUTOMATICS_DB_IP_ADDRESS}"){
-							try {
-								sshCommand remote: remote, command: "docker network create automatics_network"
-							} catch (err) {
-								echo "Caught: ${err}"
-							}
-							sshCommand remote: remote, command: "docker run --name='${containerName}' -v '${params.AUTOMATICS_DB_DATA_DIR}':/var/lib/mysql -e MYSQL_ROOT_PASSWORD='${params.AUTOMATICS_MYSQL_ROOT_PASSWORD}' -p '${params.AUTOMATICS_DB_PORT}':3306 --net automatics_network -d automatics-orchestration-db:latest"
-						} else {
-							sshCommand remote: remote, command: "docker run --name='${containerName}' -v '${params.AUTOMATICS_DB_DATA_DIR}':/var/lib/mysql -e MYSQL_ROOT_PASSWORD='${params.AUTOMATICS_MYSQL_ROOT_PASSWORD}' -p '${params.AUTOMATICS_DB_PORT}':3306 -d automatics-orchestration-db:latest"
-						}
+                        sshCommand remote: remote, command: "docker run --name='${containerName}' -v '${params.AUTOMATICS_DB_DATA_DIR}':/var/lib/mysql -e MYSQL_ROOT_PASSWORD='${params.AUTOMATICS_MYSQL_ROOT_PASSWORD}' -p '${params.AUTOMATICS_DB_PORT}':3306 --net automatics_network -d automatics-orchestration-db:latest"
+                    } else {
+                        sshCommand remote: remote, command: "docker run --name='${containerName}' -v '${params.AUTOMATICS_DB_DATA_DIR}':/var/lib/mysql -e MYSQL_ROOT_PASSWORD='${params.AUTOMATICS_MYSQL_ROOT_PASSWORD}' -p '${params.AUTOMATICS_DB_PORT}':3306 -d automatics-orchestration-db:latest"
                     }
                 }
             }
@@ -162,21 +131,9 @@ pipeline {
             }
             steps {
                 script{
-                    def remote = [name: 'Automatics-Orchestration', host: params.AUTOMATICS_IP_ADDRESS, allowAnyHosts: true]
-                    withCredentials( [usernamePassword( credentialsId: params.AUTOMATICS_VM_CREDENTIALS, 
-                        usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                        remote.user = USERNAME
-                        if(!env.PASSWORD){
-                            remote.password = ""
-                        } else {
-                            remote.password = PASSWORD
-                        }
-                        remote.port = 22
-                        
-                        sshCommand remote: remote, command: 'mkdir -p automatics/deployment/automatics-orchestration/server/dockerImage'
-						sshPut remote: remote, from: 'automatics-orchestration.tar', into: './automatics/deployment/automatics-orchestration/server/dockerImage/'
-						sshCommand remote: remote, command: 'docker load < ./automatics/deployment/automatics-orchestration/server/dockerImage/automatics-orchestration.tar'
-                    }
+                    remote = sshToVM('Automatics-Orchestration', params.AUTOMATICS_IP_ADDRESS, params.AUTOMATICS_VM_CREDENTIALS)
+                    transferDockerImageToVM(remote, 'automatics/deployment/automatics-orchestration/server/dockerImage','automatics-orchestration.tar')
+					echo "Successfully transfered and loaded Automatics Tomcat docker image to the VM"
                 }
             }
         }
@@ -188,22 +145,12 @@ pipeline {
             }
             steps {
                 script{
-                    def remote = [name: 'Automatics-Orchestration', host: params.AUTOMATICS_IP_ADDRESS, allowAnyHosts: true]
-                    withCredentials( [usernamePassword( credentialsId: params.AUTOMATICS_VM_CREDENTIALS, 
-                        usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                        remote.user = USERNAME
-                        if(!env.PASSWORD){
-                            remote.password = ""
-                        } else {
-                            remote.password = PASSWORD
-                        }
-                        remote.port = 22
-                        try {
+                    remote = sshToVM('Automatics-Orchestration', params.AUTOMATICS_IP_ADDRESS, params.AUTOMATICS_VM_CREDENTIALS)
+                    try {
 							sshCommand remote: remote, command: "docker rm \$(docker stop \$(docker ps -a | grep automatics_orchestration_tomcat_ | awk \'{print \$1}\'))"
 						} catch (err) {
 							echo "Caught: ${err}"
 						}
-                    }
 					echo "Successfully stopped and removed Automatics Tomcat docker conatiner"
                 }
             }
@@ -216,30 +163,89 @@ pipeline {
             }
             steps {
                 script{
-                    def remote = [name: 'Automatics-Orchestration', host: params.AUTOMATICS_IP_ADDRESS, allowAnyHosts: true]
-					def dbUrl = "jdbc:mysql://${params.AUTOMATICS_DB_IP_ADDRESS}:${params.AUTOMATICS_DB_PORT}/automatics?autoReconnect=true"
+                    remote = sshToVM('Automatics-Orchestration', params.AUTOMATICS_IP_ADDRESS, params.AUTOMATICS_VM_CREDENTIALS)
+                    def dbUrl = "jdbc:mysql://${params.AUTOMATICS_DB_IP_ADDRESS}:${params.AUTOMATICS_DB_PORT}/automatics?autoReconnect=true"
 					def dbUrlSingleVM = "jdbc:mysql://automatics_orchestration_db_${params.AUTOMATICS_DB_PORT}:3306/automatics?autoReconnect=true"
 					def containerName = "automatics_orchestration_tomcat_${params.AUTOMATICS_SERVER_PORT}"
-                    withCredentials( [usernamePassword( credentialsId: params.AUTOMATICS_VM_CREDENTIALS, 
-                        usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                        remote.user = USERNAME
-                        if(!env.PASSWORD){
-                            remote.password = ""
-                        } else {
-                            remote.password = PASSWORD
-                        }
-                        remote.port = 22
-						
-						sshCommand remote: remote, command: "mkdir -p '${params.AUTOMATICS_LOG_DIRECTORY}'"
-						if("${params.AUTOMATICS_IP_ADDRESS}" == "${params.AUTOMATICS_DB_IP_ADDRESS}"){                      
-							sshCommand remote: remote, command: "docker run --net automatics_network -e DB_URL='${dbUrlSingleVM}' -e DB_USERNAME='${params.AUTOMATICS_MYSQL_DB_USERNAME}' -e DB_PASSWORD='${params.AUTOMATICS_MYSQL_ROOT_PASSWORD}' -v '${params.AUTOMATICS_LOG_DIRECTORY}':/usr/local/tomcat/logs -p '${params.AUTOMATICS_SERVER_PORT}':8080 --name='${containerName}' -d automatics-orchestration:latest"
-						} else {                        
-							sshCommand remote: remote, command: "docker run -e DB_URL='${dbUrl}' -e DB_USERNAME='${params.AUTOMATICS_MYSQL_DB_USERNAME}' -e DB_PASSWORD='${params.AUTOMATICS_MYSQL_ROOT_PASSWORD}' -v '${params.AUTOMATICS_LOG_DIRECTORY}':/usr/local/tomcat/logs -p '${params.AUTOMATICS_SERVER_PORT}':8080 --name='${containerName}' -d automatics-orchestration:latest"
-						}
+                    
+                    sshCommand remote: remote, command: "mkdir -p '${params.AUTOMATICS_LOG_DIRECTORY}'"
+                    if("${params.AUTOMATICS_IP_ADDRESS}" == "${params.AUTOMATICS_DB_IP_ADDRESS}"){                      
+                        sshCommand remote: remote, command: "docker run --net automatics_network -e DB_URL='${dbUrlSingleVM}' -e DB_USERNAME='${params.AUTOMATICS_MYSQL_DB_USERNAME}' -e DB_PASSWORD='${params.AUTOMATICS_MYSQL_ROOT_PASSWORD}' -v '${params.AUTOMATICS_LOG_DIRECTORY}':/usr/local/tomcat/logs -p '${params.AUTOMATICS_SERVER_PORT}':8080 --name='${containerName}' -d automatics-orchestration:latest"
+                    } else {                        
+                        sshCommand remote: remote, command: "docker run -e DB_URL='${dbUrl}' -e DB_USERNAME='${params.AUTOMATICS_MYSQL_DB_USERNAME}' -e DB_PASSWORD='${params.AUTOMATICS_MYSQL_ROOT_PASSWORD}' -v '${params.AUTOMATICS_LOG_DIRECTORY}':/usr/local/tomcat/logs -p '${params.AUTOMATICS_SERVER_PORT}':8080 --name='${containerName}' -d automatics-orchestration:latest"
                     }
                 }
             }
         }
+        stage('Prepare Rack Data Service Docker images') {
+            when {
+                expression {
+                    return params.DEPLOY_AUTOMATICS_ORCHESTRATION
+                }
+            }
+            steps {
+                script{
+                    sh """
+                    docker save rack-data-service > rack-data-service.tar
+                    echo "Successfully Compressed Rack Data Service Docker image to rack-data-service.tar"
+                    """
+                }
+            }
+        }
+        stage('Transfer Rack Data Service Docker image to the VM') {
+            when {
+                expression {
+                    return params.DEPLOY_AUTOMATICS_ORCHESTRATION
+                }
+            }
+            steps {
+                script{
+                    remote = sshToVM('Rack-Data-Service', params.RACK_DATA_SERVICE_IP_ADDRESS, params.RACK_DATA_SERVICE_VM_CREDENTIALS)
+                    transferDockerImageToVM(remote, 'automatics/deployment/rack-data-service/server/dockerImage','rack-data-service.tar')
+					
+                }
+            }
+        }
+        stage('Stop & Remove Rack Data Service Docker Container') {
+            when {
+                expression {
+                    return params.DEPLOY_AUTOMATICS_ORCHESTRATION
+                }
+            }
+            steps {
+                script{
+                    remote = sshToVM('Rack-Data-Service', params.RACK_DATA_SERVICE_IP_ADDRESS, params.RACK_DATA_SERVICE_VM_CREDENTIALS)
+                    
+                    try {
+                        sshCommand remote: remote, command: "docker rm \$(docker stop \$(docker ps -a | grep rack_data_service_ | awk \'{print \$1}\'))"
+                    } catch (err) {
+                        echo "Caught: ${err}"
+                    }
+					echo "Successfully stopped and removed Rack Data Service docker conatiner"
+                }
+            }
+        }
+        stage('Deploy Rack Data Service App to the VM') {
+            when {
+                expression {
+                    return params.DEPLOY_AUTOMATICS_ORCHESTRATION
+                }
+            }
+            steps {
+                script{
+                    remote = sshToVM('Rack-Data-Service', params.RACK_DATA_SERVICE_IP_ADDRESS, params.RACK_DATA_SERVICE_VM_CREDENTIALS)
+                    def containerName = "rack_data_service_${params.RACK_DATA_SERVICE_PORT}"
+					def dbContainerName = "automatics_orchestration_db_${params.AUTOMATICS_DB_PORT}"
+                    
+                    sshCommand remote: remote, command: "mkdir -p '${params.RACK_DATA_SERVICE_LOG_DIRECTORY}'"
+                    if("${params.RACK_DATA_SERVICE_IP_ADDRESS}" == "${params.AUTOMATICS_DB_IP_ADDRESS}"){
+                        sshCommand remote: remote, command: "docker run --net automatics_network -e DB_HOST='${dbContainerName}' -e DB_PORT=3306 -e DB_USERNAME='${params.AUTOMATICS_DB_USERNAME}' -e SERVER_PORT='${params.RACK_DATA_SERVICE_PORT}' -e DB_PASSWORD='${params.AUTOMATICS_MYSQL_ROOT_PASSWORD}' -v '${params.RACK_DATA_SERVICE_LOG_DIRECTORY}':/usr/local/tomcat/logs -p '${params.RACK_DATA_SERVICE_PORT}':8084 --name='${containerName}' -d rack-data-service:latest"
+                    } else {
+                        sshCommand remote: remote, command: "docker run -e DB_HOST='${params.AUTOMATICS_DB_IP_ADDRESS}' -e DB_PORT='${params.AUTOMATICS_DB_PORT}' -e DB_USERNAME='${params.AUTOMATICS_DB_USERNAME}' -e SERVER_PORT='${params.RACK_DATA_SERVICE_PORT}' -e DB_PASSWORD='${params.AUTOMATICS_MYSQL_ROOT_PASSWORD}' -v '${params.RACK_DATA_SERVICE_LOG_DIRECTORY}':/usr/local/tomcat/logs -p '${params.RACK_DATA_SERVICE_PORT}':8084 --name='${containerName}' -d rack-data-service:latest"
+                    }
+                }
+            }
+        }	
         stage('Prepare Automatics Properties Docker images') {
             when {
                 expression {
@@ -263,21 +269,9 @@ pipeline {
             }
             steps {
                 script{
-                    def remote = [name: 'Automatics-Properties', host: params.AUTOMATICS_PROPS_IP_ADDRESS, allowAnyHosts: true]
-                    withCredentials( [usernamePassword( credentialsId: params.AUTOMATICS_PROPS_VM_CREDENTIALS, 
-                        usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                        remote.user = USERNAME
-                        if(!env.PASSWORD){
-                            remote.password = ""
-                        } else {
-                            remote.password = PASSWORD
-                        }
-                        remote.port = 22
-                        
-                        sshCommand remote: remote, command: 'mkdir -p automatics-props/deployment/automatics-properties/server/dockerImage'
-						sshPut remote: remote, from: 'automatics-props.tar', into: './automatics-props/deployment/automatics-properties/server/dockerImage/'
-						sshCommand remote: remote, command: 'docker load < ./automatics-props/deployment/automatics-properties/server/dockerImage/automatics-props.tar'
-                    }
+                    remote = sshToVM('Automatics-Properties', params.AUTOMATICS_PROPS_IP_ADDRESS, params.AUTOMATICS_PROPS_VM_CREDENTIALS)
+                    transferDockerImageToVM(remote, 'automatics-props/deployment/automatics-properties/server/dockerImage','automatics-props.tar')
+					echo "Successfully transfered and loaded Automatics Properties Server docker image to the VM"
                 }
             }
         }
@@ -289,22 +283,13 @@ pipeline {
             }
             steps {
                 script{
-                    def remote = [name: 'Automatics-Properties', host: params.AUTOMATICS_PROPS_IP_ADDRESS, allowAnyHosts: true]
-                    withCredentials( [usernamePassword( credentialsId: params.AUTOMATICS_PROPS_VM_CREDENTIALS, 
-                        usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                        remote.user = USERNAME
-                        if(!env.PASSWORD){
-                            remote.password = ""
-                        } else {
-                            remote.password = PASSWORD
-                        }
-                        remote.port = 22
-                        try {
-							sshCommand remote: remote, command: "docker rm \$(docker stop \$(docker ps -a | grep automatics_props_ | awk \'{print \$1}\'))"
-						} catch (err) {
-							echo "Caught: ${err}"
-						}                        
+                    remote = sshToVM('Automatics-Properties', params.AUTOMATICS_PROPS_IP_ADDRESS, params.AUTOMATICS_PROPS_VM_CREDENTIALS)
+                    try {
+                        sshCommand remote: remote, command: "docker rm \$(docker stop \$(docker ps -a | grep automatics_props_ | awk \'{print \$1}\'))"
+                    } catch (err) {
+                        echo "Caught: ${err}"
                     }
+
 					echo "Successfully stopped and removed Automatics props Tomcat docker conatiner"
                 }
             }
@@ -317,25 +302,17 @@ pipeline {
             }
             steps {
                 script{
-                    def remote = [name: 'Automatics-Properties', host: params.AUTOMATICS_PROPS_IP_ADDRESS, allowAnyHosts: true]
-					def containerName = "automatics_props_${params.AUTOMATICS_PROPS_SERVER_PORT}"
-                    withCredentials( [usernamePassword( credentialsId: params.AUTOMATICS_PROPS_VM_CREDENTIALS, 
-                        usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                        remote.user = USERNAME
-                        if(!env.PASSWORD){
-                            remote.password = ""
-                        } else {
-                            remote.password = PASSWORD
-                        }
-                        remote.port = 22
-						
-						sshCommand remote: remote, command: "mkdir -p '${params.AUTOMATICS_PROPS_LOG_DIRECTORY}'"
-                        
-                        sshCommand remote: remote, command: "docker run -e UI_USERNAME='${params.AUTOMATICS_PROPS_UI_USERNAME}' -e UI_PASSWORD='${params.AUTOMATICS_PROPS_UI_PASSWORD}' -e AUTOMATICS_ORCH_URL='${params.AUTOMATICS_ORCH_URL}' -e DEVICE_MANAGER_URL='${params.DEVICE_MANAGER_URL}' -v '${params.AUTOMATICS_PROPS_LOG_DIRECTORY}':/usr/local/tomcat/logs -p '${params.AUTOMATICS_PROPS_SERVER_PORT}':8080 --name='${containerName}' -d automatics-props:latest"
-                    }
+                    remote = sshToVM('Automatics-Properties', params.AUTOMATICS_PROPS_IP_ADDRESS, params.AUTOMATICS_PROPS_VM_CREDENTIALS)
+                    
+                    def containerName = "automatics_props_${params.AUTOMATICS_PROPS_SERVER_PORT}"
+
+                    sshCommand remote: remote, command: "mkdir -p '${params.AUTOMATICS_PROPS_LOG_DIRECTORY}'"
+
+                    sshCommand remote: remote, command: "docker run -e UI_USERNAME='${params.AUTOMATICS_PROPS_UI_USERNAME}' -e UI_PASSWORD='${params.AUTOMATICS_PROPS_UI_PASSWORD}' -e AUTOMATICS_ORCH_URL='${params.AUTOMATICS_ORCH_URL}' -e DEVICE_MANAGER_URL='${params.DEVICE_MANAGER_URL}' -v '${params.AUTOMATICS_PROPS_LOG_DIRECTORY}':/usr/local/tomcat/logs -p '${params.AUTOMATICS_PROPS_SERVER_PORT}':8080 --name='${containerName}' -d automatics-props:latest"
                 }
             }
         }
+        
         stage('Prepare Device Manager Docker images') {
             when {
                 expression {
@@ -361,21 +338,9 @@ pipeline {
             }
             steps {
                 script{
-                    def remote = [name: 'Device-Manager-DB', host: params.DEVICE_MANAGER_DB_IP_ADDRESS, allowAnyHosts: true]
-                    withCredentials( [usernamePassword( credentialsId: params.DEVICE_MANAGER_DB_VM_CREDENTIALS, 
-                        usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                        remote.user = USERNAME
-                        if(!env.PASSWORD){
-                            remote.password = ""
-                        } else {
-                            remote.password = PASSWORD
-                        }
-                        remote.port = 22
-                        
-                        sshCommand remote: remote, command: 'mkdir -p deviceManager/deployment/device-manager/db/dockerImage'
-						sshPut remote: remote, from: 'device-manager-db.tar', into: './deviceManager/deployment/device-manager/db/dockerImage/'
-						sshCommand remote: remote, command: 'docker load < ./deviceManager/deployment/device-manager/db/dockerImage/device-manager-db.tar'
-                    }
+                    remote = sshToVM('Device-Manager-DB', params.DEVICE_MANAGER_DB_IP_ADDRESS, params.DEVICE_MANAGER_DB_VM_CREDENTIALS)
+                    transferDockerImageToVM(remote, 'deviceManager/deployment/device-manager/db/dockerImage','device-manager-db.tar')
+					
 					echo "Successfully transfered and loaded Device Manager DB docker image to the VM"
                 }
             }
@@ -388,22 +353,8 @@ pipeline {
             }
             steps {
                 script{
-                    def remote = [name: 'Device-Manager-DB', host: params.DEVICE_MANAGER_DB_IP_ADDRESS, allowAnyHosts: true]
-                    withCredentials( [usernamePassword( credentialsId: params.DEVICE_MANAGER_DB_VM_CREDENTIALS, 
-                        usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                        remote.user = USERNAME
-                        if(!env.PASSWORD){
-                            remote.password = ""
-                        } else {
-                            remote.password = PASSWORD
-                        }
-                        remote.port = 22
-                        try {
-							sshCommand remote: remote, command: "docker rm \$(docker stop \$(docker ps -a | grep device_manager_db_ | awk \'{print \$1}\'))"
-						} catch (err) {
-							echo "Caught: ${err}"
-						}
-                    }
+                    remote = sshToVM('Device-Manager-DB', params.DEVICE_MANAGER_DB_IP_ADDRESS, params.DEVICE_MANAGER_DB_VM_CREDENTIALS)
+                    
 					echo "Successfully stopped and removed Device Manager DB docker conatiner"
                 }
             }
@@ -416,29 +367,19 @@ pipeline {
             }
             steps {
                 script{
-                    def remote = [name: 'Device-Manager-DB', host: params.DEVICE_MANAGER_DB_IP_ADDRESS, allowAnyHosts: true]
-					def containerName = "device_manager_db_${params.DEVICE_MANAGER_DB_PORT}"
-                    withCredentials( [usernamePassword( credentialsId: params.DEVICE_MANAGER_DB_VM_CREDENTIALS, 
-                        usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                        remote.user = USERNAME
-                        if(!env.PASSWORD){
-                            remote.password = ""
-                        } else {
-                            remote.password = PASSWORD
+                    remote = sshToVM('Device-Manager-DB', params.DEVICE_MANAGER_DB_IP_ADDRESS, params.DEVICE_MANAGER_DB_VM_CREDENTIALS)
+                    def containerName = "device_manager_db_${params.DEVICE_MANAGER_DB_PORT}"
+                                            
+                    sshCommand remote: remote, command: "mkdir -p 'echo ${params.DEVICE_MANAGER_DB_DATA_DIR}'"
+                    if("${params.DEVICE_MANAGER_IP_ADDRESS}" == "${params.DEVICE_MANAGER_DB_IP_ADDRESS}"){
+                        try {
+                            sshCommand remote: remote, command: "docker network create device_manager_network"
+                        } catch (err) {
+                            echo "Caught: ${err}"
                         }
-                        remote.port = 22
-                        
-						sshCommand remote: remote, command: "mkdir -p 'echo ${params.DEVICE_MANAGER_DB_DATA_DIR}'"
-						if("${params.DEVICE_MANAGER_IP_ADDRESS}" == "${params.DEVICE_MANAGER_DB_IP_ADDRESS}"){
-							try {
-								sshCommand remote: remote, command: "docker network create device_manager_network"
-							} catch (err) {
-								echo "Caught: ${err}"
-							}
-							sshCommand remote: remote, command: "docker run --name='${containerName}' -v '${params.DEVICE_MANAGER_DB_DATA_DIR}':/var/lib/mysql -e MYSQL_ROOT_PASSWORD='${params.DEVICE_MANAGER_MYSQL_ROOT_PASSWORD}' -p '${params.DEVICE_MANAGER_DB_PORT}':3306 --net device_manager_network -d device-manager-db:latest"
-						} else {
-							sshCommand remote: remote, command: "docker run --name='${containerName}' -v '${params.DEVICE_MANAGER_DB_DATA_DIR}':/var/lib/mysql -e MYSQL_ROOT_PASSWORD='${params.DEVICE_MANAGER_MYSQL_ROOT_PASSWORD}' -p '${params.DEVICE_MANAGER_DB_PORT}':3306 -d device-manager-db:latest"
-						}
+                        sshCommand remote: remote, command: "docker run --name='${containerName}' -v '${params.DEVICE_MANAGER_DB_DATA_DIR}':/var/lib/mysql -e MYSQL_ROOT_PASSWORD='${params.DEVICE_MANAGER_MYSQL_ROOT_PASSWORD}' -p '${params.DEVICE_MANAGER_DB_PORT}':3306 --net device_manager_network -d device-manager-db:latest"
+                    } else {
+                        sshCommand remote: remote, command: "docker run --name='${containerName}' -v '${params.DEVICE_MANAGER_DB_DATA_DIR}':/var/lib/mysql -e MYSQL_ROOT_PASSWORD='${params.DEVICE_MANAGER_MYSQL_ROOT_PASSWORD}' -p '${params.DEVICE_MANAGER_DB_PORT}':3306 -d device-manager-db:latest"
                     }
                 }
             }
@@ -451,21 +392,9 @@ pipeline {
             }
             steps {
                 script{
-                    def remote = [name: 'Device-Manager', host: params.DEVICE_MANAGER_IP_ADDRESS, allowAnyHosts: true]
-                    withCredentials( [usernamePassword( credentialsId: params.DEVICE_MANAGER_VM_CREDENTIALS, 
-                        usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                        remote.user = USERNAME
-                        if(!env.PASSWORD){
-                            remote.password = ""
-                        } else {
-                            remote.password = PASSWORD
-                        }
-                        remote.port = 22
-                        
-                        sshCommand remote: remote, command: 'mkdir -p deviceManager/deployment/device-manager/server/dockerImage'
-						sshPut remote: remote, from: 'device-manager.tar', into: './deviceManager/deployment/device-manager/server/dockerImage/'
-						sshCommand remote: remote, command: 'docker load < ./deviceManager/deployment/device-manager/server/dockerImage/device-manager.tar'
-                    }
+                    remote = sshToVM('Device-Manager', params.DEVICE_MANAGER_IP_ADDRESS, params.DEVICE_MANAGER_VM_CREDENTIALS)
+                    transferDockerImageToVM(remote, 'deviceManager/deployment/device-manager/server/dockerImage','device-manager.tar')
+					echo "Successfully transfered and loaded Device Manager Tomcat docker image to the VM"
                 }
             }
         }
@@ -477,21 +406,12 @@ pipeline {
             }
             steps {
                 script{
-                    def remote = [name: 'Device-Manager', host: params.DEVICE_MANAGER_IP_ADDRESS, allowAnyHosts: true]
-                    withCredentials( [usernamePassword( credentialsId: params.DEVICE_MANAGER_VM_CREDENTIALS, 
-                        usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                        remote.user = USERNAME
-                        if(!env.PASSWORD){
-                            remote.password = ""
-                        } else {
-                            remote.password = PASSWORD
-                        }
-                        remote.port = 22
-                        try {
-							sshCommand remote: remote, command: "docker rm \$(docker stop \$(docker ps -a | grep device_manager_tomcat_ | awk \'{print \$1}\'))"
-						} catch (err) {
-							echo "Caught: ${err}"
-						}
+                    remote = sshToVM('Device-Manager', params.DEVICE_MANAGER_IP_ADDRESS, params.DEVICE_MANAGER_VM_CREDENTIALS)
+                    
+                    try {
+                        sshCommand remote: remote, command: "docker rm \$(docker stop \$(docker ps -a | grep device_manager_tomcat_ | awk \'{print \$1}\'))"
+                    } catch (err) {
+                        echo "Caught: ${err}"
                     }
 					echo "Successfully stopped and removed Device Manager Tomcat docker conatiner"
                 }
@@ -505,25 +425,15 @@ pipeline {
             }
             steps {
                 script{
-                    def remote = [name: 'Device-Manager', host: params.DEVICE_MANAGER_IP_ADDRESS, allowAnyHosts: true]
-					def containerName = "device_manager_tomcat_${params.DEVICE_MANAGER_SERVER_PORT}"
+                    remote = sshToVM('Device-Manager', params.DEVICE_MANAGER_IP_ADDRESS, params.DEVICE_MANAGER_VM_CREDENTIALS)
+                    def containerName = "device_manager_tomcat_${params.DEVICE_MANAGER_SERVER_PORT}"
 					def dbContainerName = "device_manager_db_${params.DEVICE_MANAGER_DB_PORT}"
-                    withCredentials( [usernamePassword( credentialsId: params.DEVICE_MANAGER_VM_CREDENTIALS, 
-                        usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                        remote.user = USERNAME
-                        if(!env.PASSWORD){
-                            remote.password = ""
-                        } else {
-                            remote.password = PASSWORD
-                        }
-                        remote.port = 22
-						
-						sshCommand remote: remote, command: "mkdir -p '${params.DEVICE_MANAGER_LOG_DIRECTORY}'"
-						if("${params.DEVICE_MANAGER_IP_ADDRESS}" == "${params.DEVICE_MANAGER_DB_IP_ADDRESS}"){
-							sshCommand remote: remote, command: "docker run --net device_manager_network -e DB_HOST='${dbContainerName}' -e DB_PORT=3306 -e DB_USERNAME='${params.DEVICE_MANAGER_DB_USERNAME}' -e SERVER_PORT='${params.DEVICE_MANAGER_SERVER_PORT}' -e DB_PASSWORD='${params.DEVICE_MANAGER_MYSQL_ROOT_PASSWORD}' -e SWAGGER_HOST='${params.DEVICE_MANAGER_SWAGGER_HOST}' -v '${params.DEVICE_MANAGER_LOG_DIRECTORY}':/usr/local/tomcat/logs -p '${params.DEVICE_MANAGER_SERVER_PORT}':8080 --name='${containerName}' -d device-manager:latest"
-						} else {
-							sshCommand remote: remote, command: "docker run -e DB_HOST='${params.DEVICE_MANAGER_DB_IP_ADDRESS}' -e DB_PORT='${params.DEVICE_MANAGER_SERVER_PORT}' -e DB_USERNAME='${params.DEVICE_MANAGER_DB_USERNAME}' -e SERVER_PORT='${params.DEVICE_MANAGER_SERVER_PORT}' -e DB_PASSWORD='${params.DEVICE_MANAGER_MYSQL_ROOT_PASSWORD}' -e SWAGGER_HOST='${params.DEVICE_MANAGER_SWAGGER_HOST}' -v '${params.DEVICE_MANAGER_LOG_DIRECTORY}':/usr/local/tomcat/logs -p '${params.DEVICE_MANAGER_SERVER_PORT}':8080 --name='${containerName}' -d device-manager:latest"
-						}                         
+                    
+                    sshCommand remote: remote, command: "mkdir -p '${params.DEVICE_MANAGER_LOG_DIRECTORY}'"
+                    if("${params.DEVICE_MANAGER_IP_ADDRESS}" == "${params.DEVICE_MANAGER_DB_IP_ADDRESS}"){
+                        sshCommand remote: remote, command: "docker run --net device_manager_network -e DB_HOST='${dbContainerName}' -e DB_PORT=3306 -e DB_USERNAME='${params.DEVICE_MANAGER_DB_USERNAME}' -e SERVER_PORT='${params.DEVICE_MANAGER_SERVER_PORT}' -e DB_PASSWORD='${params.DEVICE_MANAGER_MYSQL_ROOT_PASSWORD}' -e SWAGGER_HOST='${params.DEVICE_MANAGER_SWAGGER_HOST}' -v '${params.DEVICE_MANAGER_LOG_DIRECTORY}':/usr/local/tomcat/logs -p '${params.DEVICE_MANAGER_SERVER_PORT}':8080 --name='${containerName}' -d device-manager:latest"
+                    } else {
+                        sshCommand remote: remote, command: "docker run -e DB_HOST='${params.DEVICE_MANAGER_DB_IP_ADDRESS}' -e DB_PORT='${params.DEVICE_MANAGER_DB_PORT}' -e DB_USERNAME='${params.DEVICE_MANAGER_DB_USERNAME}' -e SERVER_PORT='${params.DEVICE_MANAGER_SERVER_PORT}' -e DB_PASSWORD='${params.DEVICE_MANAGER_MYSQL_ROOT_PASSWORD}' -e SWAGGER_HOST='${params.DEVICE_MANAGER_SWAGGER_HOST}' -v '${params.DEVICE_MANAGER_LOG_DIRECTORY}':/usr/local/tomcat/logs -p '${params.DEVICE_MANAGER_SERVER_PORT}':8080 --name='${containerName}' -d device-manager:latest"
                     }
                 }
             }
@@ -552,21 +462,9 @@ pipeline {
             }
             steps {
                 script{
-                    def remote = [name: 'Device-Manager-UI', host: params.DEVICE_MANAGER_UI_IP_ADDRESS, allowAnyHosts: true]
-                    withCredentials( [usernamePassword( credentialsId: params.DEVICE_MANAGER_UI_VM_CREDENTIALS, 
-                        usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                        remote.user = USERNAME
-                        if(!env.PASSWORD){
-                            remote.password = ""
-                        } else {
-                            remote.password = PASSWORD
-                        }
-                        remote.port = 22
-                        
-                        sshCommand remote: remote, command: 'mkdir -p devicemanagerUI/deployment/device-manager-ui/server/dockerImage'
-						sshPut remote: remote, from: 'device-manager-ui.tar', into: './devicemanagerUI/deployment/device-manager-ui/server/dockerImage/'
-						sshCommand remote: remote, command: 'docker load < ./devicemanagerUI/deployment/device-manager-ui/server/dockerImage/device-manager-ui.tar'
-                    }
+                    remote = sshToVM('Device-Manager-UI', params.DEVICE_MANAGER_UI_IP_ADDRESS, params.DEVICE_MANAGER_UI_VM_CREDENTIALS)
+                    transferDockerImageToVM(remote, 'devicemanagerUI/deployment/device-manager-ui/server/dockerImage','device-manager-ui.tar')
+					
                 }
             }
         }
@@ -578,22 +476,13 @@ pipeline {
             }
             steps {
                 script{
-                    def remote = [name: 'Device-Manager-UI', host: params.DEVICE_MANAGER_UI_IP_ADDRESS, allowAnyHosts: true]
-                    withCredentials( [usernamePassword( credentialsId: params.DEVICE_MANAGER_UI_VM_CREDENTIALS, 
-                        usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                        remote.user = USERNAME
-                        if(!env.PASSWORD){
-                            remote.password = ""
-                        } else {
-                            remote.password = PASSWORD
-                        }
-                        remote.port = 22
-                        try {
-							sshCommand remote: remote, command: "docker rm \$(docker stop \$(docker ps -a | grep device_manager_ui_tomcat_ | awk \'{print \$1}\'))"
-						} catch (err) {
-							echo "Caught: ${err}"
-						}                        
-                    }
+                    remote = sshToVM('Device-Manager-UI', params.DEVICE_MANAGER_UI_IP_ADDRESS, params.DEVICE_MANAGER_UI_VM_CREDENTIALS)
+                    
+                    try {
+                        sshCommand remote: remote, command: "docker rm \$(docker stop \$(docker ps -a | grep device_manager_ui_tomcat_ | awk \'{print \$1}\'))"
+                    } catch (err) {
+                        echo "Caught: ${err}"
+                    } 
 					echo "Successfully stopped and removed Device Manager UI Tomcat docker conatiner"
                 }
             }
@@ -606,32 +495,47 @@ pipeline {
             }
             steps {
                 script{
-                    def remote = [name: 'Device-Manager-UI', host: params.DEVICE_MANAGER_UI_IP_ADDRESS, allowAnyHosts: true]
-					def containerName = "device_manager_ui_tomcat_${params.DEVICE_MANAGER_UI_SERVER_PORT}"
-                    withCredentials( [usernamePassword( credentialsId: params.DEVICE_MANAGER_UI_VM_CREDENTIALS, 
-                        usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                        remote.user = USERNAME
-                        if(!env.PASSWORD){
-                            remote.password = ""
-                        } else {
-                            remote.password = PASSWORD
-                        }
-                        remote.port = 22
-						
-						sshCommand remote: remote, command: "mkdir -p '${params.DEVICE_MANAGER_UI_LOG_DIRECTORY}'"
-						
-						if("${params.DEVICE_MANAGER_IP_ADDRESS}" == "${params.DEVICE_MANAGER_UI_IP_ADDRESS}"){
-							sshCommand remote: remote, command: "docker run --net device_manager_network -e UI_HOST='${params.DEVICE_MANAGER_UI_IP_ADDRESS}' -e UI_PORT='${params.DEVICE_MANAGER_UI_SERVER_PORT}' -e DEVICE_MANAGER_IP_ADDRESS='${params.DEVICE_MANAGER_IP_ADDRESS}' -e DEVICE_MANAGER_SERVER_PORT='${params.DEVICE_MANAGER_SERVER_PORT}' -v '${params.DEVICE_MANAGER_UI_LOG_DIRECTORY}':/usr/local/tomcat/logs -p '${params.DEVICE_MANAGER_UI_SERVER_PORT}':8080 --name='${containerName}' -d device-manager-ui:latest"
-						} else {
-		                    sshCommand remote: remote, command: "docker run -e UI_HOST='${params.DEVICE_MANAGER_UI_IP_ADDRESS}' -e UI_PORT='${params.DEVICE_MANAGER_UI_SERVER_PORT}' -e DEVICE_MANAGER_IP_ADDRESS='${params.DEVICE_MANAGER_IP_ADDRESS}' -e DEVICE_MANAGER_SERVER_PORT='${params.DEVICE_MANAGER_SERVER_PORT}'  -v '${params.DEVICE_MANAGER_UI_LOG_DIRECTORY}':/usr/local/tomcat/logs -p '${params.DEVICE_MANAGER_UI_SERVER_PORT}':8080 --name='${containerName}' -d device-manager-ui:latest"
-							}        
-                        
-     
-                    }
+                    remote = sshToVM('Device-Manager-UI', params.DEVICE_MANAGER_UI_IP_ADDRESS, params.DEVICE_MANAGER_UI_VM_CREDENTIALS)
+                    def containerName = "device_manager_ui_tomcat_${params.DEVICE_MANAGER_UI_SERVER_PORT}"
+                   				
+                    sshCommand remote: remote, command: "mkdir -p '${params.DEVICE_MANAGER_UI_LOG_DIRECTORY}'"
+                    
+                    if("${params.DEVICE_MANAGER_IP_ADDRESS}" == "${params.DEVICE_MANAGER_UI_IP_ADDRESS}"){
+                        sshCommand remote: remote, command: "docker run --net device_manager_network -e UI_HOST='${params.DEVICE_MANAGER_UI_IP_ADDRESS}' -e UI_PORT='${params.DEVICE_MANAGER_UI_SERVER_PORT}' -e DEVICE_MANAGER_IP_ADDRESS='${params.DEVICE_MANAGER_IP_ADDRESS}' -e DEVICE_MANAGER_SERVER_PORT='${params.DEVICE_MANAGER_SERVER_PORT}' -v '${params.DEVICE_MANAGER_UI_LOG_DIRECTORY}':/usr/local/tomcat/logs -p '${params.DEVICE_MANAGER_UI_SERVER_PORT}':8080 --name='${containerName}' -d device-manager-ui:latest"
+                    } else {
+                        sshCommand remote: remote, command: "docker run -e UI_HOST='${params.DEVICE_MANAGER_UI_IP_ADDRESS}' -e UI_PORT='${params.DEVICE_MANAGER_UI_SERVER_PORT}' -e DEVICE_MANAGER_IP_ADDRESS='${params.DEVICE_MANAGER_IP_ADDRESS}' -e DEVICE_MANAGER_SERVER_PORT='${params.DEVICE_MANAGER_SERVER_PORT}'  -v '${params.DEVICE_MANAGER_UI_LOG_DIRECTORY}':/usr/local/tomcat/logs -p '${params.DEVICE_MANAGER_UI_SERVER_PORT}':8080 --name='${containerName}' -d device-manager-ui:latest"
+                    }   
                 }
             }
-        }
-		
-		
+        }		
     }
+}
+
+def transferDockerImageToVM(remote, imageTransferPath, dockerImageTarName) {
+    
+    def mkdirCommand = 'mkdir -p ' + imageTransferPath
+    def vmImagePath = './'+ imageTransferPath + '/'
+    def dockerLoadCommand = 'docker load < ./'+ imageTransferPath + '/' + dockerImageTarName
+    
+    try {
+        sshCommand remote: remote, command: mkdirCommand
+        sshPut remote: remote, from: dockerImageTarName, into: vmImagePath
+        sshCommand remote: remote, command: dockerLoadCommand
+    } catch (err) {
+        echo "Caught: ${err}"
+    }
+}
+
+def sshToVM(name, ipAddress, credentialsId) {
+    def remote = [name: name, host: ipAddress, allowAnyHosts: true]
+    withCredentials( [usernamePassword( credentialsId: credentialsId, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+    remote.user = USERNAME
+    if(!env.PASSWORD){
+        remote.password = ""
+    } else {
+        remote.password = PASSWORD
+    }
+    remote.port = 22
+    }
+    return remote
 }

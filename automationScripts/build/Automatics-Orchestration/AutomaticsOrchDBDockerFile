@@ -1,6 +1,6 @@
 FROM mysql:5.6.51
 
-MAINTAINER Shameem M Shereef <shameemm.s@tataelxsi.co.in>
+LABEL "AUTHOR"="Shameem M Shereef <shameemm.s@tataelxsi.co.in>"
 
 ENV MYSQL_DATABASE automatics
 

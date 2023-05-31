@@ -20,7 +20,7 @@
 
 echo "$DB_URL"
 echo "$DB_USERNAME"
-echo "DOCKER_IMAGE_NAME"
+echo "$DOCKER_IMAGE_NAME"
 
 sed -i -e "s|jdbc:mysql:\/\/localhost:3306\/automatics?autoReconnect=true|${DB_URL}|" "$CATALINA_HOME"/AutomaticsConfig/hibernate.cfg.xml
 
@@ -30,7 +30,7 @@ password=$(echo -n "$DB_PASSWORD" | base64)
 
 sed -i "/<property name=\"hibernate\.connection\.password\">[^<]*<\/property>/ s/>\([^<]*\)</>${password//\//\\/}</" "$CATALINA_HOME"/AutomaticsConfig/hibernate.cfg.xml
 
-sed -i 's#<Property name="FILE_NAME">../logs/traces</Property>#<Property name="FILE_NAME">/usr/local/tomcat/logs/traces</Property>#g' "$CATALINA_HOME"/AutomaticsConfiglog4j2-test.xml
+sed -i 's#<Property name="FILE_NAME">../logs/traces</Property>#<Property name="FILE_NAME">/usr/local/tomcat/logs/traces</Property>#g' "$CATALINA_HOME"/AutomaticsConfig/log4j2-test.xml
 
 mkdir -p "$CATALINA_HOME"/logs/traces/
 

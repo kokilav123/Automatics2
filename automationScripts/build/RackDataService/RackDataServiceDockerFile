@@ -1,0 +1,9 @@
+FROM java:openjdk-8
+
+LABEL "AUTHOR"="Shameem M Shereef <shameemm.s@tataelxsi.co.in>"
+
+RUN mkdir -p /usr/app/rackDataService
+
+ADD RackDataService/target/rackdataservice*.jar /usr/app/rackDataService/RackDataService.jar
+
+CMD ["java", "-jar", "/usr/app/rackDataService/RackDataService.jar"]

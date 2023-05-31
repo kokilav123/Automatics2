@@ -64,7 +64,7 @@ systemctl enable docker.service
 systemctl enable containerd.service
 
 #Getting jenkins docker image from docker hub and building custom Jenkins docker image for automatics
-docker build -f ./jenkinsDockerFile -t automatics_jenkins:jdk8 .
+docker build -f ./jenkinsDockerFile -t automatics_jenkins:jdk8 . || handle_error
 
 echo -e "\n\nSuccesfully built Automatics Jenkins Docker image"
 
@@ -75,6 +75,15 @@ chmod -R 777 /mnt/automatics
 
 echo -e "\n\nEnter the port in which Jenkins server to be started : "
 read port
+
+# Check if the network exists
+if docker network ls | grep -q "jenkins"; then
+  echo "Network jenkins already exists"
+else
+  # Create the network
+  docker network create jenkins
+fi
+
 #Starting the jenkins docker conatiner
 docker run --name automatics_jenkins --restart=on-failure --detach \
   --network jenkins --publish ${port}:8080 --publish 50000:50000 \
@@ -82,14 +91,16 @@ docker run --name automatics_jenkins --restart=on-failure --detach \
   --volume /var/run/docker.sock:/var/run/docker.sock \
   --volume jenkins-docker-certs:/certs/client:ro \
   -e JAVA_OPTS="-Dhudson.security.csrf.GlobalCrumbIssuerConfiguration.DISABLE_CSRF_PROTECTION=true" \
-  automatics_jenkins:jdk8
+  automatics_jenkins:jdk8 || handle_error
   
 
 echo -e "\n\nSuccesfully Started Automatics Jenkins Docker Conatiner"
 echo -e "Jenkins server is started in port \033[0;31m${port}\033[0m"
 
 #Creating the required jobs in jenkins
-docker cp jobs/. automatics_jenkins:/var/jenkins_home/jobs/
+docker cp jobs/. automatics_jenkins:/var/jenkins_home/jobs/ || handle_error
+
+sleep 60
 
 docker restart automatics_jenkins
 
@@ -97,3 +108,10 @@ docker restart automatics_jenkins
 echo -e "\nMaven home directory inside DOCKER conatiner : \033[0;31m/usr/share/maven\033[0m"
 echo -e "\nJenkins home location : \033[0;31m/mnt/automatics/jenkins_home\033[0m"
 
+#Function to handle errors
+function handle_error() {
+  echo -e "\033[31mAn error occurred.\033[0m"
+  echo "Error trace:"
+  caller
+  exit 1
+}

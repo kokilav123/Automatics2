@@ -1,6 +1,6 @@
 FROM tomcat:8.5-jdk8
 
-MAINTAINER Shameem M Shereef <shameemm.s@tataelxsi.co.in> 
+LABEL "AUTHOR"="Shameem M Shereef <shameemm.s@tataelxsi.co.in>"
 
 ADD target/device-manager*.war $CATALINA_HOME/webapps/DeviceManager.war
 ADD startDocker.sh $CATALINA_HOME/startDocker.sh

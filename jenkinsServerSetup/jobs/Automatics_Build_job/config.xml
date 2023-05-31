@@ -1,8 +1,8 @@
 <?xml version='1.1' encoding='UTF-8'?>
-<flow-definition plugin="workflow-job@1207.ve6191ff089f8">
+<flow-definition plugin="workflow-job@1207.1209.v69351208a_5a_7">
   <actions>
-    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobAction plugin="pipeline-model-definition@2.2118.v31fd5b_9944b_5"/>
-    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction plugin="pipeline-model-definition@2.2118.v31fd5b_9944b_5">
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobAction plugin="pipeline-model-definition@2.2121.vd87fb_6536d1e"/>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction plugin="pipeline-model-definition@2.2121.vd87fb_6536d1e">
       <jobProperties/>
       <triggers/>
       <parameters>
@@ -13,13 +13,17 @@
         <string>AUTOMATICS_GIT_URL</string>
         <string>DEVICE_MANAGER_UI_GIT_CREDENTIALS</string>
         <string>AUTOMATICS_PROPERTIES_GIT_BRANCH_NAME</string>
+        <string>BUILD_RACK_DATA_SERVICE</string>
         <string>DEVICE_MANAGER_GIT_URL</string>
         <string>DEVICE_MANAGER_UI_GIT_URL</string>
+        <string>RACK_DATA_SERVICE_GIT_BRANCH_NAME</string>
         <string>AUTOMATICS_PROPERTIES_GIT_URL</string>
         <string>BUILD_DEVICE_MANAGER_UI</string>
         <string>DEVICE_MANAGER_UI_GIT_BRANCH_NAME</string>
+        <string>RACK_DATA_SERVICE_GIT_URL</string>
         <string>BUILD_AUTOMATICS_ORCHESTRATION</string>
         <string>BUILD_AUTOMATICS_PROPERTIES</string>
+        <string>RACK_DATA_SERVICE_GIT_CREDENTIALS</string>
         <string>BUILD_DEVICE_MANAGER</string>
         <string>DEVICE_MANAGER_GIT_BRANCH_NAME</string>
       </parameters>
@@ -127,6 +131,30 @@
         <com.cloudbees.plugins.credentials.CredentialsParameterDefinition plugin="credentials@1143.vb_e8b_b_ceee347">
           <name>DEVICE_MANAGER_UI_GIT_CREDENTIALS</name>
           <description>Select or Add credentials for Device Manager UI Git Login</description>
+          <defaultValue></defaultValue>
+          <credentialType>com.cloudbees.plugins.credentials.common.StandardCredentials</credentialType>
+          <required>false</required>
+        </com.cloudbees.plugins.credentials.CredentialsParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
+          <name>BUILD_RACK_DATA_SERVICE</name>
+          <description>Tick this checkbox to build the .jar file and Docker image of Rack Data Service</description>
+          <defaultValue>true</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>RACK_DATA_SERVICE_GIT_URL</name>
+          <description>Enter the URL of Rack Data Service Git repository</description>
+          <defaultValue>https://code.rdkcentral.com/r/rdk/tools/automatics/scriptless-service</defaultValue>
+          <trim>true</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>RACK_DATA_SERVICE_GIT_BRANCH_NAME</name>
+          <description>Enter Branch Name of Rack Data Service Git repository</description>
+          <defaultValue>rdk-next</defaultValue>
+          <trim>true</trim>
+        </hudson.model.StringParameterDefinition>
+        <com.cloudbees.plugins.credentials.CredentialsParameterDefinition plugin="credentials@1143.vb_e8b_b_ceee347">
+          <name>RACK_DATA_SERVICE_GIT_CREDENTIALS</name>
+          <description>Select or Add credentials for Rack Data Service Git Login</description>
           <defaultValue></defaultValue>
           <credentialType>com.cloudbees.plugins.credentials.common.StandardCredentials</credentialType>
           <required>false</required>

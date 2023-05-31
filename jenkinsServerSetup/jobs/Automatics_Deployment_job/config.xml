@@ -1,8 +1,8 @@
 <?xml version='1.1' encoding='UTF-8'?>
-<flow-definition plugin="workflow-job@1207.ve6191ff089f8">
+<flow-definition plugin="workflow-job@1207.1209.v69351208a_5a_7">
   <actions>
-    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobAction plugin="pipeline-model-definition@2.2118.v31fd5b_9944b_5"/>
-    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction plugin="pipeline-model-definition@2.2118.v31fd5b_9944b_5">
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobAction plugin="pipeline-model-definition@2.2121.vd87fb_6536d1e"/>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction plugin="pipeline-model-definition@2.2121.vd87fb_6536d1e">
       <jobProperties/>
       <triggers/>
       <parameters>
@@ -30,6 +30,7 @@
         <string>AUTOMATICS_DB_DATA_DIR</string>
         <string>AUTOMATICS_PROPS_VM_CREDENTIALS</string>
         <string>DEVICE_MANAGER_DB_DATA_DIR</string>
+        <string>RACK_DATA_SERVICE_VM_CREDENTIALS</string>
         <string>AUTOMATICS_ORCH_URL</string>
         <string>DEVICE_MANAGER_LOG_DIRECTORY</string>
         <string>DEPLOY_DEVICE_MANAGER_UI</string>
@@ -37,11 +38,13 @@
         <string>DEVICE_MANAGER_DB_USERNAME</string>
         <string>DEVICE_MANAGER_MYSQL_ROOT_PASSWORD</string>
         <string>DEVICE_MANAGER_UI_LOG_DIRECTORY</string>
+        <string>RACK_DATA_SERVICE_IP_ADDRESS</string>
         <string>AUTOMATICS_MYSQL_DB_USERNAME</string>
         <string>AUTOMATICS_PROPS_IP_ADDRESS</string>
         <string>DEPLOY_DEVICE_MANAGER</string>
         <string>AUTOMATICS_VM_CREDENTIALS</string>
         <string>AUTOMATICS_LOG_DIRECTORY</string>
+        <string>RACK_DATA_SERVICE_PORT</string>
         <string>DEVICE_MANAGER_DB_PORT</string>
       </parameters>
       <options/>
@@ -119,6 +122,25 @@
           <name>AUTOMATICS_DB_DATA_DIR</name>
           <description>Enter a directory in database VM where the data should be persisted</description>
           <defaultValue>/home/automatics/db/persistance/data</defaultValue>
+          <trim>true</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>RACK_DATA_SERVICE_IP_ADDRESS</name>
+          <description>Enter the IP Address of the VM in which Rack Data Service App needs to be deployed</description>
+          <defaultValue>0.0.0.0</defaultValue>
+          <trim>true</trim>
+        </hudson.model.StringParameterDefinition>
+        <com.cloudbees.plugins.credentials.CredentialsParameterDefinition plugin="credentials@1143.vb_e8b_b_ceee347">
+          <name>RACK_DATA_SERVICE_VM_CREDENTIALS</name>
+          <description>Select or Add credentials to Login to the VM in whcih Rack Data Service App to be deployed</description>
+          <defaultValue></defaultValue>
+          <credentialType>com.cloudbees.plugins.credentials.common.StandardCredentials</credentialType>
+          <required>true</required>
+        </com.cloudbees.plugins.credentials.CredentialsParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>RACK_DATA_SERVICE_PORT</name>
+          <description>Enter the port in which Rack Data Service App should be running</description>
+          <defaultValue>8084</defaultValue>
           <trim>true</trim>
         </hudson.model.StringParameterDefinition>
         <hudson.model.BooleanParameterDefinition>
@@ -283,7 +305,6 @@
       <userRemoteConfigs>
         <hudson.plugins.git.UserRemoteConfig>
           <url>https://code.rdkcentral.com/r/rdk/tools/automatics/dev-ops</url>
-          <credentialsId></credentialsId>
         </hudson.plugins.git.UserRemoteConfig>
       </userRemoteConfigs>
       <branches>

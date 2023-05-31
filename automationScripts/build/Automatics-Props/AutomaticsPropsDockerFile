@@ -1,6 +1,6 @@
 FROM tomcat:7.0.109-jdk8
 
-MAINTAINER Shameem M Shereef <shameemm.s@tataelxsi.co.in> 
+LABEL "AUTHOR"="Shameem M Shereef <shameemm.s@tataelxsi.co.in>"
 
 RUN mkdir $CATALINA_HOME/backup_file $CATALINA_HOME/webapps/automatics
 

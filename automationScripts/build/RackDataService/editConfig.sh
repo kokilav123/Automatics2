@@ -18,9 +18,9 @@
 # limitations under the License.
 ##########################################################################
 
+sed -i 's/localhost:3306/${DB_HOST}:${DB_PORT}/g' src/main/resources/application.properties
+sed -i 's/spring.datasource.username=/&${DB_USERNAME}/' src/main/resources/application.properties
 
-sh "$CATALINA_HOME"/bin/catalina.sh run
+DB_PASSWORD=$(echo -n $DB_PASSWORD | base64)
 
-sleep 140
-
-chmod -R 777 "$CATALINA_HOME"/logs
+sed -i 's/spring.datasource.password=/&${DB_PASSWORD}/' src/main/resources/application.properties

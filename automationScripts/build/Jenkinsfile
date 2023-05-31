@@ -20,6 +20,11 @@ pipeline {
 	  string defaultValue: 'https://code.rdkcentral.com/r/rdk/tools/device-manager-ui/', description: 'Enter the URL of Device Manager UI Git repository',name:'DEVICE_MANAGER_UI_GIT_URL',trim:true
 	  string defaultValue: 'rdk-next', description: 'Enter Branch Name of Device Manager UI Git repository', name:'DEVICE_MANAGER_UI_GIT_BRANCH_NAME', trim:true
 	  credentials credentialType: 'com.cloudbees.plugins.credentials.common.StandardCredentials', defaultValue: '',description: 'Select or Add credentials for Device Manager UI Git Login', name: 'DEVICE_MANAGER_UI_GIT_CREDENTIALS', required: false
+	  
+	  booleanParam(name: 'BUILD_RACK_DATA_SERVICE',defaultValue:true,description: 'Tick this checkbox to build the .jar file and Docker image of Rack Data Service')
+	  string defaultValue: 'https://code.rdkcentral.com/r/rdk/tools/automatics/scriptless-service', description: 'Enter the URL of Rack Data Service Git repository',name:'RACK_DATA_SERVICE_GIT_URL',trim:true
+	  string defaultValue: 'rdk-next', description: 'Enter Branch Name of Rack Data Service Git repository', name:'RACK_DATA_SERVICE_GIT_BRANCH_NAME', trim:true
+	  credentials credentialType: 'com.cloudbees.plugins.credentials.common.StandardCredentials', defaultValue: '',description: 'Select or Add credentials for Rack Data Service Git Login', name: 'RACK_DATA_SERVICE_GIT_CREDENTIALS', required: false
     }
     stages {
         stage('Pull Automatics Orchestration Code from RDKM Repo') {
@@ -220,7 +225,7 @@ pipeline {
             }
         }
 		
-		 stage ('Device Manager UI Maven Build') {
+		stage ('Device Manager UI Maven Build') {
 			when {
                 expression {
                     return params.BUILD_DEVICE_MANAGER_UI
@@ -254,6 +259,57 @@ pipeline {
             }
         }
 		
+        stage('Pull Rack Data Service Code from RDKM Repo') {
+			when {
+                expression {
+                    return params.BUILD_RACK_DATA_SERVICE
+                }
+            }
+            steps {
+				script{					
+					dir('automationScripts/build/RackDataService/project/'){
+						if("${params.RACK_DATA_SERVICE_GIT_CREDENTIALS}" == null || "${params.RACK_DATA_SERVICE_GIT_CREDENTIALS}" ==''){
+							echo "${params.RACK_DATA_SERVICE_GIT_CREDENTIALS}"
+							git branch: "${params.RACK_DATA_SERVICE_GIT_BRANCH_NAME}", url: "${params.RACK_DATA_SERVICE_GIT_URL}"
+						} else {
+							echo "${params.RACK_DATA_SERVICE_GIT_CREDENTIALS}"
+							git credentialsId: "${params.RACK_DATA_SERVICE_GIT_CREDENTIALS}", branch: "${params.RACK_DATA_SERVICE_GIT_BRANCH_NAME}", url: "${params.RACK_DATA_SERVICE_GIT_URL}"
+						}
+					}
+				}
+            }
+        }
+        stage ('Rack Data Service Maven Build') {
+			when {
+                expression {
+                    return params.BUILD_RACK_DATA_SERVICE
+                }
+            }
+            steps {
+                sh """
+				cd automationScripts/build/RackDataService/project/RackDataService/
+				cp ../../editConfig.sh ../editConfig.sh
+				sh ../editConfig.sh
+				mvn clean install"""
+            }
+            post {
+                always {
+                    archiveArtifacts artifacts: 'automationScripts/build/RackDataService/project/RackDataService/target/rackdataservice*.jar', onlyIfSuccessful: true
+                }
+            }
+        }
+        stage ('Rack Data Service Docker Build') {
+			when {
+                expression {
+                    return params.BUILD_RACK_DATA_SERVICE
+                }
+            }
+            steps {
+				dir('automationScripts/build/RackDataService/project/'){
+					sh 'docker build -f ../RackDataServiceDockerFile -t rack-data-service .'
+				}
+            }
+        }
         stage ('Clean UP') {
             steps {
 				sh 'docker rmi $(docker images --filter "dangling=true" -q --no-trunc)'

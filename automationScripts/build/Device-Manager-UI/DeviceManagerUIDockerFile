@@ -1,6 +1,6 @@
 FROM tomcat:8.5-jdk8
 
-MAINTAINER Alan Jose <ajose125@cable.comcast.com> 
+LABEL "AUTHOR"="Shameem M Shereef <shameemm.s@tataelxsi.co.in>"
 
 ADD target/DeviceManagerUI*.war $CATALINA_HOME/webapps/DeviceManagerUI.war
 
