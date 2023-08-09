@@ -1,5 +1,8 @@
 pipeline {
     agent any
+	tools { 
+        jdk 'jdk8' 
+    }
     parameters {	
 	  booleanParam(name: 'BUILD_AUTOMATICS_ORCHESTRATION', defaultValue: true, description: 'Tick this checkbox to build the .war file and Docker image of Automatics Orchestration')
       string defaultValue: 'https://code.rdkcentral.com/r/rdk/tools/automatics', description: 'Enter the URL of Automatics Git repository', name: 'AUTOMATICS_GIT_URL', trim: true

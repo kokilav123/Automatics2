@@ -1,5 +1,8 @@
 pipeline {
     agent any
+	tools { 
+        jdk 'jdk8' 
+    }
     parameters {
         booleanParam(name: 'DEPLOY_AUTOMATICS_ORCHESTRATION', defaultValue: true, description: 'Tick this checkbox to deploy Automatics Orchestration in the VM specified below')
         string defaultValue: '0.0.0.0', description: 'Enter the IP Address of the VM in which Automatics orchestration Server needs to be deployed', name: 'AUTOMATICS_IP_ADDRESS', trim: true
@@ -17,6 +20,7 @@ pipeline {
         string defaultValue: '0.0.0.0', description: 'Enter the IP Address of the VM in which Rack Data Service App needs to be deployed', name: 'RACK_DATA_SERVICE_IP_ADDRESS', trim: true
         credentials credentialType: 'com.cloudbees.plugins.credentials.common.StandardCredentials', defaultValue: '', description: 'Select or Add credentials to Login to the VM in whcih Rack Data Service App to be deployed', name: 'RACK_DATA_SERVICE_VM_CREDENTIALS', required: true
         string defaultValue: '8084', description: 'Enter the port in which Rack Data Service App should be running', name: 'RACK_DATA_SERVICE_PORT', trim: true
+		string defaultValue: '/opt/rackDataService/server/logs', description: 'Enter a directory in server VM where Tomcat and Rack Data Service server logs to be persisted. If not given logs will be generated in the default directory', name: 'RACK_DATA_SERVICE_LOG_DIRECTORY', trim: true
 		
         booleanParam(name: 'DEPLOY_AUTOMATICS_PROPERTIES', defaultValue: true, description: 'Tick this checkbox to deploy Automatics properties in the VM specified below')
         string defaultValue: '0.0.0.0', description: 'Enter the IP Address of the VM in which Automatics properties Server needs to be deployed', name: 'AUTOMATICS_PROPS_IP_ADDRESS', trim: true

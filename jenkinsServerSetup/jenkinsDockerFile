@@ -1,15 +1,16 @@
-FROM jenkins/jenkins:latest-jdk8
+FROM jenkins/jenkins:latest-jdk11
 
 USER root
 
 RUN apt-get update && apt-get install -y lsb-release ca-certificates apt-utils
 RUN curl -fsSL https://get.docker.com -o get-docker.sh
 RUN sh get-docker.sh
-
-RUN apt-get update && apt-get install -y maven
-
+RUN apt-get update && apt-get install wget
+RUN wget https://download.java.net/openjdk/jdk8u43/ri/openjdk-8u43-linux-x64.tar.gz
+RUN tar -xf openjdk-8u43-linux-x64.tar.gz
+RUN apt-get install -y maven
 RUN mvn -version
 
 COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
-RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
+RUN jenkins-plugin-cli --plugins < /usr/share/jenkins/ref/plugins.txt
 RUN echo 2.0 > /usr/share/jenkins/ref/jenkins.install.UpgradeWizard.state
