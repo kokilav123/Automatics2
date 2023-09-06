@@ -315,7 +315,7 @@ pipeline {
         }
         stage ('Clean UP') {
             steps {
-				sh 'docker rmi $(docker images --filter "dangling=true" -q --no-trunc)'
+				sh 'docker image prune -f'
 				sh 'echo "Clean Up Completed !! Deleted all the old docker images"'
 				
             }

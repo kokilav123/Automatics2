@@ -64,7 +64,7 @@ systemctl enable docker.service
 systemctl enable containerd.service
 
 #Getting jenkins docker image from docker hub and building custom Jenkins docker image for automatics
-docker build -f ./jenkinsDockerFile -t automatics_jenkins:jdk8 . || handle_error
+docker build -f ./jenkinsDockerFile -t automatics_jenkins:jdk11 . || handle_error
 
 echo -e "\n\nSuccesfully built Automatics Jenkins Docker image"
 
@@ -91,7 +91,7 @@ docker run --name automatics_jenkins --restart=on-failure --detach \
   --volume /var/run/docker.sock:/var/run/docker.sock \
   --volume jenkins-docker-certs:/certs/client:ro \
   -e JAVA_OPTS="-Dhudson.security.csrf.GlobalCrumbIssuerConfiguration.DISABLE_CSRF_PROTECTION=true" \
-  automatics_jenkins:jdk8 || handle_error
+  automatics_jenkins:jdk11 || handle_error
   
 
 echo -e "\n\nSuccesfully Started Automatics Jenkins Docker Conatiner"
