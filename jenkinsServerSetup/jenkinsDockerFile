@@ -10,6 +10,7 @@ RUN wget https://builds.openlogic.com/downloadJDK/openlogic-openjdk/8u382-b05/op
 RUN tar -xf openlogic-openjdk-8u382-b05-linux-x64.tar.gz
 RUN apt-get install -y maven
 RUN mvn -version
+COPY settings.xml /usr/share/maven/conf/settings.xml
 
 COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
 RUN jenkins-plugin-cli -f /usr/share/jenkins/ref/plugins.txt --verbose

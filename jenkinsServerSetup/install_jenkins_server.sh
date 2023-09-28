@@ -100,9 +100,21 @@ echo -e "Jenkins server is started in port \033[0;31m${port}\033[0m"
 #Creating the required jobs in jenkins
 docker cp jobs/. automatics_jenkins:/var/jenkins_home/jobs/ || handle_error
 
-sleep 60
-
+echo -e "\033[0;31mJENKINS Docker Container Going for a Restart\033[0m"
 docker restart automatics_jenkins
+
+sleep 30
+
+echo -e "\033[0;32mRestart Completed \n\033[0;31mGoing to update JDK8 config \033[0m"
+
+docker exec -i automatics_jenkins bash -c "sed -i 's#<jdks\/>#<jdks><jdk><name>jdk8<\/name><home>\/openlogic-openjdk-8u382-b05-linux-x64<\/home><properties\/><\/jdk><\/jdks>#g' /var/jenkins_home/config.xml" || handle_error
+
+echo -e "\033[0;31mJENKINS Docker Container Going for a Restart to update JDK8 Configuration\033[0m"
+docker restart automatics_jenkins
+
+sleep 30
+
+echo -e "\033[0;32mRestart Completed \033[0m"
 
 #echo -e "\n\nMaven home directory seen in VM : \033[0;31m/mnt/automatics/maven\033[0m"
 echo -e "\nMaven home directory inside DOCKER conatiner : \033[0;31m/usr/share/maven\033[0m"
