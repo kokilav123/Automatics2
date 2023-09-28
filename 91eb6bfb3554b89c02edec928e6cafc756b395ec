@@ -17,6 +17,24 @@
       "tag": "git-secrets",
       "revId": "91eb6bfb3554b89c02edec928e6cafc756b395ec",
       "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68f1925e_3eec0b45",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2023-09-28T20:55:45Z",
+      "side": 1,
+      "message": "only the variable name is password no password is used",
+      "parentUuid": "39bee085_1d8498af",
+      "revId": "91eb6bfb3554b89c02edec928e6cafc756b395ec",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
     }
   ]
 }
