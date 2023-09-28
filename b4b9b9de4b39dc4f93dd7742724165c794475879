@@ -18,6 +18,25 @@
       "message": "regarding copyright ownership.  The ASF licenses this file\n",
       "revId": "b4b9b9de4b39dc4f93dd7742724165c794475879",
       "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "robotId": "jenkins_robot",
+      "robotRunId": "1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "6bec00c5_2e24d30a",
+        "filename": "jenkinsServerSetup/settings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000501
+      },
+      "writtenOn": "2023-09-28T20:46:48Z",
+      "side": 1,
+      "message": "regarding copyright ownership.  The ASF licenses this file\n",
+      "revId": "b4b9b9de4b39dc4f93dd7742724165c794475879",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
     }
   ]
 }
