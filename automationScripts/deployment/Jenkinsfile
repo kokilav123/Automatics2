@@ -241,9 +241,9 @@ pipeline {
                     def containerName = "rack_data_service_${params.RACK_DATA_SERVICE_PORT}"
 					def dbContainerName = "automatics_orchestration_db_${params.AUTOMATICS_DB_PORT}"
                     def dbPassword = "${params.AUTOMATICS_MYSQL_ROOT_PASSWORD}"
-                    def encodedPassword = sh(script: "echo ${dbPassword} | base64", returnStdout: true)
+                    def encodedPassword = sh(script: "echo -n ${dbPassword} | base64", returnStdout: true)
                     encodedPassword = encodedPassword.trim()
-                    
+
                     sshCommand remote: remote, command: "mkdir -p '${params.RACK_DATA_SERVICE_LOG_DIRECTORY}'"
                     if("${params.RACK_DATA_SERVICE_IP_ADDRESS}" == "${params.AUTOMATICS_DB_IP_ADDRESS}"){
                         sshCommand remote: remote, command: "docker run --net automatics_network -e DB_HOST='${dbContainerName}' -e DB_PORT=3306 -e DB_USERNAME='${params.AUTOMATICS_MYSQL_DB_USERNAME}' -e SERVER_PORT='${params.RACK_DATA_SERVICE_PORT}' -e DB_PASSWORD='${encodedPassword}' -v '${params.RACK_DATA_SERVICE_LOG_DIRECTORY}':/usr/local/tomcat/logs -p '${params.RACK_DATA_SERVICE_PORT}':8084 --name='${containerName}' -d rack-data-service:latest"
