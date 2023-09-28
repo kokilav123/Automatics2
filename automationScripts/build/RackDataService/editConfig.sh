@@ -20,7 +20,4 @@
 
 sed -i 's/localhost:3306/${DB_HOST}:${DB_PORT}/g' src/main/resources/application.properties
 sed -i 's/spring.datasource.username=/&${DB_USERNAME}/' src/main/resources/application.properties
-
-DB_PASSWORD=$(echo -n $DB_PASSWORD | base64)
-
 sed -i 's/spring.datasource.password=/&${DB_PASSWORD}/' src/main/resources/application.properties

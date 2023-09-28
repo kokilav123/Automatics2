@@ -6,11 +6,11 @@ RUN apt-get update && apt-get install -y lsb-release ca-certificates apt-utils
 RUN curl -fsSL https://get.docker.com -o get-docker.sh
 RUN sh get-docker.sh
 RUN apt-get update && apt-get install wget
-RUN wget https://download.java.net/openjdk/jdk8u43/ri/openjdk-8u43-linux-x64.tar.gz
-RUN tar -xf openjdk-8u43-linux-x64.tar.gz
+RUN wget https://builds.openlogic.com/downloadJDK/openlogic-openjdk/8u382-b05/openlogic-openjdk-8u382-b05-linux-x64.tar.gz
+RUN tar -xf openlogic-openjdk-8u382-b05-linux-x64.tar.gz
 RUN apt-get install -y maven
 RUN mvn -version
 
 COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
-RUN jenkins-plugin-cli --plugins < /usr/share/jenkins/ref/plugins.txt
+RUN jenkins-plugin-cli -f /usr/share/jenkins/ref/plugins.txt --verbose
 RUN echo 2.0 > /usr/share/jenkins/ref/jenkins.install.UpgradeWizard.state
