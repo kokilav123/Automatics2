@@ -48,10 +48,8 @@
   <builders>
     <hudson.tasks.Maven>
       <targets>clean deploy -DaltDeploymentRepository=RepoDetails_Tobe_added_here</targets>
-      <usePrivateRepository>true</usePrivateRepository>
-      <settings class="jenkins.mvn.FilePathSettingsProvider">
-        <path>/mnt/maven/settings.xml</path>
-      </settings>
+      <usePrivateRepository>false</usePrivateRepository>
+      <settings class="jenkins.mvn.DefaultSettingsProvider"/>
       <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
       <injectBuildVariables>false</injectBuildVariables>
     </hudson.tasks.Maven>

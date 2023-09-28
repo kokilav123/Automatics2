@@ -42,11 +42,9 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Maven>
-      <targets>clean package exec:java -Dautomatics.properties.file=Automatics_Props_URL_Tobe_Added_here</targets>
-      <usePrivateRepository>true</usePrivateRepository>
-      <settings class="jenkins.mvn.FilePathSettingsProvider">
-        <path>/mnt/maven/settings.xml</path>
-      </settings>
+      <targets>clean package exec:java -Dautomatics.properties.file=Automatics_Props_URL_Tobe_Added_here -Dproperties.file.token=BASE64_Encoded_Props_credentials</targets>
+      <usePrivateRepository>false</usePrivateRepository>
+      <settings class="jenkins.mvn.DefaultSettingsProvider"/>
       <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
       <injectBuildVariables>false</injectBuildVariables>
     </hudson.tasks.Maven>

@@ -241,7 +241,7 @@ pipeline {
                     def containerName = "rack_data_service_${params.RACK_DATA_SERVICE_PORT}"
 					def dbContainerName = "automatics_orchestration_db_${params.AUTOMATICS_DB_PORT}"
                     def dbPassword = "${params.AUTOMATICS_MYSQL_ROOT_PASSWORD}"
-                    def encodedPassword = dbPassword.bytes.encodeBase64().toString()
+                    def encodedPassword = sh(script: 'echo $dbPassword | base64', returnStdout: true, returnStatus: true)
                     
                     sshCommand remote: remote, command: "mkdir -p '${params.RACK_DATA_SERVICE_LOG_DIRECTORY}'"
                     if("${params.RACK_DATA_SERVICE_IP_ADDRESS}" == "${params.AUTOMATICS_DB_IP_ADDRESS}"){
