@@ -137,11 +137,9 @@
       <configuredLocalRules/>
     </hudson.tasks.Shell>
     <hudson.tasks.Maven>
-      <targets>clean install -U exec:java -DskipTests=true -DretryByDefault=false -DsendReport=false -Dsun.security.ssl.allowUnsafeRenegotiation=true -Dautomatics.properties.file={automatics_props_base_url}/AutomaticsProps/automatics.properties</targets>
-      <usePrivateRepository>true</usePrivateRepository>
-      <settings class="jenkins.mvn.FilePathSettingsProvider">
-        <path>/mnt/maven/settings.xml</path>
-      </settings>
+      <targets>clean install -U exec:java -DskipTests=true -DretryByDefault=false -DsendReport=false -Dsun.security.ssl.allowUnsafeRenegotiation=true -Dautomatics.properties.file={automatics_props_base_url}/AutomaticsProps/automatics.properties -Dproperties.file.token=BASE64_Encoded_Props_credentials</targets>
+      <usePrivateRepository>false</usePrivateRepository>
+      <settings class="jenkins.mvn.DefaultSettingsProvider"/>
       <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
       <injectBuildVariables>true</injectBuildVariables>
     </hudson.tasks.Maven>
