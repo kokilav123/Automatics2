@@ -315,8 +315,10 @@ pipeline {
                     def propsApiPasscode = "${params.AUTOMATICS_PROPS_UI_USERNAME}:${params.AUTOMATICS_PROPS_UI_PASSWORD}"
                     def encodedPasscode = sh(script: "echo -n ${propsApiPasscode} | base64", returnStdout: true)
                     encodedPasscode = encodedPasscode.trim()
-
-                    echo "####### AUTOMATICS PROPS ENCODED PASSCODE -----> ${encodedPasscode}    #######"
+                    
+                    echo "#################################################################################"
+                    echo "#######    AUTOMATICS PROPS ENCODED PASSCODE -----> ${encodedPasscode}    #######"
+                    echo "#################################################################################"
 
                     sshCommand remote: remote, command: "mkdir -p '${params.AUTOMATICS_PROPS_LOG_DIRECTORY}'"
 
