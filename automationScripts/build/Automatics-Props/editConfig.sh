@@ -23,9 +23,15 @@ echo "$AUTOMATICS_PROPS_URL"
 echo "$AUTOMATICS_ORCH_URL"
 echo "$DEVICE_MANAGER_URL"
 
+PROPS_PASSCODE="${UI_USERNAME}:${UI_PASSWORD}"
+password=$(echo -n "$PROPS_PASSCODE" | base64)
+echo "$password"
+
 sed -i "/^\s*user\s*=/s/=.*/=${UI_USERNAME}/" "$CATALINA_HOME"/webapps/automatics/config.properties || echo "user=${UI_USERNAME}" >> "$CATALINA_HOME"/webapps/automatics/config.properties
 
 sed -i "/^\s*pwd\s*=/s/=.*/=${UI_PASSWORD}/" "$CATALINA_HOME"/webapps/automatics/config.properties || echo "pwd=${UI_PASSWORD}" >> "$CATALINA_HOME"/webapps/automatics/config.properties
+
+sed -i "/^\s*automatics.properties.passcode\s*=/s/=.*/=${password}/" "$CATALINA_HOME"/webapps/automatics/config.properties || echo "automatics.properties.passcode=${password}" >> "$CATALINA_HOME"/webapps/automatics/config.properties
 
 mkdir -p "$CATALINA_HOME"/logs/traces/
 
