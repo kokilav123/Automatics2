@@ -21,6 +21,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "d3af8946_f9d6dc60",
+        "filename": "automationScripts/build/Automatics-Props/editConfig.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2023-09-29T10:24:24Z",
+      "side": 1,
+      "message": "its a variable name no password is explicitly used",
+      "parentUuid": "8bbb95cb_efb1fd81",
+      "revId": "5b8c18653a929f2ecd759580da0f8cc9ac8163c8",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "05cf4faf_e338883a",
         "filename": "automationScripts/build/Automatics-Props/editConfig.sh",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "side": 1,
       "message": "git-secrets has detected a dubious pattern in this line",
       "tag": "git-secrets",
+      "revId": "5b8c18653a929f2ecd759580da0f8cc9ac8163c8",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0690897_a20acb4f",
+        "filename": "automationScripts/build/Automatics-Props/editConfig.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2023-09-29T10:24:24Z",
+      "side": 1,
+      "message": "its a variable name no password is explicitly used",
+      "parentUuid": "05cf4faf_e338883a",
       "revId": "5b8c18653a929f2ecd759580da0f8cc9ac8163c8",
       "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
     },
@@ -57,6 +93,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "9e56b0dd_69769b60",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 2
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2023-09-29T10:24:24Z",
+      "side": 1,
+      "message": "its a variable name no password is explicitly used",
+      "parentUuid": "3f8d6b4f_e288b41b",
+      "revId": "5b8c18653a929f2ecd759580da0f8cc9ac8163c8",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "1f953ead_54dc5f61",
         "filename": "automationScripts/deployment/Jenkinsfile",
         "patchSetId": 2
@@ -69,6 +123,24 @@
       "side": 1,
       "message": "git-secrets has detected a dubious pattern in this line",
       "tag": "git-secrets",
+      "revId": "5b8c18653a929f2ecd759580da0f8cc9ac8163c8",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b4881c7_2cceeecf",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 2
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1010942
+      },
+      "writtenOn": "2023-09-29T10:24:24Z",
+      "side": 1,
+      "message": "its a variable name no password is explicitly used",
+      "parentUuid": "1f953ead_54dc5f61",
       "revId": "5b8c18653a929f2ecd759580da0f8cc9ac8163c8",
       "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
     }
