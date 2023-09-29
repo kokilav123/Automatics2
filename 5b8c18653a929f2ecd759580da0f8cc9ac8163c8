@@ -1,0 +1,76 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8bbb95cb_efb1fd81",
+        "filename": "automationScripts/build/Automatics-Props/editConfig.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000499
+      },
+      "writtenOn": "2023-09-29T10:21:59Z",
+      "side": 1,
+      "message": "git-secrets has detected a dubious pattern in this line",
+      "tag": "git-secrets",
+      "revId": "5b8c18653a929f2ecd759580da0f8cc9ac8163c8",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05cf4faf_e338883a",
+        "filename": "automationScripts/build/Automatics-Props/editConfig.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000499
+      },
+      "writtenOn": "2023-09-29T10:21:59Z",
+      "side": 1,
+      "message": "git-secrets has detected a dubious pattern in this line",
+      "tag": "git-secrets",
+      "revId": "5b8c18653a929f2ecd759580da0f8cc9ac8163c8",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f8d6b4f_e288b41b",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 2
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000499
+      },
+      "writtenOn": "2023-09-29T10:21:59Z",
+      "side": 1,
+      "message": "git-secrets has detected a dubious pattern in this line",
+      "tag": "git-secrets",
+      "revId": "5b8c18653a929f2ecd759580da0f8cc9ac8163c8",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f953ead_54dc5f61",
+        "filename": "automationScripts/deployment/Jenkinsfile",
+        "patchSetId": 2
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000499
+      },
+      "writtenOn": "2023-09-29T10:21:59Z",
+      "side": 1,
+      "message": "git-secrets has detected a dubious pattern in this line",
+      "tag": "git-secrets",
+      "revId": "5b8c18653a929f2ecd759580da0f8cc9ac8163c8",
+      "serverId": "f53e107a-f6b2-4b25-8f39-b455c25fa705"
+    }
+  ]
+}
