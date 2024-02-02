@@ -1,8 +1,5 @@
 pipeline {
     agent any
-	tools { 
-        jdk 'jdk8' 
-    }
     parameters {
         booleanParam(name: 'DEPLOY_AUTOMATICS_ORCHESTRATION', defaultValue: true, description: 'Tick this checkbox to deploy Automatics Orchestration in the VM specified below')
         string defaultValue: '0.0.0.0', description: 'Enter the IP Address of the VM in which Automatics orchestration Server needs to be deployed', name: 'AUTOMATICS_IP_ADDRESS', trim: true

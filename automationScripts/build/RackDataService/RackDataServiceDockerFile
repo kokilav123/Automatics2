@@ -1,6 +1,10 @@
-FROM openjdk:8u342-jdk
+FROM ubuntu:latest
 
 LABEL "AUTHOR"="Shameem M Shereef <shameemm.s@tataelxsi.co.in>"
+
+RUN apt update && apt upgrade -y && apt-get -y install openjdk-17-jdk
+
+RUN java -version
 
 RUN mkdir -p /usr/app/rackDataService
 

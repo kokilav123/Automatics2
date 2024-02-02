@@ -1,12 +1,10 @@
 cloudbees-folder:latest
-handlebars:latest
 trilead-api:latest
 workflow-cps:latest
 antisamy-markup-formatter:latest
 structs:latest
 workflow-job:latest
 workflow-step-api:latest
-momentjs:latest
 token-macro:latest
 build-timeout:latest
 credentials:latest
@@ -25,14 +23,11 @@ gradle:latest
 plugin-util-api:latest
 pipeline-milestone-step:latest
 font-awesome-api:latest
-popper-api:latest
 git-client:latest
 jquery3-api:latest
-bootstrap4-api:latest
 snakeyaml-api:latest
 jackson2-api:latest
 git-server:latest
-popper2-api:latest
 pipeline-input-step:latest
 bootstrap5-api:latest
 echarts-api:latest
@@ -54,7 +49,6 @@ jdk-tool:latest
 pipeline-rest-api:latest
 bouncycastle-api:latest
 jjwt-api:latest
-ace-editor:latest
 workflow-scm-step:latest
 apache-httpcomponents-client-4-api:latest
 pipeline-stage-view:latest

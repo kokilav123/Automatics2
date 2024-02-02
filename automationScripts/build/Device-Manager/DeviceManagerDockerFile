@@ -1,4 +1,4 @@
-FROM tomcat:8.5-jdk8
+FROM tomcat:9.0-jdk17
 
 LABEL "AUTHOR"="Shameem M Shereef <shameemm.s@tataelxsi.co.in>"
 
