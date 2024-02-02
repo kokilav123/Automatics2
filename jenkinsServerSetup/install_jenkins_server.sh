@@ -64,7 +64,7 @@ systemctl enable docker.service
 systemctl enable containerd.service
 
 #Getting jenkins docker image from docker hub and building custom Jenkins docker image for automatics
-docker build -f ./jenkinsDockerFile -t automatics_jenkins:jdk11 . || handle_error
+docker build -f ./jenkinsDockerFile -t automatics_jenkins:jdk17 . || handle_error
 
 echo -e "\n\nSuccesfully built Automatics Jenkins Docker image"
 
@@ -90,8 +90,8 @@ docker run --name automatics_jenkins --restart=on-failure --detach \
   --volume /mnt/automatics/jenkins_home:/var/jenkins_home \
   --volume /var/run/docker.sock:/var/run/docker.sock \
   --volume jenkins-docker-certs:/certs/client:ro \
-  -e JAVA_OPTS="-Dhudson.security.csrf.GlobalCrumbIssuerConfiguration.DISABLE_CSRF_PROTECTION=true" \
-  automatics_jenkins:jdk11 || handle_error
+  -e JAVA_OPTS="-Dhudson.security.csrf.GlobalCrumbIssuerConfiguration.DISABLE_CSRF_PROTECTION=true -Dhudson.model.DirectoryBrowserSupport.CSP=" \
+  automatics_jenkins:jdk17 || handle_error
   
 
 echo -e "\n\nSuccesfully Started Automatics Jenkins Docker Conatiner"
@@ -101,15 +101,6 @@ echo -e "Jenkins server is started in port \033[0;31m${port}\033[0m"
 docker cp jobs/. automatics_jenkins:/var/jenkins_home/jobs/ || handle_error
 
 echo -e "\033[0;31mJENKINS Docker Container Going for a Restart\033[0m"
-docker restart automatics_jenkins
-
-sleep 30
-
-echo -e "\033[0;32mRestart Completed \n\033[0;31mGoing to update JDK8 config \033[0m"
-
-docker exec -i automatics_jenkins bash -c "sed -i 's#<jdks\/>#<jdks><jdk><name>jdk8<\/name><home>\/openlogic-openjdk-8u382-b05-linux-x64<\/home><properties\/><\/jdk><\/jdks>#g' /var/jenkins_home/config.xml" || handle_error
-
-echo -e "\033[0;31mJENKINS Docker Container Going for a Restart to update JDK8 Configuration\033[0m"
 docker restart automatics_jenkins
 
 sleep 30
