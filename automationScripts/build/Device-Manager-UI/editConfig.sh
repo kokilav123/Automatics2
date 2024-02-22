@@ -18,4 +18,4 @@
 # limitations under the License.
 ##########################################################################
 
-sed -i "s|^DEVICE_MANAGER_BASE_URL=.*|DEVICE_MANAGER_BASE_URL=\"http://\${DEVICE_MANAGER_IP_ADDRESS}:\${DEVICE_MANAGER_SERVER_PORT}/DeviceManager\"|" src/main/resources/application.properties
+sed -i "s|^DEVICE_MANAGER_BASE_URL=.*|DEVICE_MANAGER_BASE_URL=http://\${DEVICE_MANAGER_IP_ADDRESS}:\${DEVICE_MANAGER_SERVER_PORT}/DeviceManager|" src/main/resources/application.properties
