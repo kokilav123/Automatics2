@@ -6,8 +6,6 @@ RUN apt-get update && apt-get install -y lsb-release ca-certificates apt-utils
 RUN curl -fsSL https://get.docker.com -o get-docker.sh
 RUN sh get-docker.sh
 RUN apt-get update && apt-get install wget
-RUN wget https://builds.openlogic.com/downloadJDK/openlogic-openjdk/8u382-b05/openlogic-openjdk-8u382-b05-linux-x64.tar.gz
-RUN tar -xf openlogic-openjdk-8u382-b05-linux-x64.tar.gz
 RUN apt-get install -y maven
 RUN mvn -version
 COPY settings.xml /usr/share/maven/conf/settings.xml
