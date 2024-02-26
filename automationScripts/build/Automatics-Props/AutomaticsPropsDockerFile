@@ -2,10 +2,12 @@ FROM tomcat:9.0-jdk17
 
 LABEL "AUTHOR"="Shameem M Shereef <shameemm.s@tataelxsi.co.in>"
 
-RUN mkdir $CATALINA_HOME/backup_file $CATALINA_HOME/webapps/automatics
+RUN mkdir $CATALINA_HOME/backup_file $CATALINA_HOME/webapps/automatics $CATALINA_HOME/backup_file/device $CATALINA_HOME/backup_file/automatics
 
 ADD target/AutomaticsProps*.war $CATALINA_HOME/webapps/AutomaticsProps.war
 ADD src/automatics.properties $CATALINA_HOME/backup_file/automatics.properties
+ADD src/automatics.properties $CATALINA_HOME/backup_file/automatics/automatics.properties
+ADD src/device_config.json $CATALINA_HOME/backup_file/device/device_config.json
 COPY src/automatics.properties src/config.properties src/device_config.json $CATALINA_HOME/webapps/automatics/
 ADD editConfig.sh $CATALINA_HOME/editConfig.sh
 
