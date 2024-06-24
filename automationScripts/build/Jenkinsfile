@@ -292,14 +292,14 @@ pipeline {
             }
             steps {
                 sh """
-				cd automationScripts/build/DebuggerService/project/smart-debugger/debuggerservice/
+				cd automationScripts/build/DebuggerService/project/debuggerservice/
 				cp ../../editConfig.sh ../editConfig.sh
 				sh ../editConfig.sh
 				mvn clean install"""
             }
             post {
                 always {
-                    archiveArtifacts artifacts: 'automationScripts/build/DebuggerService/project/smart-debugger/debuggerservice/target/debuggerservice*.jar', onlyIfSuccessful: true
+                    archiveArtifacts artifacts: 'automationScripts/build/DebuggerService/project/debuggerservice/target/debuggerservice*.jar', onlyIfSuccessful: true
                 }
             }
         }
@@ -310,7 +310,7 @@ pipeline {
                 }
             }
             steps {
-				dir('automationScripts/build/DebuggerService/project/smart-debugger/'){
+				dir('automationScripts/build/DebuggerService/project/'){
 					sh 'docker build -f ../SmartDebuggerServiceDockerFile -t debugger-service .'
 				}
             }
