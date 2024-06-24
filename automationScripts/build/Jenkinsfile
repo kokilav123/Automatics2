@@ -1,30 +1,35 @@
 pipeline {
     agent any
     parameters {	
-	  booleanParam(name: 'BUILD_AUTOMATICS_ORCHESTRATION', defaultValue: true, description: 'Tick this checkbox to build the .war file and Docker image of Automatics Orchestration')
+	  booleanParam(name: 'BUILD_AUTOMATICS_ORCHESTRATION', defaultValue: true, description: 'Check this box to build the .war file and Docker image of Automatics Orchestration')
       string defaultValue: 'https://code.rdkcentral.com/r/rdk/tools/automatics', description: 'Enter the URL of Automatics Git repository', name: 'AUTOMATICS_GIT_URL', trim: true
       string defaultValue: 'rdk-next', description: 'Enter Branch Name of Automatics Git repository', name: 'AUTOMATICS_GIT_BRANCH_NAME', trim: true
       credentials credentialType: 'com.cloudbees.plugins.credentials.common.StandardCredentials', defaultValue: '', description: 'Select or Add credentials for Automatics Git Login', name: 'AUTOMATICS_GIT_CREDENTIALS', required: false
 	  	
-	  booleanParam(name: 'BUILD_AUTOMATICS_PROPERTIES', defaultValue: true, description: 'Tick this checkbox to build the .war file and Docker image of Automatics Properties')
+	  booleanParam(name: 'BUILD_AUTOMATICS_PROPERTIES', defaultValue: true, description: 'Check this box to build the .war file and Docker image of Automatics Properties')
       string defaultValue: 'https://code.rdkcentral.com/r/rdk/tools/automatics/automatics-props', description: 'Enter the URL of Automatics Properties Git repository', name: 'AUTOMATICS_PROPERTIES_GIT_URL', trim: true
       string defaultValue: 'rdk-next', description: 'Enter Branch Name of Automatics Properties Git repository', name: 'AUTOMATICS_PROPERTIES_GIT_BRANCH_NAME', trim: true
       credentials credentialType: 'com.cloudbees.plugins.credentials.common.StandardCredentials', defaultValue: '', description: 'Select or Add credentials for Automatics Properties Git Login', name: 'AUTOMATICS_PROPERTIES_GIT_CREDENTIALS', required: false
 	  
-	  booleanParam(name: 'BUILD_DEVICE_MANAGER', defaultValue: true, description: 'Tick this checkbox to build the .war file and Docker image of Device Manager')
+	  booleanParam(name: 'BUILD_DEVICE_MANAGER', defaultValue: true, description: 'Check this box to build the .war file and Docker image of Device Manager')
       string defaultValue: 'https://code.rdkcentral.com/r/rdk/tools/device-manager', description: 'Enter the URL of Device Manager Git repository', name: 'DEVICE_MANAGER_GIT_URL', trim: true
       string defaultValue: 'rdk-next', description: 'Enter Branch Name of Device Manager Git repository', name: 'DEVICE_MANAGER_GIT_BRANCH_NAME', trim: true
       credentials credentialType: 'com.cloudbees.plugins.credentials.common.StandardCredentials', defaultValue: '', description: 'Select or Add credentials for Device Manager Git Login', name: 'DEVICE_MANAGER_GIT_CREDENTIALS', required: false
 	  
-	  booleanParam(name: 'BUILD_DEVICE_MANAGER_UI',defaultValue:true,description: 'Tick this checkbox to build the .war file and Docker image of Device Manager UI')
+	  booleanParam(name: 'BUILD_DEVICE_MANAGER_UI',defaultValue:true,description: 'Check this box to build the .war file and Docker image of Device Manager UI')
 	  string defaultValue: 'https://code.rdkcentral.com/r/rdk/tools/device-manager-ui/', description: 'Enter the URL of Device Manager UI Git repository',name:'DEVICE_MANAGER_UI_GIT_URL',trim:true
 	  string defaultValue: 'rdk-next', description: 'Enter Branch Name of Device Manager UI Git repository', name:'DEVICE_MANAGER_UI_GIT_BRANCH_NAME', trim:true
 	  credentials credentialType: 'com.cloudbees.plugins.credentials.common.StandardCredentials', defaultValue: '',description: 'Select or Add credentials for Device Manager UI Git Login', name: 'DEVICE_MANAGER_UI_GIT_CREDENTIALS', required: false
 	  
-	  booleanParam(name: 'BUILD_RACK_DATA_SERVICE',defaultValue:true,description: 'Tick this checkbox to build the .jar file and Docker image of Rack Data Service')
+	  booleanParam(name: 'BUILD_RACK_DATA_SERVICE',defaultValue:true,description: 'Check this box to build the .jar file and Docker image of Rack Data Service')
 	  string defaultValue: 'https://code.rdkcentral.com/r/rdk/tools/automatics/scriptless-service', description: 'Enter the URL of Rack Data Service Git repository',name:'RACK_DATA_SERVICE_GIT_URL',trim:true
 	  string defaultValue: 'rdk-next', description: 'Enter Branch Name of Rack Data Service Git repository', name:'RACK_DATA_SERVICE_GIT_BRANCH_NAME', trim:true
 	  credentials credentialType: 'com.cloudbees.plugins.credentials.common.StandardCredentials', defaultValue: '',description: 'Select or Add credentials for Rack Data Service Git Login', name: 'RACK_DATA_SERVICE_GIT_CREDENTIALS', required: false
+    
+	  booleanParam(name: 'BUILD_DEBUGGER_SERVICE',defaultValue:true,description: 'Check this box to build the .jar file and Docker image of Smart Debugger Service')
+	  string defaultValue: 'https://code.rdkcentral.com/r/rdk/tools/automatics/smart-debugger', description: 'Enter the URL of Smart Debugger Service Git repository',name:'DEBUGGER_SERVICE_GIT_URL',trim:true
+	  string defaultValue: 'rdk-next', description: 'Enter Branch Name of Debugger Service Git repository', name:'DEBUGGER_SERVICE_GIT_BRANCH_NAME', trim:true
+	  credentials credentialType: 'com.cloudbees.plugins.credentials.common.StandardCredentials', defaultValue: '',description: 'Select or Add credentials for Debugger Service Git Login', name: 'DEBUGGER_SERVICE_GIT_CREDENTIALS', required: false
     }
     stages {
         stage('Pull Automatics Orchestration Code from RDKM Repo') {
@@ -259,7 +264,57 @@ pipeline {
             }
         }
 		
-        stage('Pull Rack Data Service Code from RDKM Repo') {
+        stage('Pull Debugger Service Code from RDKM Repo') {
+			when {
+                expression {
+                    return params.BUILD_DEBUGGER_SERVICE
+                }
+            }
+            steps {
+				script{					
+					dir('automationScripts/build/DebuggerService/project/'){
+						if("${params.DEBUGGER_SERVICE_GIT_CREDENTIALS}" == null || "${params.DEBUGGER_SERVICE_GIT_CREDENTIALS}" ==''){
+							echo "${params.DEBUGGER_SERVICE_GIT_CREDENTIALS}"
+							git branch: "${params.DEBUGGER_SERVICE_GIT_BRANCH_NAME}", url: "${params.DEBUGGER_SERVICE_GIT_URL}"
+						} else {
+							echo "${params.DEBUGGER_SERVICE_GIT_CREDENTIALS}"
+							git credentialsId: "${params.DEBUGGER_SERVICE_GIT_CREDENTIALS}", branch: "${params.DEBUGGER_SERVICE_GIT_BRANCH_NAME}", url: "${params.DEBUGGER_SERVICE_GIT_URL}"
+						}
+					}
+				}
+            }
+        }
+        stage ('Debugger Service Maven Build') {
+			when {
+                expression {
+                    return params.BUILD_DEBUGGER_SERVICE
+                }
+            }
+            steps {
+                sh """
+				cd automationScripts/build/DebuggerService/project/smart-debugger/debuggerservice/
+				cp ../../editConfig.sh ../editConfig.sh
+				sh ../editConfig.sh
+				mvn clean install"""
+            }
+            post {
+                always {
+                    archiveArtifacts artifacts: 'automationScripts/build/DebuggerService/project/smart-debugger/debuggerservice/target/debuggerservice*.jar', onlyIfSuccessful: true
+                }
+            }
+        }
+        stage ('Debugger Service Docker Build') {
+			when {
+                expression {
+                    return params.BUILD_DEBUGGER_SERVICE
+                }
+            }
+            steps {
+				dir('automationScripts/build/DebuggerService/project/smart-debugger/'){
+					sh 'docker build -f ../SmartDebuggerServiceDockerFile -t debugger-service .'
+				}
+            }
+        }stage('Pull Rack Data Service Code from RDKM Repo') {
 			when {
                 expression {
                     return params.BUILD_RACK_DATA_SERVICE

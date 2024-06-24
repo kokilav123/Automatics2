@@ -1,0 +1,13 @@
+FROM ubuntu:latest
+
+LABEL "AUTHOR"="Shameem M Shereef <shameemm.s@tataelxsi.co.in>"
+
+RUN apt update && apt upgrade -y && apt-get -y install openjdk-17-jdk
+
+RUN mkdir -p /usr/app/debuggerService
+
+ADD debuggerservice/target/debuggerservice*.jar /usr/app/debuggerService/DebuggerService.jar
+
+EXPOSE 8083
+
+CMD ["java", "-jar", "/usr/app/debuggerService/DebuggerService.jar"]

@@ -1,7 +1,7 @@
 pipeline {
     agent any
     parameters {
-        booleanParam(name: 'DEPLOY_AUTOMATICS_ORCHESTRATION', defaultValue: true, description: 'Tick this checkbox to deploy Automatics Orchestration in the VM specified below')
+        booleanParam(name: 'DEPLOY_AUTOMATICS_ORCHESTRATION', defaultValue: false, description: 'Check this box to enable deployment of the Automatics Orchestration in the VM specified below')
         string defaultValue: '0.0.0.0', description: 'Enter the IP Address of the VM in which Automatics orchestration Server needs to be deployed', name: 'AUTOMATICS_IP_ADDRESS', trim: true
         credentials credentialType: 'com.cloudbees.plugins.credentials.common.StandardCredentials', defaultValue: '', description: 'Select or Add credentials to Login to the VM in whcih Automatics Orchestration Server to be deployed', name: 'AUTOMATICS_VM_CREDENTIALS', required: true
         string defaultValue: '8080', description: 'Enter the port in which Automatics Orchestration tomcat server should be running', name: 'AUTOMATICS_SERVER_PORT', trim: true
@@ -19,7 +19,7 @@ pipeline {
         string defaultValue: '8084', description: 'Enter the port in which Rack Data Service App should be running', name: 'RACK_DATA_SERVICE_PORT', trim: true
 		string defaultValue: '/opt/rackDataService/server/logs', description: 'Enter a directory in server VM where Tomcat and Rack Data Service server logs to be persisted. If not given logs will be generated in the default directory', name: 'RACK_DATA_SERVICE_LOG_DIRECTORY', trim: true
 		
-        booleanParam(name: 'DEPLOY_AUTOMATICS_PROPERTIES', defaultValue: true, description: 'Tick this checkbox to deploy Automatics properties in the VM specified below')
+        booleanParam(name: 'DEPLOY_AUTOMATICS_PROPERTIES', defaultValue: false, description: 'Check this box to enable deployment of the Automatics properties in the VM specified below')
         string defaultValue: '0.0.0.0', description: 'Enter the IP Address of the VM in which Automatics properties Server needs to be deployed', name: 'AUTOMATICS_PROPS_IP_ADDRESS', trim: true
         credentials credentialType: 'com.cloudbees.plugins.credentials.common.StandardCredentials', defaultValue: '', description: 'Select or Add credentials to Login to the VM in whcih Automatics properties Server to be deployed', name: 'AUTOMATICS_PROPS_VM_CREDENTIALS', required: true
         string defaultValue: '8080', description: 'Enter the port in which Automatics Properties Tomcat server should be running', name: 'AUTOMATICS_PROPS_SERVER_PORT', trim: true
@@ -29,7 +29,7 @@ pipeline {
 		string defaultValue: 'admin', description: 'Enter the Username of Automatics Properties UI', name: 'AUTOMATICS_PROPS_UI_USERNAME', trim: true
 		password description: 'Enter the Password for Automatics Properties UI', name: 'AUTOMATICS_PROPS_UI_PASSWORD'
 				
-        booleanParam(name: 'DEPLOY_DEVICE_MANAGER', defaultValue: true, description: 'Tick this checkbox to deploy Device Manager in the VM specified below')
+        booleanParam(name: 'DEPLOY_DEVICE_MANAGER', defaultValue: false, description: 'Check this box to enable deployment of the Device Manager in the VM specified below')
         string defaultValue: '0.0.0.0', description: 'Enter the IP Address of the VM in which Device Manager Server needs to be deployed', name: 'DEVICE_MANAGER_IP_ADDRESS', trim: true
         credentials credentialType: 'com.cloudbees.plugins.credentials.common.StandardCredentials', defaultValue: '', description: 'Select or Add credentials to Login to the VM in whcih Device Manager Server to be deployed', name: 'DEVICE_MANAGER_VM_CREDENTIALS', required: true
         string defaultValue: '8080', description: 'Enter the port in which Device Manager tomcat server should be running', name: 'DEVICE_MANAGER_SERVER_PORT', trim: true
@@ -43,11 +43,17 @@ pipeline {
 		string defaultValue: 'deviceManager.com', description: 'Enter the public domain details used for accessing device manager application in any of the formats like devicemanager.com or public_ip:port or domain_name:port', name: 'DEVICE_MANAGER_SWAGGER_HOST', trim: true
 		string defaultValue: '/home/deviceManager/db/persistance/data', description: 'Enter a directory in database VM where the data should be persisted', name: 'DEVICE_MANAGER_DB_DATA_DIR', trim: true
 		
-		booleanParam(name: 'DEPLOY_DEVICE_MANAGER_UI', defaultValue:true, description: 'Tick this checkbox to deploy Device Manager UI in the VM specified below')
+		booleanParam(name: 'DEPLOY_DEVICE_MANAGER_UI', defaultValue:false, description: 'Check this box to enable deployment of the Device Manager UI in the VM specified below')
 		string defaultValue: '0.0.0.0', description:'Enter the IP Address of the VM in which Device Manager UI Server needs to be deployed', name: 'DEVICE_MANAGER_UI_IP_ADDRESS', trim: true
 		credentials credentialType: 'com.cloudbees.plugins.credentials.common.StandardCredentials', defaultValue: '',description: 'Select or Add credentials to Login to the VM in whcih Device Manager UI Server to be deployed', name: 'DEVICE_MANAGER_UI_VM_CREDENTIALS',required: true
 		string defaultValue: '8080', description: 'Enter the port in which Device Manager UI Tomcat server should be running', name: 'DEVICE_MANAGER_UI_SERVER_PORT', trim: true
 		string defaultValue: '/opt/deviceManagerUI/server/logs', description: 'Enter a directory in server VM where Tomcat and Device Manager UI server logs to be persisted. If not given logs will be generated in the default directory', name: 'DEVICE_MANAGER_UI_LOG_DIRECTORY', trim: true
+		
+        booleanParam(name: 'DEPLOY_DEBUGGER_SERVICE', defaultValue: false, description: 'Check this box to enable deployment of the Debugger Service in the VM specified below.')
+        string defaultValue: '0.0.0.0', description: 'Enter the IP Address of the VM in which Rack Data Service App needs to be deployed', name: 'DEBUGGER_SERVICE_IP_ADDRESS', trim: true
+        credentials credentialType: 'com.cloudbees.plugins.credentials.common.StandardCredentials', defaultValue: '', description: 'Select or Add credentials to Login to the VM in whcih Rack Data Service App to be deployed', name: 'DEBUGGER_SERVICE_VM_CREDENTIALS', required: true
+        string defaultValue: '8084', description: 'Enter the port in which Rack Data Service App should be running', name: 'DEBUGGER_SERVICE_PORT', trim: true
+		string defaultValue: '/opt/rackDataService/server/logs', description: 'Enter a directory in server VM where Tomcat and Rack Data Service server logs to be persisted. If not given logs will be generated in the default directory', name: 'DEBUGGER_SERVICE_LOG_DIRECTORY', trim: true
 		
     }
     stages {
@@ -516,6 +522,70 @@ pipeline {
                     } else {
                         sshCommand remote: remote, command: "docker run -e UI_HOST='${params.DEVICE_MANAGER_UI_IP_ADDRESS}' -e UI_PORT='${params.DEVICE_MANAGER_UI_SERVER_PORT}' -e DEVICE_MANAGER_IP_ADDRESS='${params.DEVICE_MANAGER_IP_ADDRESS}' -e DEVICE_MANAGER_SERVER_PORT='${params.DEVICE_MANAGER_SERVER_PORT}'  -v '${params.DEVICE_MANAGER_UI_LOG_DIRECTORY}':/usr/local/tomcat/logs -p '${params.DEVICE_MANAGER_UI_SERVER_PORT}':8080 --name='${containerName}' -d device-manager-ui:latest"
                     }   
+                }
+            }
+        }
+        stage('Prepare Debugger Service Docker images') {
+            when {
+                expression {
+                    return params.DEPLOY_DEBUGGER_SERVICE
+                }
+            }
+            steps {
+                script{
+                    sh """
+                    docker save debugger-service > debugger-service.tar
+                    echo "Successfully Compressed Debugger Service Docker image to debugger-service.tar"
+                    """
+                }
+            }
+        }
+        stage('Transfer Debugger Service Docker image to the VM') {
+            when {
+                expression {
+                    return params.DEPLOY_DEBUGGER_SERVICE
+                }
+            }
+            steps {
+                script{
+                    remote = sshToVM('Debugger-Service', params.DEBUGGER_SERVICE_IP_ADDRESS, params.DEBUGGER_SERVICE_VM_CREDENTIALS)
+                    transferDockerImageToVM(remote, 'automatics/deployment/debugger-service/server/dockerImage','debugger-service.tar')
+					
+                }
+            }
+        }
+        stage('Stop & Remove Debugger Service Docker Container') {
+            when {
+                expression {
+                    return params.DEPLOY_DEBUGGER_SERVICE
+                }
+            }
+            steps {
+                script{
+                    remote = sshToVM('Debugger-Service', params.DEBUGGER_SERVICE_IP_ADDRESS, params.DEBUGGER_SERVICE_VM_CREDENTIALS)
+                    
+                    try {
+                        sshCommand remote: remote, command: "docker rm \$(docker stop \$(docker ps -a | grep debugger_service_ | awk \'{print \$1}\'))"
+                    } catch (err) {
+                        echo "Caught: ${err}"
+                    }
+					echo "Successfully stopped and removed Debugger Service docker conatiner"
+                }
+            }
+        }
+        stage('Deploy Debugger Service App to the VM') {
+            when {
+                expression {
+                    return params.DEPLOY_DEBUGGER_SERVICE
+                }
+            }
+            steps {
+                script{
+                    remote = sshToVM('Debugger-Service', params.DEBUGGER_SERVICE_IP_ADDRESS, params.DEBUGGER_SERVICE_VM_CREDENTIALS)
+                    def containerName = "debugger_service_${params.DEBUGGER_SERVICE_PORT}"
+					
+                    sshCommand remote: remote, command: "mkdir -p '${params.DEBUGGER_SERVICE_LOG_DIRECTORY}'"
+                    sshCommand remote: remote, command: "docker run -e AUTOMATICS_URL='http://${params.AUTOMATICS_IP_ADDRESS}:${params.AUTOMATICS_PORT}/Automatics' -e server.port='${params.DEBUGGER_SERVICE_PORT}' -v '${params.DEBUGGER_SERVICE_LOG_DIRECTORY}':/logs/ -p '${params.DEBUGGER_SERVICE_PORT}':8083 --name='${containerName}' -d debugger-service:latest"
                 }
             }
         }		

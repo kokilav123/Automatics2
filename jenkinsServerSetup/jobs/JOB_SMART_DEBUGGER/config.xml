@@ -1,0 +1,173 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>SMART DEBUGGER FOR AUTOMATICS TEST CASE</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>5</daysToKeep>
+        <numToKeep>30</numToKeep>
+        <artifactDaysToKeep>5</artifactDaysToKeep>
+        <artifactNumToKeep>30</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@332.va_1ee476d8f6d">
+      <autoRebuild>false</autoRebuild>
+      <rebuildDisabled>false</rebuildDisabled>
+    </com.sonyericsson.rebuild.RebuildSettings>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>EXECUTION_ID</name>
+          <defaultValue>0</defaultValue>
+          <trim>true</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>settopList</name>
+          <trim>true</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>filterTestIds</name>
+          <trim>true</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>executionMode</name>
+          <trim>true</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>end_point</name>
+          <defaultValue>RACK_DEVICE</defaultValue>
+          <trim>true</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>gr</name>
+          <description>Gerrit repo path for clonning</description>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>grb</name>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>rdk-next</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>UX</name>
+          <defaultValue>RDKM</defaultValue>
+          <trim>true</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>serviceHost</name>
+          <defaultValue>https://automatics.rdkcentral.com/</defaultValue>
+          <trim>true</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>filterTestType</name>
+          <defaultValue>SMART_DEBUGGER</defaultValue>
+          <trim>true</trim>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@5.2.2">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://code.rdkcentral.com/r/rdk/tools/automatics/${gr}</url>
+        <credentialsId></credentialsId>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/${grb}</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="empty-list"/>
+    <extensions/>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash
+chmod 777 src/main/resources/pre-test-config.sh
+if [[ &quot;$executionMode&quot; =~ .*&quot;RDKV&quot;.* ]]; then
+	echo &quot;Mode: $executionMode&quot;
+	src/main/resources/pre-test-config.sh -g &apos;com.automatics.apps&apos; -a &apos;rdkm-provider-api&apos; -v &apos;1.0.0&apos;
+    src/main/resources/pre-test-config.sh -g &apos;com.automatics.apps&apos; -a &apos;rdkv-utils&apos; -v &apos;1.0.0-SNAPSHOT&apos;
+else
+	echo &quot;Mode: $executionMode&quot;
+	src/main/resources/pre-test-config.sh -g &apos;com.automatics.providers&apos; -a &apos;rpi-provider-impl&apos; -v &apos;0.0.1-SNAPSHOT&apos;
+    src/main/resources/pre-test-config.sh -g &apos;RDKMAutomationRDKBUtils&apos; -a &apos;rdkb-utils&apos; -v &apos;0.0.1-SNAPSHOT&apos;
+fi</command>
+      <configuredLocalRules/>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>curl -X PUT -4kw \\nstatus_code:%{http_code}\\n -H &quot;Content-Type: application/json&quot; ${serviceHost}/debuggerservice/updateOverAllStatus -d &quot;{&quot;executionId&quot;: ${EXECUTION_ID}, &quot;overallStatus&quot;: &quot;INPROGRESS&quot;}&quot;</command>
+      <configuredLocalRules/>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>curl -X PUT -4kw \\nstatus_code:%{http_code}\\n -H &quot;Content-Type: application/json&quot; ${serviceHost}/debuggerservice/updateJenkinsUrl -d &quot;{&apos;executionId&apos;: ${EXECUTION_ID}, &apos;jenkinsUrl&apos;: &apos;${BUILD_URL}console&apos;}&quot;</command>
+      <configuredLocalRules/>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Maven>
+      <targets>clean test exec:java
+-DskipTests=true
+-Dotel.resource.attributes=service.name=AutomaticsJenkins
+-DretryByDefault=false
+-DbuildType=delia
+-DsendReport=false
+-Dhttps.protocols=TLSv1,TLSv1.1,TLSv1.2
+-Dsun.security.ssl.allowUnsafeRenegotiation=true
+-DisWebPA=true
+-Dsun.security.ssl.allowUnsafeRenegotiation=true
+-Dautomatics.properties.file={automatics_props_base_url}/AutomaticsProps/automatics.properties -Dproperties.file.token=BASE64_Encoded_Props_credentials</targets>
+      <jvmOptions>--add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.management/javax.management=ALL-UNNAMED --add-opens=java.desktop/sun.font=ALL-UNNAMED --add-opens=java.base/sun.reflect.generics.parser=ALL-UNNAMED --add-opens=jdk.management/com.sun.management.internal=ALL-UNNAMED --add-opens=java.base/java.time=ALL-UNNAMED --add-opens=java.base/java.time.format=ALL-UNNAMED --add-exports=java.base/sun.util.calendar=ALL-UNNAMED --add-exports=java.base/sun.security.action=ALL-UNNAMED --add-exports=java.xml/jdk.xml.internal=ALL-UNNAMED --add-opens java.base/java.net=ALL-UNNAMED --add-opens java.base/java.lang.invoke=ALL-UNNAMED -javaagent:/opt/logs/signoz/opentelemetry-javaagent/opentelemetry-javaagent.jar -Dotel.resource.attributes=service.name=AutomaticsJenkins</jvmOptions>
+      <usePrivateRepository>false</usePrivateRepository>
+      <settings class="jenkins.mvn.DefaultSettingsProvider"/>
+      <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
+      <injectBuildVariables>true</injectBuildVariables>
+    </hudson.tasks.Maven>
+  </builders>
+  <publishers>
+    <hudson.plugins.postbuildtask.PostbuildTask plugin="postbuild-task@1.9">
+      <tasks>
+        <hudson.plugins.postbuildtask.TaskProperties>
+          <logTexts>
+            <hudson.plugins.postbuildtask.LogProperties>
+              <logText></logText>
+              <operator>AND</operator>
+            </hudson.plugins.postbuildtask.LogProperties>
+          </logTexts>
+          <EscalateStatus>false</EscalateStatus>
+          <RunIfJobSuccessful>false</RunIfJobSuccessful>
+          <script>curl -X PUT -4kw \\nstatus_code:%{http_code}\\n -H &quot;Content-Type: application/json&quot; ${serviceHost}/debuggerservice/updateOverAllStatus -d &quot;{&apos;executionId&apos;: ${EXECUTION_ID}, &apos;overallStatus&apos;: &apos;COMPLETED&apos;}&quot;</script>
+        </hudson.plugins.postbuildtask.TaskProperties>
+      </tasks>
+    </hudson.plugins.postbuildtask.PostbuildTask>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>target/**/*,**/*</artifacts>
+      <allowEmptyArchive>false</allowEmptyArchive>
+      <onlyIfSuccessful>false</onlyIfSuccessful>
+      <fingerprint>false</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+      <caseSensitive>true</caseSensitive>
+      <followSymlinks>true</followSymlinks>
+    </hudson.tasks.ArtifactArchiver>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.46">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+      <disableDeferredWipeout>false</disableDeferredWipeout>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>
