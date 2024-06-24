@@ -314,7 +314,8 @@ pipeline {
 					sh 'docker build -f ../SmartDebuggerServiceDockerFile -t debugger-service .'
 				}
             }
-        }stage('Pull Rack Data Service Code from RDKM Repo') {
+        }
+        stage('Pull Rack Data Service Code from RDKM Repo') {
 			when {
                 expression {
                     return params.BUILD_RACK_DATA_SERVICE
