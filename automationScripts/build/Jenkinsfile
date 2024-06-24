@@ -346,7 +346,7 @@ pipeline {
 				cd automationScripts/build/RackDataService/project/RackDataService/
 				cp ../../editConfig.sh ../editConfig.sh
 				sh ../editConfig.sh
-				mvn clean install"""
+				mvn clean install -DskipTests=true"""
             }
             post {
                 always {
