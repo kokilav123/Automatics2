@@ -18,4 +18,4 @@
 # limitations under the License.
 ##########################################################################
 
-sed -i '/automaticsBaseUrl=/ s/=.*/=\"${AUTOMATICS_URL}"/' src/main/resources/application.properties
+sed -i '/automaticsBaseUrl=/ s/=.*/=\${AUTOMATICS_URL}/' src/main/resources/application.properties
