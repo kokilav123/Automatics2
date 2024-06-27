@@ -1,4 +1,4 @@
-FROM mariadb:lts
+FROM mariadb:10.11
 
 LABEL "AUTHOR"="Shameem M Shereef <shameemm.s@tataelxsi.co.in>"
 
